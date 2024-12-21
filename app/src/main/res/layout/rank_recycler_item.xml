@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/main_margin">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="@dimen/main_margin"
+        android:padding="16dp">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/recycler_id_img"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/recycler_id"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/recycler_id_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_margin="@dimen/second_margin"
+            android:text="123456"
+            app:layout_constraintBottom_toBottomOf="@id/recycler_id_img"
+            app:layout_constraintStart_toEndOf="@id/recycler_id_img" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/recycler_point_img"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="120dp"
+            android:src="@drawable/recycler_point"
+            app:layout_constraintBottom_toBottomOf="@id/recycler_id_img"
+            app:layout_constraintEnd_toStartOf="@id/recycler_point_tv"
+            app:layout_constraintStart_toEndOf="@id/recycler_id_tv" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/recycler_point_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="2000"
+            app:layout_constraintBottom_toBottomOf="@id/recycler_point_img"
+            app:layout_constraintEnd_toStartOf="@id/recycler_point"
+            app:layout_constraintStart_toEndOf="@id/recycler_point_img" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/recycler_point"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="point"
+            app:layout_constraintBottom_toBottomOf="@id/recycler_point_img"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_begin="31dp" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_begin="-17dp" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</com.google.android.material.card.MaterialCardView>

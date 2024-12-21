@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/homeFragment"
+        android:icon="@drawable/home_24px"
+        android:title="@string/home_fragment"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/wordGameFragment"
+        android:icon="@drawable/crossword_24px"
+        android:title="@string/wordGame_fragment"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/rankFragment"
+        android:icon="@drawable/crown_24px"
+        android:title="@string/rank_fragment"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/myPageFragment"
+        android:icon="@drawable/leaderboard_24px"
+        android:title="@string/myPage_fragment"
+        app:showAsAction="always" />
+</menu>

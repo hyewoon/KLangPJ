@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.mypage.MyPageFragment">
+
+    <!-- inner progressBar contents -->
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/today_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/main_margin"
+        android:text="@string/today"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/title_day_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="170dp"
+        android:layout_marginTop="210dp"
+        android:text="@string/day_english"
+        android:textSize="15dp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toStartOf="@id/study_day_tv"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/study_day_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="170dp"
+        android:text="@string/study_day"
+        android:textStyle="bold"
+        app:layout_constraintBaseline_toBaselineOf="@id/title_day_tv"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/title_day_tv"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/crown_img"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="12dp"
+        android:src="@drawable/crown_24px"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/title_day_tv" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/target_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:textStyle="bold"
+        android:text="@string/target"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/crown_img" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/a_day_tv"
+        android:textStyle="bold"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="160dp"
+        android:text="@string/a_day_korean"
+        app:layout_constraintEnd_toStartOf="@id/target_words_tv"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/target_tv" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/target_words_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/target_tv"
+        android:textStyle="bold"
+        app:layout_constraintBaseline_toBaselineOf="@id/a_day_tv"
+        app:layout_constraintEnd_toStartOf="@id/word_unit_tv"
+        app:layout_constraintStart_toEndOf="@id/a_day_tv"
+        app:layout_constraintTop_toBottomOf="@id/target_tv" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/word_unit_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="160dp"
+        android:text="@string/word"
+        android:textStyle="bold"
+        app:layout_constraintBaseline_toBaselineOf="@id/a_day_tv"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/target_words_tv"
+        app:layout_constraintTop_toBottomOf="@id/target_tv" />
+
+    <!-- progressbar   -->
+    <com.google.android.material.progressindicator.CircularProgressIndicator
+        android:id="@+id/progress_circular"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:indicatorColor="@color/md_theme_primary"
+        app:indicatorSize="270dp"
+        app:layout_constraintBottom_toTopOf="@id/go_to_learn_btn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/today_tv"
+        app:trackColor="@color/md_theme_secondaryContainer"
+        app:trackCornerRadius="50dp"
+        app:trackThickness="15dp" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/go_to_learn_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/go_to_learn"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/progress_circular" />
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

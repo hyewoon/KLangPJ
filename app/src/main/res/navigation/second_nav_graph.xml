@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/second_nav_graph"
+    app:startDestination="@id/toSpeechFragment">
+    <fragment
+        android:id="@+id/toSpeechFragment"
+        android:name="com.hye.sesac.klangpj.ui.home.ToSpeechFragment"
+        android:label="fragment_to_speech"
+        tools:layout="@layout/fragment_to_speech" />
+    <fragment
+        android:id="@+id/toTextFragment"
+        android:name="com.hye.sesac.klangpj.ui.home.ToTextFragment"
+        android:label="fragment_to_text"
+        tools:layout="@layout/fragment_to_text" />
+</navigation>
