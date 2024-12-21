@@ -54,6 +54,8 @@ dependencies {
     implementation(libs.corbind.material)
     implementation(libs.corbind.recyclerview)
     implementation(libs.firebase.firestore)
+    implementation(libs.firebase.messaging.ktx)
+    implementation(libs.firebase.database.ktx)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
