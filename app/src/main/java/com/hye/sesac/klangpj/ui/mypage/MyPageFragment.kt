@@ -4,8 +4,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
 import com.hye.sesac.klangpj.BaseFragment
 import com.hye.sesac.klangpj.databinding.FragmentMyPageBinding
+import com.hye.sesac.klangpj.ui.factory.viewModelFactory
+import com.hye.sesac.klangpj.ui.model.MyPageViewModel
 
 
 class MyPageFragment : BaseFragment<FragmentMyPageBinding>(FragmentMyPageBinding::inflate) {
@@ -16,6 +19,10 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding>(FragmentMyPageBinding
     ): View? {
         _binding = FragmentMyPageBinding.inflate(inflater, container, false)
         return binding.root
+    }
+
+    private val viewModel by viewModels<MyPageViewModel>{
+        viewModelFactory
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

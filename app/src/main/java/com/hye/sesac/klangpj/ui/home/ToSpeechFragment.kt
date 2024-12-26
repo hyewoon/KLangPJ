@@ -9,7 +9,10 @@ import com.hye.sesac.klangpj.databinding.FragmentToSpeechBinding
 import kotlinx.coroutines.flow.onEach
 import ru.ldralighieri.corbind.view.clicks
 
-
+/**
+ * mvp패턴
+ * tts 사용
+ */
 class ToSpeechFragment : BaseFragment<FragmentToSpeechBinding>(FragmentToSpeechBinding::inflate) {
 
     override fun onCreateView(

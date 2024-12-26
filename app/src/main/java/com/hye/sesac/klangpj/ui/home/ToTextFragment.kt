@@ -7,7 +7,10 @@ import android.view.ViewGroup
 import com.hye.sesac.klangpj.BaseFragment
 import com.hye.sesac.klangpj.databinding.FragmentToTextBinding
 
-
+/**
+ * mvp 패턴
+ * stt 사용
+ */
 class ToTextFragment : BaseFragment<FragmentToTextBinding>(FragmentToTextBinding::inflate) {
 
     override fun onCreateView(
