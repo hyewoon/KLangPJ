@@ -1,5 +1,7 @@
 # Firebase
+# 안드로이드 앱용 Firebase 설정 파일
 app/google-services.json
+
 
 # Gradle files
 .gradle/
@@ -21,3 +23,4 @@ captures/
 # External native build folder
 .externalNativeBuild/
 .cxx/
+
