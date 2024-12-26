@@ -1,6 +1,5 @@
 package com.hye.sesac.klangpj
 
-import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.lifecycleScope
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
@@ -12,7 +11,6 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI.setupWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.google.firebase.FirebaseApp
 import com.hye.sesac.klangpj.databinding.ActivityMainBinding
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
