@@ -56,6 +56,8 @@ dependencies {
     implementation(libs.firebase.messaging.ktx)
     implementation(libs.firebase.database.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
+    implementation(libs.poi)
+    implementation(libs.poi.ooxml)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
