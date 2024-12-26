@@ -11,6 +11,10 @@ import com.hye.sesac.klangpj.databinding.FragmentSpeechToTextBinding
 import kotlinx.coroutines.flow.onEach
 import ru.ldralighieri.corbind.material.selections
 
+/**
+ * mvp 패턴
+ *
+ */
 class SpeechToTextFragment :
     BaseFragment<FragmentSpeechToTextBinding>(FragmentSpeechToTextBinding::inflate) {
 

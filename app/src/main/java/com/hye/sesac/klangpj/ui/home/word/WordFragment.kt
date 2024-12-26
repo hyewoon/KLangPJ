@@ -4,12 +4,15 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import com.hye.sesac.klangpj.BaseFragment
 import com.hye.sesac.klangpj.R
 import com.hye.sesac.klangpj.databinding.FragmentWordBinding
+import com.hye.sesac.klangpj.ui.factory.viewModelFactory
+import com.hye.sesac.klangpj.ui.model.HomeViewModel
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import ru.ldralighieri.corbind.view.clicks
@@ -23,6 +26,9 @@ class WordFragment : BaseFragment<FragmentWordBinding>(FragmentWordBinding::infl
     ): View? {
         _binding = FragmentWordBinding.inflate(inflater, container, false)
         return binding.root
+    }
+    private val viewModel by activityViewModels<HomeViewModel> {
+        viewModelFactory
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
