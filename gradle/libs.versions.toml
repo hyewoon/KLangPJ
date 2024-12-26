@@ -20,8 +20,11 @@ firebaseFirestore = "25.1.1"
 firebaseMessagingKtx = "24.1.0"
 firebaseDatabaseKtx = "21.0.0"
 lifecycleRuntimeKtx = "2.9.0-alpha08"
-poi = "5.3.0"
-poiOoxml = "5.3.0"
+poi = "4.1.2"
+poiOoxml = "4.1.2"
+kotlinxCoroutinesAndroid = "1.10.1"
+lifecycleViewmodelKtx = "2.9.0-alpha08"
+
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -45,6 +48,8 @@ firebase-database-ktx = { group = "com.google.firebase", name = "firebase-databa
 androidx-lifecycle-runtime-ktx = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version.ref = "lifecycleRuntimeKtx" }
 poi = { group = "org.apache.poi", name = "poi", version.ref = "poi" }
 poi-ooxml = { group = "org.apache.poi", name = "poi-ooxml", version.ref = "poiOoxml" }
+kotlinx-coroutines-android = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-android", version.ref = "kotlinxCoroutinesAndroid" }
+androidx-lifecycle-viewmodel-ktx = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-ktx", version.ref = "lifecycleViewmodelKtx" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

@@ -4,12 +4,10 @@ import android.content.Context
 import android.net.Uri
 import android.util.Log
 import com.google.firebase.Firebase
-import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.WriteBatch
 import com.google.firebase.firestore.firestore
 import org.apache.poi.ss.usermodel.WorkbookFactory
 import java.io.File
-import java.io.InputStream
 
 const val TAG = "ExcelToFireStore"
 class ExcelToFireStore(val context: Context) {
