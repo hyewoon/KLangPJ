@@ -3,6 +3,7 @@ plugins {
     alias(libs.plugins.kotlin.android)
     id("androidx.navigation.safeargs.kotlin")
     alias(libs.plugins.google.gms.google.services)
+
 }
 
 android {
@@ -56,7 +57,14 @@ dependencies {
     implementation(libs.firebase.messaging.ktx)
     implementation(libs.firebase.database.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
+    implementation(libs.kotlinx.coroutines.android)
+    implementation(libs.androidx.lifecycle.viewmodel.ktx)
+
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+
+    //msoffice
+    implementation(libs.poi)
+    implementation(libs.poi.ooxml)
 }

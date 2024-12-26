@@ -1,5 +1,6 @@
 package com.hye.sesac.klangpj
 
+import androidx.lifecycle.lifecycleScope
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -11,13 +12,14 @@ import androidx.navigation.ui.NavigationUI.setupWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.hye.sesac.klangpj.databinding.ActivityMainBinding
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-
         binding = ActivityMainBinding.inflate(layoutInflater).also {
             setContentView(it.root)
         }
@@ -25,10 +27,21 @@ class MainActivity : AppCompatActivity() {
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
 
             // 네비게이션 영역도 bottomMargin 대신 padding 사용 권장
-            binding.bottomNavView.setPadding(systemBars.left, systemBars.top,systemBars.right, systemBars.bottom)
+            binding.bottomNavView.setPadding(
+                systemBars.left,
+                systemBars.top,
+                systemBars.right,
+                systemBars.bottom
+            )
             insets
 
         }
+
+
+        lifecycleScope.launch(Dispatchers.IO) {
+            uploadExcelToFirestore()
+        }
+
 
 
         with(binding) {
@@ -52,6 +65,12 @@ class MainActivity : AppCompatActivity() {
             setupWithNavController(toolbar, navController, appBarConfiguration)
         }
 
+
+    }
+
+    private suspend fun uploadExcelToFirestore() {
+        val excelToFireStore = ExcelToFireStore(this)
+        excelToFireStore.uploadExcelToFirestoreWithBatch()
 
     }
 
