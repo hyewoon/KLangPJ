@@ -34,15 +34,11 @@ class MainActivity : AppCompatActivity() {
                 systemBars.bottom
             )
             insets
-
         }
-
 
         lifecycleScope.launch(Dispatchers.IO) {
             uploadExcelToFirestore()
         }
-
-
 
         with(binding) {
             setSupportActionBar(toolbar)
@@ -73,7 +69,6 @@ class MainActivity : AppCompatActivity() {
         excelToFireStore.uploadExcelToFirestoreWithBatch()
 
     }
-
 
 
 }
