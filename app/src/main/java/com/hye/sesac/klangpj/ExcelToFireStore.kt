@@ -14,7 +14,7 @@ class ExcelToFireStore(val context: Context) {
 
     private val firestore = Firebase.firestore
 
-   fun uploadExcelToFirestoreWithBatch() {
+   suspend fun uploadExcelToFirestoreWithBatch() {
         try {
             /**
              * 1. excel 파일 열기
