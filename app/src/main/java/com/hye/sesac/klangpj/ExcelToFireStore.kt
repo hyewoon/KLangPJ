@@ -1,26 +1,25 @@
 package com.hye.sesac.klangpj
 
 import android.content.Context
-import android.net.Uri
 import android.util.Log
 import com.google.firebase.Firebase
 import com.google.firebase.firestore.WriteBatch
 import com.google.firebase.firestore.firestore
 import org.apache.poi.ss.usermodel.WorkbookFactory
-import java.io.File
 
 const val TAG = "ExcelToFireStore"
 class ExcelToFireStore(val context: Context) {
 
     private val firestore = Firebase.firestore
 
-   suspend fun uploadExcelToFirestoreWithBatch() {
+   fun uploadExcelToFireStoreWithBatch() {
         try {
             /**
              * 1. excel 파일 열기
              */
-            val uri = Uri.fromFile(File("C:\\sesac_android\\topik_basic_words.xls"))
-            val inputStream = context.contentResolver.openInputStream(uri)
+            //val uri = Uri.fromFile(File("C:\\sesac_android\\topik_basic_words.xls"))
+            //val inputStream = context.contentResolver.openInputStream(uri)
+            val inputStream = context.assets.open("topik_basic_words.xls")
             val workbook = WorkbookFactory.create(inputStream)
             val sheet = workbook.getSheetAt(0) // 첫 번째 시트를 읽음
 
@@ -93,7 +92,7 @@ class ExcelToFireStore(val context: Context) {
 
             workbook.close()
         } catch (e: Exception) {
-            e.printStackTrace()
+            Log.e("TAG", e.toString())
         }
     }
 }

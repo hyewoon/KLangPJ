@@ -1,6 +1,5 @@
 package com.hye.sesac.klangpj
 
-import androidx.lifecycle.lifecycleScope
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -12,8 +11,7 @@ import androidx.navigation.ui.NavigationUI.setupWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.hye.sesac.klangpj.databinding.ActivityMainBinding
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
+
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -36,9 +34,7 @@ class MainActivity : AppCompatActivity() {
             insets
         }
 
-        lifecycleScope.launch(Dispatchers.IO) {
-            uploadExcelToFirestore()
-        }
+
 
         with(binding) {
             setSupportActionBar(toolbar)
@@ -61,12 +57,6 @@ class MainActivity : AppCompatActivity() {
             setupWithNavController(toolbar, navController, appBarConfiguration)
         }
 
-
-    }
-
-    private suspend fun uploadExcelToFirestore() {
-        val excelToFireStore = ExcelToFireStore(this)
-        excelToFireStore.uploadExcelToFirestoreWithBatch()
 
     }
 
