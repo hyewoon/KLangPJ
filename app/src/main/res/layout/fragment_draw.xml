@@ -68,11 +68,31 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
+            <com.hye.sesac.klangpj.ui.home.DrawingCustomView
+                android:id="@+id/drawingView"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toTopOf="@id/input_btn"/>
+
             <com.google.android.material.button.MaterialButton
+                android:id="@+id/input_btn"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
                 android:text="@string/input"
                 app:layout_constraintStart_toStartOf="parent"
+              app:layout_constraintEnd_toStartOf="@id/erase_btn"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_marginBottom="@dimen/big_margin"/>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/erase_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/erase"
+                app:layout_constraintStart_toEndOf="@id/input_btn"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
                 android:layout_marginBottom="@dimen/big_margin"/>

@@ -24,3 +24,6 @@ captures/
 .externalNativeBuild/
 .cxx/
 
+# Google Cloud Vision API Key
+app/src/main/res/raw/vision_key.json
+app/src/main/res/raw/vision_credentials.json

@@ -28,9 +28,9 @@ class DrawFragment : BaseFragment<FragmentDrawBinding>(FragmentDrawBinding::infl
         viewModelFactory
     }
 
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding.drawingView
 
 
     }
