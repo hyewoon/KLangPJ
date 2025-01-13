@@ -22,7 +22,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="170dp"
-        android:layout_marginTop="210dp"
+        android:layout_marginTop="150dp"
         android:text="@string/day_english"
         android:textSize="15dp"
         android:textStyle="bold"
@@ -47,7 +47,6 @@
         android:id="@+id/crown_img"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:layout_marginTop="12dp"
         android:src="@drawable/crown_24px"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -99,6 +98,7 @@
         app:layout_constraintTop_toBottomOf="@id/target_tv" />
 
     <!-- progressbar   -->
+
     <com.google.android.material.progressindicator.CircularProgressIndicator
         android:id="@+id/progress_circular"
         android:layout_width="wrap_content"
@@ -107,6 +107,7 @@
         app:indicatorSize="270dp"
         app:layout_constraintBottom_toTopOf="@id/go_to_learn_btn"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/today_tv"
         app:trackColor="@color/md_theme_secondaryContainer"

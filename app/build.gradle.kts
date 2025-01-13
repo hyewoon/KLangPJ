@@ -1,9 +1,10 @@
+import com.android.build.api.dsl.Packaging
+import java.util.Properties
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     id("androidx.navigation.safeargs.kotlin")
-    alias(libs.plugins.google.gms.google.services)
-
 }
 
 android {
@@ -18,6 +19,11 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
+        val properties = Properties()
+        properties.load(project.rootProject.file("local.properties").inputStream())
+
+        buildConfigField("String", "API_KEY", "\"${properties.getProperty("api.key")}\"")
     }
 
     buildTypes {
@@ -36,30 +42,35 @@ android {
     kotlinOptions {
         jvmTarget = "17"
     }
-    buildFeatures{
-        viewBinding =true
+    buildFeatures {
+        buildConfig = true
+        viewBinding = true
+
     }
 }
-
 dependencies {
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
-    implementation(libs.material)
+
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
+
     implementation(libs.androidx.navigation.fragment.ktx)
     implementation(libs.androidx.navigation.ui.ktx)
+
+    implementation(libs.material)
     implementation(libs.androidx.material3.android)
+    implementation(libs.kotlinx.coroutines.android)
+
+    implementation(libs.androidx.lifecycle.runtime.ktx)
+    implementation(libs.androidx.lifecycle.viewmodel.ktx)
+
     implementation(libs.corbind)
     implementation(libs.corbind.material)
     implementation(libs.corbind.recyclerview)
-    implementation(libs.firebase.firestore)
-    implementation(libs.firebase.messaging.ktx)
-    implementation(libs.firebase.database.ktx)
-    implementation(libs.androidx.lifecycle.runtime.ktx)
-    implementation(libs.kotlinx.coroutines.android)
-    implementation(libs.androidx.lifecycle.viewmodel.ktx)
-    implementation(libs.firebase.storage)
+    implementation(project(":domain"))
+    implementation(project(":data"))
+
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
@@ -68,4 +79,7 @@ dependencies {
     //msoffice
     implementation(libs.poi)
     implementation(libs.poi.ooxml)
+
 }
+
+

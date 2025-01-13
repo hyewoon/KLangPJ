@@ -191,6 +191,8 @@
         android:layout_height="wrap_content"
         style="@style/Widget.Material3.BottomSheet"
         android:layout_marginBottom="@dimen/main_margin"
+        app:behavior_hideable="true"
+        app:behavior_fitToContents= "true"
         app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
 
         <com.google.android.material.bottomsheet.BottomSheetDragHandleView

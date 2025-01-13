@@ -10,11 +10,6 @@ import com.hye.sesac.klangpj.databinding.FragmentChooseWordGameBinding
 class ChooseWordGameFragment :
     BaseFragment<FragmentChooseWordGameBinding>(FragmentChooseWordGameBinding::inflate) {
 
-    companion object {
-        fun newInstance() =
-            ChooseWordGameFragment()
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,

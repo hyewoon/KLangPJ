@@ -12,10 +12,6 @@ import com.hye.sesac.klangpj.databinding.FragmentRecordBinding
  * mvp 패턴으로 구현
  */
 class RecordFragment : BaseFragment<FragmentRecordBinding>(FragmentRecordBinding::inflate) {
-    companion object {
-        fun newInstance(param1: String, param2: String) =
-            RecordFragment()
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

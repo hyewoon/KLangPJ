@@ -16,12 +16,6 @@ import com.hye.sesac.klangpj.databinding.FragmentWordGameBinding
 class WordGameFragment : BaseFragment<FragmentWordGameBinding>(FragmentWordGameBinding::inflate) {
     private lateinit var navController: NavController
 
-    companion object {
-
-        fun newInstance() =
-            WordGameFragment()
-    }
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

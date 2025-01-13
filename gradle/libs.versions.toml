@@ -1,5 +1,5 @@
 [versions]
-agp = "8.7.3"
+agp = "8.8.0"
 googleServices = "4.4.2"
 gradle = "8.2.2"
 kotlin = "2.0.0"
@@ -18,20 +18,22 @@ material3Android = "1.3.1"
 corbind = "1.11.0"
 corbindMaterial = "1.11.0"
 corbindRecyclerview = "1.11.0"
-googleGmsGoogleServices = "4.4.2"
-firebaseFirestore = "25.1.1"
-firebaseMessagingKtx = "24.1.0"
-firebaseDatabaseKtx = "21.0.0"
 lifecycleRuntimeKtx = "2.9.0-alpha08"
 poi = "4.1.2"
 poiOoxml = "4.1.2"
 kotlinxCoroutinesAndroid = "1.10.1"
 lifecycleViewmodelKtx = "2.9.0-alpha08"
-firebaseStorage = "21.0.1"
-jetbrainsKotlinJvm = "2.0.0"
+jetbrainsKotlinJvm = "2.0.21"
 retrofit = "2.11.0"
 converterJaxb = "2.11.0"
-googleCloudVision = "3.53.0"
+lifecycleViewmodelAndroid = "2.9.0-alpha08"
+monitor = "1.7.2"
+junitKtx = "1.2.1"
+protobufJava = "4.29.2"
+annotation = "0.8.13"
+coreVersion = "0.8.13"
+processorVersion = "0.8.13"
+retrofitConverterVersion = "0.8.13"
 
 
 [libraries]
@@ -53,23 +55,24 @@ androidx-material3-android = { group = "androidx.compose.material3", name = "mat
 corbind = { group = "ru.ldralighieri.corbind", name = "corbind", version.ref = "corbind" }
 corbind-material = { group = "ru.ldralighieri.corbind", name = "corbind-material", version.ref = "corbindMaterial" }
 corbind-recyclerview = { group = "ru.ldralighieri.corbind", name = "corbind-recyclerview", version.ref = "corbindRecyclerview" }
-firebase-firestore = { group = "com.google.firebase", name = "firebase-firestore", version.ref = "firebaseFirestore" }
-firebase-messaging-ktx = { group = "com.google.firebase", name = "firebase-messaging-ktx", version.ref = "firebaseMessagingKtx" }
-firebase-database-ktx = { group = "com.google.firebase", name = "firebase-database-ktx", version.ref = "firebaseDatabaseKtx" }
 androidx-lifecycle-runtime-ktx = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version.ref = "lifecycleRuntimeKtx" }
 poi = { group = "org.apache.poi", name = "poi", version.ref = "poi" }
 poi-ooxml = { group = "org.apache.poi", name = "poi-ooxml", version.ref = "poiOoxml" }
 kotlinx-coroutines-android = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-android", version.ref = "kotlinxCoroutinesAndroid" }
 androidx-lifecycle-viewmodel-ktx = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-ktx", version.ref = "lifecycleViewmodelKtx" }
-firebase-storage = { group = "com.google.firebase", name = "firebase-storage", version.ref = "firebaseStorage" }
 retrofit = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = "retrofit" }
-converter-jaxb = { group = "com.squareup.retrofit2", name = "converter-jaxb", version.ref = "converterJaxb" }
-google-cloud-vision = { group = "com.google.cloud", name = "google-cloud-vision", version.ref = "googleCloudVision" }
+androidx-lifecycle-viewmodel-android = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-android", version.ref = "lifecycleViewmodelAndroid" }
+androidx-monitor = { group = "androidx.test", name = "monitor", version.ref = "monitor" }
+androidx-junit-ktx = { group = "androidx.test.ext", name = "junit-ktx", version.ref = "junitKtx" }
+annotation = { group = "com.tickaroo.tikxml", name = "annotation", version.ref = "annotation" }
+tikxml-core = { group = "com.tickaroo.tikxml", name = "core", version.ref = "coreVersion" }
+tikxml-processor = { group = "com.tickaroo.tikxml", name = "processor", version.ref = "processorVersion" }
+tikxml-retrofit-converter = { group = "com.tickaroo.tikxml", name = "retrofit-converter", version.ref = "retrofitConverterVersion" }
+
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
-google-gms-google-services = { id = "com.google.gms.google-services"}
 jetbrains-kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "jetbrainsKotlinJvm" }
 android-library = { id = "com.android.library", version.ref = "agp" }
 

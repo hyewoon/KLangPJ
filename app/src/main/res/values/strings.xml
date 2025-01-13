@@ -26,6 +26,10 @@
     <string name="attendance">출석 체크</string>
     <string name="speech_to_text_message">내 목소리를 텍스트로 바꿔 보세요</string>
     <string name="my_dictionary">내 단어장</string>
+    <string name="hello">반갑습니다.</string>
+    <string name="learn_word">어휘 학습</string>
+    <string name="target_word">하루 목표</string>
+    <string name="count">개</string>
 
 
     <!-- wordFragment -->
@@ -51,7 +55,6 @@
     <string name="blank_filled_game">빈칸 채우기</string>
     <string name="choose_correct_word_game">단어 선택하기</string>
     <string name="answer_sentence">이것은 사과입니다.</string>
-
 
 
     <!-- myPageFragment -->
@@ -81,12 +84,13 @@
     <!--drawFragment-->
     <string name="write_down_message">원하는 단어를 써보세요</string>
     <string name="input">입력</string>
+    <string name="erase">지우기</string>
 
     <!--   TextToSpeakFragment    -->
     <string name="text_to_speech">to speech</string>
     <string name="speech_to_text">to text</string>
 
-<!--    toSpeechFragment-->
+    <!--    toSpeechFragment-->
     <string name="to_speech_message">텍스트를 입력하고 버튼을 누르면\n음성으로 바뀌게 됩니다.</string>
     <string name="to_text_message">말을 하고 버튼을 누르면 \n텍스트로 바뀌게 됩니다.</string>
 

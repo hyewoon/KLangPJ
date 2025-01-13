@@ -1,101 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".ui.home.word.DictionaryFragment"
-    android:layout_margin="@dimen/main_margin">
+    android:layout_margin="@dimen/main_margin"
+    tools:context=".ui.home.DictionaryFragment">
 
-<com.google.android.material.card.MaterialCardView
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    app:cardCornerRadius="24dp">
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/inputTextLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:padding="@dimen/second_margin"
+        app:boxCornerRadiusBottomEnd="30dp"
+        app:boxCornerRadiusBottomStart="30dp"
+        app:boxCornerRadiusTopEnd="30dp"
+        app:boxCornerRadiusTopStart="30dp"
+        app:endIconMode="custom"
+        app:endIconCheckable="false"
+        app:endIconDrawable="@drawable/search_icon"
+        app:layout_constraintBottom_toTopOf="@id/dictionary_recyclerview"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/main_title_tv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            android:textSize="30dp"
-            android:layout_marginTop="@dimen/big_margin"
-            android:text="@string/mock_main_word"/>
-
-        <com.google.android.material.divider.MaterialDivider
-            android:id="@+id/divider_1"
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/edit_tv"
             android:layout_width="match_parent"
-            android:layout_height="3dp"
-            android:layout_marginTop="@dimen/big_margin_top"
-            app:layout_constraintTop_toBottomOf="@id/main_title_tv"
-            app:dividerInsetStart="@dimen/main_margin"
-            app:dividerInsetEnd="@dimen/main_margin"/>
+            android:layout_height="wrap_content" />
+    </com.google.android.material.textfield.TextInputLayout>
 
-   <androidx.appcompat.widget.AppCompatTextView
-       android:id="@+id/meaning_title_tv"
-       android:layout_width="wrap_content"
-       android:layout_height="wrap_content"
-       android:text="@string/meaning"
-       android:layout_margin="@dimen/main_margin"
-       app:layout_constraintStart_toStartOf="parent"
-       app:layout_constraintTop_toBottomOf="@id/divider_1"/>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/dictionary_recyclerview"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        tools:listitem="@layout/dictionary_recycler_item"
+        android:layout_marginTop="@dimen/big_margin"
+        android:padding="@dimen/second_margin"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/inputTextLayout" />
 
-        <com.google.android.material.divider.MaterialDivider
-            android:id="@+id/divider_2"
-            android:layout_width="match_parent"
-            android:layout_height="3dp"
-            android:layout_marginTop="@dimen/big_margin_top"
-            app:layout_constraintTop_toBottomOf="@id/meaning_title_tv"
-            app:dividerInsetStart="@dimen/main_margin"
-            app:dividerInsetEnd="@dimen/main_margin"/>
-
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/sentence_title_tv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/sentence"
-            android:layout_margin="@dimen/main_margin"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/divider_2"/>
-
-        <com.google.android.material.divider.MaterialDivider
-            android:id="@+id/divider_3"
-            android:layout_width="match_parent"
-            android:layout_height="3dp"
-            android:layout_marginTop="@dimen/big_margin_top"
-            app:layout_constraintTop_toBottomOf="@id/sentence_title_tv"
-            app:dividerInsetStart="@dimen/main_margin"
-            app:dividerInsetEnd="@dimen/main_margin"/>
-
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/sentence_title_tv_2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/sentence"
-            android:layout_margin="@dimen/main_margin"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/divider_3"/>
-
-        <com.google.android.material.divider.MaterialDivider
-            android:id="@+id/divider_4"
-            android:layout_width="match_parent"
-            android:layout_height="3dp"
-            android:layout_marginTop="@dimen/big_margin_top"
-            app:layout_constraintTop_toBottomOf="@id/sentence_title_tv_2"
-            app:dividerInsetStart="@dimen/main_margin"
-            app:dividerInsetEnd="@dimen/main_margin"/>
-
-
-
-
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-</com.google.android.material.card.MaterialCardView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

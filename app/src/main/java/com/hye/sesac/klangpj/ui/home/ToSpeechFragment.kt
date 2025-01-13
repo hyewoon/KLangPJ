@@ -14,7 +14,6 @@ import ru.ldralighieri.corbind.view.clicks
  * tts 사용
  */
 class ToSpeechFragment : BaseFragment<FragmentToSpeechBinding>(FragmentToSpeechBinding::inflate) {
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,

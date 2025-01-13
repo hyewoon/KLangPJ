@@ -5,15 +5,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import com.hye.sesac.klangpj.BaseFragment
 import com.hye.sesac.klangpj.R
 import com.hye.sesac.klangpj.databinding.FragmentHomeBinding
-import com.hye.sesac.klangpj.ui.factory.viewModelFactory
-import com.hye.sesac.klangpj.ui.model.HomeViewModel
+import com.hye.sesac.klangpj.ui.factory.ViewModelFactory
+import com.hye.sesac.klangpj.ui.viewmodel.HomeViewModel
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import ru.ldralighieri.corbind.view.clicks
@@ -30,7 +29,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
         return binding.root
     }
     private val viewModel by activityViewModels<HomeViewModel>{
-        viewModelFactory
+       ViewModelFactory()
     }
 
 
@@ -39,24 +38,38 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
         navController = findNavController()
 
         with(binding) {
+
+            circularIndicator.apply {
+                max = 10
+                progress= 4
+            }
+            currentWord.text = circularIndicator.progress.toString()
+
+
+            //navigation
             mainCardView.clicks()
                 .onEach {
                     navController.navigate(R.id.wordFragment)
-                }.launchIn(viewLifecycleOwner.lifecycleScope)
+                }.launchIn(lifecycleScope)
 
             speechToTextCardView.clicks()
                 .onEach {
                     navController.navigate(R.id.speechToTextFragment)
 
-                }.launchIn(viewLifecycleOwner.lifecycleScope)
+                }.launchIn(lifecycleScope)
             drawCardView.clicks()
                 .onEach {
-                    navController.navigate(R.id.writeFragment)
-                }.launchIn(viewLifecycleOwner.lifecycleScope)
+                    navController.navigate(R.id.drawFragment)
+                }.launchIn(lifecycleScope)
             searchCardView.clicks()
                 .onEach {
                     navController.navigate(R.id.dictionaryFragment)
-                }.launchIn(viewLifecycleOwner.lifecycleScope)
+                }.launchIn(lifecycleScope)
+            myDictionaryBtn.clicks()
+                .onEach {
+                   // navController.navigate(R.id.myVocaFragment)
+                }
+
 
         }
     }

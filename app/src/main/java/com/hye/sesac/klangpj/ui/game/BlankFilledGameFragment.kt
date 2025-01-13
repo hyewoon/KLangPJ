@@ -10,10 +10,6 @@ import com.hye.sesac.klangpj.databinding.FragmentBlankFilledGameBinding
 
 class BlankFilledGameFragment :
     BaseFragment<FragmentBlankFilledGameBinding>(FragmentBlankFilledGameBinding::inflate) {
-    companion object {
-        fun newInstance(param1: String, param2: String) =
-            BlankFilledGameFragment()
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

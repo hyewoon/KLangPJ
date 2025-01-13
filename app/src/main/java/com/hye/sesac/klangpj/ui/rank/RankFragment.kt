@@ -7,12 +7,11 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.hye.sesac.klangpj.BaseFragment
-import com.hye.sesac.klangpj.R
 import com.hye.sesac.klangpj.adapter.RankAdapter
 import com.hye.sesac.klangpj.common.KLangApplication
 import com.hye.sesac.klangpj.databinding.FragmentRankBinding
-import com.hye.sesac.klangpj.ui.factory.viewModelFactory
-import com.hye.sesac.klangpj.ui.model.RankViewModel
+import com.hye.sesac.klangpj.ui.factory.ViewModelFactory
+import com.hye.sesac.klangpj.ui.viewmodel.RankViewModel
 
 
 class RankFragment : BaseFragment<FragmentRankBinding>(FragmentRankBinding::inflate) {
@@ -24,9 +23,9 @@ class RankFragment : BaseFragment<FragmentRankBinding>(FragmentRankBinding::infl
         _binding = FragmentRankBinding.inflate(inflater, container, false)
         return binding.root
     }
-    private val viewModel by viewModels<RankViewModel>{
-        viewModelFactory
-    }
+   private val viewModel by viewModels<RankViewModel>{
+       ViewModelFactory()
+   }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 

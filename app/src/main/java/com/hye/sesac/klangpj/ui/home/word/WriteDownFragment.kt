@@ -7,19 +7,13 @@ import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import com.hye.sesac.klangpj.BaseFragment
 import com.hye.sesac.klangpj.databinding.FragmentWriteDownBinding
-import com.hye.sesac.klangpj.ui.factory.viewModelFactory
-import com.hye.sesac.klangpj.ui.model.HomeViewModel
+import com.hye.sesac.klangpj.ui.viewmodel.HomeViewModel
 
 /**
- * google Vision API로 구현
+ * mvp 패턴
  */
 class WriteDownFragment :
     BaseFragment<FragmentWriteDownBinding>(FragmentWriteDownBinding::inflate) {
-
-    companion object {
-        fun newInstance() =
-            WriteDownFragment()
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -29,9 +23,6 @@ class WriteDownFragment :
         return binding.root
     }
 
-    private val viewModel by activityViewModels<HomeViewModel> {
-        viewModelFactory
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
