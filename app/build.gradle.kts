@@ -72,17 +72,12 @@ dependencies {
     implementation(libs.corbind.material)
     implementation(libs.corbind.recyclerview)
     implementation(libs.firebase.common.ktx)
-    implementation(libs.firebase.firestore.ktx)
     implementation(project(":domain"))
     implementation(project(":data"))
-    implementation(libs.datatransport.transport.api)
     implementation(libs.google.transport.runtime)
-    /*    implementation(libs.firebase.encoders.json)
-        implementation(libs.transport.api)
-        implementation(libs.transport.backend.cct)
-        implementation(libs.transport.runtime)
-        implementation(libs.transport.runtime)
-        implementation(libs.transport.runtime)*/
+    //google sign-in
+    implementation(libs.firebase.auth)
+    implementation(libs.play.services.auth)
 
 
     testImplementation(libs.junit)

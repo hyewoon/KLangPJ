@@ -51,10 +51,12 @@ dependencies {
     implementation(libs.firebase.firestore)
     implementation(libs.firebase.messaging.ktx)
     implementation(project(":domain"))
+    implementation(libs.firebase.bom)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+
 
     //msoffice 읽을 수 있을 수 있는
     implementation(libs.poi)
