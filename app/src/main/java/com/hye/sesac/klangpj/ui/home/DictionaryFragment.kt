@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -65,16 +66,17 @@ class DictionaryFragment :
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        navController = findNavController()
+
         with(binding) {
             inputTextLayout.setEndIconOnClickListener {
                 val inputWord = binding.editTv.text.toString()
-                viewModel.getWordInfo(inputWord)
-
+                if (inputWord.isNotEmpty()) {
+                    viewModel.getWordInfo(inputWord)
+                } else {
+                }
             }
-
-
-
-            navController = findNavController()
 
             //어뎁터 초기화
             wordInfoAdapter = WordInfoAdapter() {
@@ -85,31 +87,12 @@ class DictionaryFragment :
                 navController.navigate(argsAction)
             }
 
-            binding.dictionaryRecyclerview.apply {
+            dictionaryRecyclerview.apply {
                 layoutManager = LinearLayoutManager(KLangApplication.getKLangContext())
                 adapter = wordInfoAdapter
 
             }
 
-
-            /*
-
-    private fun displayWordList() {
-     navController = findNavController()
-        with(binding) {
-            dictionaryRecyclerview.layoutManager =
-                LinearLayoutManager(KLangApplication.getKLangContext())
-
-            dictionaryRecyclerview.adapter = WordInfoAdapter() {
-                val argsAction =
-                    DictionaryFragmentDirections.actionDictionaryFragmentToDetailDictionaryFragment(
-                       it
-                    )
-                navController.navigate(argsAction)
-            }.apply {
-            replaceWordInfo(wordInfo)
-        }
-        }*/
 
         }
     }

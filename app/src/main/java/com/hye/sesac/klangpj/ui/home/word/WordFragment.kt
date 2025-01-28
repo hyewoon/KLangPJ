@@ -11,7 +11,6 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
-import com.hye.sesac.domain.firestore.Entity.FirebaseResult
 import com.hye.sesac.klangpj.BaseFragment
 import com.hye.sesac.klangpj.R
 import com.hye.sesac.klangpj.databinding.FragmentWordBinding
@@ -69,31 +68,39 @@ class WordFragment : BaseFragment<FragmentWordBinding>(FragmentWordBinding::infl
                 }
             bookmarkBtn.clicks()
                 .onEach {
-                  //  viewModel.readFireStoreWords()
+                    //  viewModel.readFireStoreWords()
                 }
 
         }
-       // viewLifecycleOwner.lifecycleScope.launch {
-       //     viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED){
-       //         viewModel.wordContents.collectLatest {
-       //             when(it){
-       //                 is FirebaseResult.Success ->{
-       //                     binding.mainWordTv.text = it.data[0].korean
-       //                     binding.wordMeaningTv.text = it.data[0].english
-//
-        //                }
-        //                is FirebaseResult.Failure-> {
-        //                    Toast.makeText(requireContext(), it.exception.toString(), Toast.LENGTH_SHORT).show()
-//
-        //                }
-        //                is FirebaseResult.DummyConstructor -> {}
-        //                is FirebaseResult.Loading -> {}
-        //            }
-//
-        //        }
-        //    }
-    //    }
+
+        sendStudyWordNum(10)
 
 
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.fireStoreInfo.collectLatest { it ->
+                        if (it.isNotEmpty()) {
+                            it.forEach { word ->
+                                with(binding) {
+                                    mainWordTv.text = word.korean
+                                    wordMeaningTv.text = word.english
+
+                                }
+                            }
+
+
+                        } else {
+                            Toast.makeText(requireContext(), "데이터가 없습니다.", Toast.LENGTH_SHORT)
+                                .show()
+                        }
+
+
+                }
+            }
+        }
+    }
+
+    private fun sendStudyWordNum(count : Long) {
+        viewModel.getFireStoreInfo(count)
     }
 }
