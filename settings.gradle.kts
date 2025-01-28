@@ -24,5 +24,5 @@ dependencyResolutionManagement {
 
 rootProject.name = "KLangPJ"
 include(":app")
-include(":domain")
 include(":data")
+include(":domain")

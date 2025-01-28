@@ -17,7 +17,7 @@ class WordInfoAdapter(val callBack: (targetCode: Int) -> Unit) :
     companion object {
         val diffUtil = object : DiffUtil.ItemCallback<WordInfo>() {
             override fun areItemsTheSame(oldItem: WordInfo, newItem: WordInfo): Boolean {
-                return oldItem == newItem
+                return oldItem.targetCode == newItem.targetCode
             }
 
             override fun areContentsTheSame(oldItem: WordInfo, newItem: WordInfo): Boolean {
@@ -51,9 +51,7 @@ class WordInfoAdapter(val callBack: (targetCode: Int) -> Unit) :
             }
         }
 
-
     }
-
 
     //viewHolder 객체를 만들고 리턴
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): WordInfoViewHolder {

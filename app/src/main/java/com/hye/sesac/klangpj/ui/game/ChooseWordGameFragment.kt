@@ -17,4 +17,15 @@ class ChooseWordGameFragment :
         _binding = FragmentChooseWordGameBinding.inflate(inflater, container, false)
         return binding.root
     }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        binding.linearProgressIndicator.apply {
+            max = 20
+            progress = 7
+        }
+
+
+    }
 }
