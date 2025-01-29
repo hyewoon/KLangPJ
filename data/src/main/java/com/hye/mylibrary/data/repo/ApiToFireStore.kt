@@ -46,7 +46,7 @@ class ApiToFireStore(
 
     }
 
-
+ @Suppress("UNCHECKED_CAST")
     private suspend fun loadExampleInfo() {
         val docRef = db.collection(FIREBASE_COLLECTION_NAME).get().await()
         var batchCount = 0
@@ -120,7 +120,7 @@ class ApiToFireStore(
         }
     }
 
-
+    @Suppress("UNCHECKED_CAST")
         private suspend fun loadDetailInfo() {
             val docRef = db.collection(FIREBASE_COLLECTION_NAME).get().await()
             var batchCount = 0
@@ -190,7 +190,7 @@ class ApiToFireStore(
             }
         }
 
-
+        @Suppress("UNCHECKED_CAST")
         suspend fun loadBasicWordInfo() {
             try {
                 val docRef = db.collection(FIREBASE_COLLECTION_NAME).get().await()
@@ -214,7 +214,6 @@ class ApiToFireStore(
                                 apiWord.word == korean
                             } ?: throw Exception("no matching word")
 
-                            if (matching != null) {
                                 currentBatch.update(
                                     it.reference, mapOf(
                                         "targetCode" to matching.targetCode,
@@ -232,10 +231,6 @@ class ApiToFireStore(
                                     batchCount = 0
                                     currentBatch = db.batch()
                                 }
-                            } else {
-                                noMatchCount++
-                                println("매칭 없음")
-                            }
 
                         } catch (e: Exception) {
                             println()

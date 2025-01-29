@@ -19,3 +19,7 @@
 # If you keep the line number information, uncomment this to
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
+
+# Credentials API ProGuard rules
+-keep class androidx.credentials.** { *; }
+-keep class com.google.android.gms.credentials.** { *; }

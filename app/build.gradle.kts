@@ -49,6 +49,7 @@ android {
         viewBinding = true
 
 
+
     }
 }
 dependencies {
@@ -75,18 +76,22 @@ dependencies {
     implementation(project(":domain"))
     implementation(project(":data"))
     implementation(libs.google.transport.runtime)
+
     //google sign-in
     implementation(libs.firebase.auth)
     implementation(libs.play.services.auth)
+    implementation(libs.androidx.credentials)
+    implementation(libs.androidx.credentials.play.services.auth)
+    implementation(libs.googleid)
+
+    implementation(libs.firebase.firestore)
 
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
 
-    //msoffice
-    implementation(libs.poi)
-    implementation(libs.poi.ooxml)
+
 
 }
 

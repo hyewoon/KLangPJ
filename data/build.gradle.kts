@@ -12,7 +12,7 @@ buildscript {
         gradlePluginPortal()
     }
     dependencies {
-        //classpath(libs.google.services)
+        classpath(libs.google.services)
     }
 }
 

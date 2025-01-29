@@ -35,6 +35,9 @@ class MainActivity : AppCompatActivity() {
             insets
         }
 
+        val userEmail = intent.getStringExtra("userEmail")
+        binding.userImg.text = userEmail
+
 
         with(binding) {
             setSupportActionBar(toolbar)
