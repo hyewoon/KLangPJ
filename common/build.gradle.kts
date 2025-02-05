@@ -1,25 +1,11 @@
-import com.android.build.api.dsl.Packaging
-
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
-    alias(libs.plugins.com.google.devtools.ksp)
-}
-
-buildscript {
-    repositories {
-        google()
-        mavenCentral()
-        gradlePluginPortal()
-    }
-    dependencies {
-        classpath(libs.google.services)
-    }
 }
 
 android {
-    namespace = "com.hye.sesac.domain"
-    compileSdk = 35
+    namespace = "com.hye.common"
+    compileSdk = 34
 
     defaultConfig {
         minSdk = 23
@@ -36,7 +22,6 @@ android {
                 "proguard-rules.pro"
             )
         }
-
     }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
@@ -48,32 +33,13 @@ android {
 }
 
 dependencies {
+
     implementation(libs.androidx.core.ktx)
-    implementation(libs.firebase.firestore)
-    implementation(libs.firebase.messaging.ktx)
-    implementation(project(":domain"))
-    implementation(libs.firebase.bom)
-
-    //roomDB
-    implementation(libs.androidx.room.runtime)
-    implementation(libs.androidx.room.compiler)
-
-    ksp(libs.androidx.room.compiler)
- 
-
+    implementation(libs.androidx.appcompat)
+    implementation(libs.material)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
 
-
-    //msoffice 읽을 수 있을 수 있는
-    implementation(libs.poi)
-    implementation(libs.poi.ooxml)
-
     implementation(libs.digital.ink.recognition)
-
 }
-
-
-
-

@@ -3,7 +3,7 @@ package com.hye.sesac.data.repo
 import com.hye.sesac.data.entity.Channel
 import com.hye.sesac.data.rest.RetrofitRESTService
 
-class WordRepoImp(private val retrofitRESTService: RetrofitRESTService,  val apiKey: String) : WordRepository {
+class WordRepoImpl(private val retrofitRESTService: RetrofitRESTService, val apiKey: String) : WordRepository {
 
     override suspend fun getWordInfo(inputWord: String): Channel {
         return try {
