@@ -1,7 +1,6 @@
 package com.hye.sesac.klangpj.ui.home
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,11 +9,9 @@ import androidx.lifecycle.lifecycleScope
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.hye.domain.data.MLKitResult
 import com.hye.sesac.klangpj.BaseFragment
-import com.hye.sesac.klangpj.common.KLangApplication
 import com.hye.sesac.klangpj.databinding.FragmentDrawBinding
 import com.hye.sesac.klangpj.ui.factory.ViewModelFactory
 import com.hye.sesac.klangpj.ui.viewmodel.HomeViewModel
-import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
@@ -34,14 +31,15 @@ class DrawFragment : BaseFragment<FragmentDrawBinding>(FragmentDrawBinding::infl
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
-    ): View? {
+    ): View {
         _binding = FragmentDrawBinding.inflate(inflater, container, false)
 
-
-
-
-
         return binding.root
+    }
+
+    override fun onPause() {
+        super.onPause()
+
     }
 
 
@@ -49,7 +47,7 @@ class DrawFragment : BaseFragment<FragmentDrawBinding>(FragmentDrawBinding::infl
            super.onViewCreated(view, savedInstanceState)
 
           viewLifecycleOwner.lifecycleScope.launch {
-              viewModel.recognizedInk.collectLatest { result->
+              viewModel.recognizedInk.collect { result->
                   when(result){
                        is MLKitResult.Success -> {
                            showDialog(result.data)
@@ -85,6 +83,7 @@ class DrawFragment : BaseFragment<FragmentDrawBinding>(FragmentDrawBinding::infl
 
 
        }
+
 
     private fun showDialog(result: String){
       /*  val dialog = InkResultDialogFragment(result)
