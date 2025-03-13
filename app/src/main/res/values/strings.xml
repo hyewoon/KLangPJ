@@ -16,9 +16,9 @@
     <!--bottomNavigationFragment -->
     <string name="hello_blank_fragment">fragment</string>
     <string name="home_fragment">Home</string>
-    <string name="wordGame_fragment">wordGame</string>
+    <string name="wordGame_fragment">Game</string>
     <string name="rank_fragment">Rank</string>
-    <string name="myPage_fragment">My Page</string>
+    <string name="myPage_fragment">My</string>
     <string name="settings">settings</string>
 
 
@@ -26,21 +26,29 @@
     <string name="attendance">출석 체크</string>
     <string name="speech_to_text_message">내 목소리를 텍스트로 바꿔 보세요</string>
     <string name="my_dictionary">내 단어장</string>
+    <string name="tts">텍스트 인식 </string>
+    <string name="stt">음성 인식 </string>
     <string name="hello">반갑습니다.</string>
     <string name="learn_word">어휘 학습</string>
     <string name="target_word">하루 목표</string>
     <string name="count">개</string>
+    <string name="learn_today_message">오늘의 학습</string>
+    <string name="today_quest">일일 퀘스트</string>
+    <string name="today_quest_game">게임하기 </string>
+    <string name="today_quest_practice">연습하기 </string>
+    <string name="today_quest_learning">오늘의 학습 </string>
 
 
     <!-- wordFragment -->
     <string name="mock_main_word">사과</string>
     <string name="mock_word_pronounce">발음</string>
     <string name="mock_word_meaning">apple</string>
-    <string name="mock_example_sentence">This is an apple.</string>
+    <string name="mock_example_sentence">모자를 벗어서 가방에 넣다.</string>
     <string name="listen_btn">듣기</string>
     <string name="dictionary_btn">사전</string>
     <string name="speak_btn">말하기</string>
     <string name="write_btn">쓰기</string>
+    <string name="write_down">단어를 따라 쓰세요</string>
 
     <!-- GameFragment common  -->
     <string name="current_state_tv">7</string>
@@ -56,6 +64,10 @@
     <string name="choose_correct_word_game">단어 선택하기</string>
     <string name="answer_sentence">이것은 사과입니다.</string>
 
+
+    <!--gameFragment-->
+    <string name="today_game_message">오늘의 게임</string>
+    <string name="practice_message">연습하기</string>
 
     <!-- myPageFragment -->
     <string name="tab_1">Day</string>
@@ -76,6 +88,7 @@
     <string name="selected_word">사과</string>
     <string name="meaning">의미</string>
     <string name="sentence">예시 문장</string>
+    <string name="source_of_example_sentence">예문 출처 : 한국어 기초 사전</string>
 
     <!--    recordFragment    -->
     <string name="record_title">내 목소리를 녹음해 보세요</string>
@@ -85,14 +98,31 @@
     <string name="write_down_message">원하는 단어를 써보세요</string>
     <string name="input">입력</string>
     <string name="erase">지우기</string>
+    <string name="recognition">인식결과</string>
+    <string name="search_message">원하는 단어를 검색하세요</string>
 
     <!--   TextToSpeakFragment    -->
     <string name="text_to_speech">to speech</string>
     <string name="speech_to_text">to text</string>
+    <string name="switch_message">손글씨 모드</string>
 
     <!--    toSpeechFragment-->
-    <string name="to_speech_message">텍스트를 입력하고 버튼을 누르면\n음성으로 바뀌게 됩니다.</string>
-    <string name="to_text_message">말을 하고 버튼을 누르면 \n텍스트로 바뀌게 됩니다.</string>
+    <string name="tts_message">텍스트를 입력하면 인식을 시작합니다.</string>
+    <string name="stt_message">아이콘을 누르면 음성 인식을 시작합니다.</string>
+
+    <!--myPage-->
+    <string name="study_message">학습 현황</string>
+    <string name="setting_message">설정</string>
+    <string name="total_studied_words">누적 학습 단어</string>
+    <string name="total_acheived_target">목표 달성 횟수</string>
+    <string name="total_attendance">총 출석 일수</string>
+
+    <string name="today_study_count">오늘 학습 목표</string>
+    <string name="today_game_count">오늘 게임 목표</string>
+    <string name="language_setting">언어 설정</string>
+    <string name="alarm_setting">어플 알림</string>
+
+    <!--myPage-->
 
 
 </resources>

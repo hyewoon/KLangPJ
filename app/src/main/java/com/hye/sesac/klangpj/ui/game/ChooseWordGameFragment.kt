@@ -21,11 +21,11 @@ class ChooseWordGameFragment :
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.linearProgressIndicator.apply {
+    /*    binding.linearProgressIndicator.apply {
             max = 20
             progress = 7
         }
-
+*/
 
     }
 }

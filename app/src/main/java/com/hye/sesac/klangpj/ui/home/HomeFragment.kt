@@ -4,74 +4,142 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import androidx.activity.viewModels
 import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
+import com.hye.domain.repo.FireStoreRepository
+import com.hye.domain.repo.StudyRoomRepository
+import com.hye.domain.usecase.LoadTodayStudyWord
 import com.hye.sesac.klangpj.BaseFragment
 import com.hye.sesac.klangpj.R
+import com.hye.sesac.klangpj.common.KLangApplication.Companion.firestoreRepository
+import com.hye.sesac.klangpj.common.KLangApplication.Companion.studyRoomRepository
 import com.hye.sesac.klangpj.databinding.FragmentHomeBinding
 import com.hye.sesac.klangpj.ui.factory.ViewModelFactory
 import com.hye.sesac.klangpj.ui.viewmodel.HomeViewModel
+import com.hye.sesac.klangpj.ui.viewmodel.SharedViewModel
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.launch
 import ru.ldralighieri.corbind.view.clicks
+import java.util.Calendar
 
 
 class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::inflate) {
     private lateinit var navController: NavController
+    private lateinit var dayIcons : List<ImageView>
+    private lateinit var useCase : LoadTodayStudyWord
+
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View? {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
+
+
+
+     /*   viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED){
+                sharedViewModel.weeklyAttendance.collect{
+                    updateAttendanceIcons(it)
+
+                }
+            }
+        }*/
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED){
+                sharedViewModel.targetWordCount.collectLatest { target->
+                    binding.circularIndicator.max = target
+                    binding.todayTarget.text = target.toString()
+
+                }
+            }
+        }
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED){
+                sharedViewModel.currentWordCount.collectLatest { current->
+                    binding.circularIndicator.progress = current
+                    binding.currentWord.text = (current).toString()
+
+                }
+            }
+
+        }
         return binding.root
     }
-    private val viewModel by activityViewModels<HomeViewModel>{
-       ViewModelFactory()
+
+    private val sharedViewModel by activityViewModels<SharedViewModel>{
+        ViewModelFactory(useCaseProvider = {
+            useCase
+        }
+
+        )
     }
+    private val viewModel by activityViewModels<HomeViewModel>{
+       ViewModelFactory {
+           useCase }
+    }
+
+
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         navController = findNavController()
 
+        // UseCase 초기화
+        useCase= LoadTodayStudyWord(firestoreRepository, studyRoomRepository)
+
+
+
         with(binding) {
 
-            circularIndicator.apply {
-                max = 10
-                progress= 4
-            }
-            currentWord.text = circularIndicator.progress.toString()
+        dayIcons = listOf(
+           checkboxSun, checkboxMon,checkboxTue, checkboxWed, checkboxThu, checkboxFri, checkboxSat
+        )
 
 
             //navigation
-            mainCardView.clicks()
+            mainLearningBtn.clicks()
                 .onEach {
-                    navController.navigate(R.id.wordFragment)
-                }.launchIn(lifecycleScope)
+                    lifecycleScope.launch {
+                        val count = sharedViewModel.getTargetWordCount()
+                        val argsActions =
+                            HomeFragmentDirections.actionHomeFragmentToWordFragment(count)
+                        navController.navigate(argsActions)
 
-            speechToTextCardView.clicks()
-                .onEach {
-                    navController.navigate(R.id.speechToTextFragment)
-
+                    }
                 }.launchIn(lifecycleScope)
-            drawCardView.clicks()
-                .onEach {
-                    navController.navigate(R.id.drawFragment)
-                }.launchIn(lifecycleScope)
-            searchCardView.clicks()
-                .onEach {
-                    navController.navigate(R.id.dictionaryFragment)
-                }.launchIn(lifecycleScope)
-            myDictionaryBtn.clicks()
-                .onEach {
-                   // navController.navigate(R.id.myVocaFragment)
-                }
 
 
         }
     }
+
+/*    private fun updateAttendanceIcons(attendanceMap: Map<Int, Boolean>) {
+        // Calendar.SUNDAY(1) ~ Calendar.SATURDAY(7)
+        for (day in Calendar.SUNDAY..Calendar.SATURDAY) {
+            val isAttended = attendanceMap[day] ?: false
+            val index = day - 1 // Calendar.SUNDAY(1)를 인덱스 0으로 맞추기
+
+            if (index in dayIcons.indices) {
+                if (isAttended) {
+                    dayIcons[index].setImageResource(R.drawable.attend)
+                } else {
+                }
+            }
+        }
+    }*/
 
 }

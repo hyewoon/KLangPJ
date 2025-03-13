@@ -1,72 +1,54 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
 
- <!-- Base application theme. -->
- <style name="Base.Theme.KLangPJ" parent="Theme.Material3.DayNight.NoActionBar">
-  <!-- Customize your dark theme here. -->
-  <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
- </style>
 
-    <style name="Theme.KLangPJ" parent="Base.Theme.KLangPJ" />
+    <style name="Theme.KLangPJ" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="android:fontFamily">@font/pretendard_regular</item>
 
+        <item name="backgroundColor">@color/blue_50</item>
+        <item name="colorOnBackground">@color/dark_900</item>
 
-  <style name="AppTheme" parent="Theme.Material3.Light.NoActionBar">
-
-        <item name="android:windowLightStatusBar">true</item>
-        <item name="android:statusBarColor">@android:color/transparent</item>
-        <item name="android:navigationBarColor">@android:color/transparent</item>
-
-        <item name="colorPrimary">@color/md_theme_primary</item>
-        <item name="colorOnPrimary">@color/md_theme_onPrimary</item>
-        <item name="colorPrimaryContainer">@color/md_theme_primaryContainer</item>
-        <item name="colorOnPrimaryContainer">@color/md_theme_onPrimaryContainer</item>
-
-        <item name="colorSecondary">@color/md_theme_secondary</item>
-        <item name="colorOnSecondary">@color/md_theme_onSecondary</item>
-        <item name="colorSecondaryContainer">@color/md_theme_secondaryContainer</item>
-        <item name="colorOnSecondaryContainer">@color/md_theme_onSecondaryContainer</item>
-
-        <item name="colorTertiary">@color/md_theme_tertiary</item>
-        <item name="colorOnTertiary">@color/md_theme_onTertiary</item>
-        <item name="colorTertiaryContainer">@color/md_theme_tertiaryContainer</item>
-        <item name="colorOnTertiaryContainer">@color/md_theme_onTertiaryContainer</item>
-
-        <item name="colorError">@color/md_theme_error</item>
-        <item name="colorOnError">@color/md_theme_onError</item>
-        <item name="colorErrorContainer">@color/md_theme_errorContainer</item>
-        <item name="colorOnErrorContainer">@color/md_theme_onErrorContainer</item>
-
-        <item name="android:colorBackground">@color/md_theme_background</item>
-        <item name="colorOnBackground">@color/md_theme_onBackground</item>
-        <item name="colorSurface">@color/md_theme_surface</item>
-        <item name="colorOnSurface">@color/md_theme_onSurface</item>
-        <item name="colorSurfaceVariant">@color/md_theme_surfaceVariant</item>
-        <item name="colorOnSurfaceVariant">@color/md_theme_onSurfaceVariant</item>
-
-        <item name="colorOutline">@color/md_theme_outline</item>
-        <item name="colorOutlineVariant">@color/md_theme_outlineVariant</item>
-        <item name="colorSurfaceInverse">@color/md_theme_inverseSurface</item>
-        <item name="colorOnSurfaceInverse">@color/md_theme_inverseOnSurface</item>
-        <item name="colorPrimaryInverse">@color/md_theme_inversePrimary</item>
+        <!-- Primary brand color (앱의 주요 파란색) -->
+        <item name="colorPrimary">@color/blue_500</item> <!-- 진행바, 주요 버튼 색상 -->
+        <item name="colorPrimaryVariant">@color/blue_700</item>
+        <item name="colorOnPrimary">@color/point_ivory</item> <!-- 파란색 위의 텍스트 -->
 
 
-        <item name="colorPrimaryFixed">@color/md_theme_primaryFixed</item>
-        <item name="colorOnPrimaryFixed">@color/md_theme_onPrimaryFixed</item>
-        <item name="colorPrimaryFixedDim">@color/md_theme_primaryFixedDim</item>
-        <item name="colorOnPrimaryFixedVariant">@color/colorAccent</item>
-        <item name="colorSecondaryFixed">@color/md_theme_secondaryFixed</item>
-        <item name="colorOnSecondaryFixed">@color/md_theme_onSecondaryFixed</item>
-        <item name="colorSecondaryFixedDim">@color/md_theme_secondaryFixedDim</item>
-        <item name="colorOnSecondaryFixedVariant">@color/md_theme_onSecondaryFixedVariant</item>
-        <item name="colorTertiaryFixed">@color/md_theme_tertiaryFixed</item>
-        <item name="colorOnTertiaryFixed">@color/md_theme_onTertiaryFixed</item>
-        <item name="colorTertiaryFixedDim">@color/md_theme_tertiaryFixedDim</item>
-        <item name="colorOnTertiaryFixedVariant">@color/md_theme_onTertiaryFixedVariant</item>
-        <item name="colorSurfaceDim">@color/md_theme_surfaceDim</item>
-        <item name="colorSurfaceBright">@color/md_theme_surfaceBright</item>
-        <item name="colorSurfaceContainerLowest">@color/md_theme_surfaceContainerLowest</item>
-        <item name="colorSurfaceContainerLow">@color/md_theme_surfaceContainerLow</item>
-        <item name="colorSurfaceContainer">@color/md_theme_surfaceContainer</item>
-        <item name="colorSurfaceContainerHigh">@color/md_theme_surfaceContainerHigh</item>
-        <item name="colorSurfaceContainerHighest">@color/md_theme_surfaceContainerHighest</item>
+        <!--주요 배경 관련색-->
+        <item name="colorSurface">@color/blue_50</item>
+        <item name="colorSurfaceVariant">@color/blue_50</item>
+        <item name="colorContainer">@color/blue_50</item>
+
+        <!-- Background colors -->
+
+        <item name="android:windowBackground">@color/blue_50</item> <!-- 전체 배경색 -->
+        <item name="android:colorBackground">@color/blue_50</item>
+
+        <!-- Status bar -->
+        <item name="android:statusBarColor">@color/point_ivory</item>
+        <item name="android:windowLightStatusBar">true</item> <!-- 상태바 아이콘 어둡게 -->
+
+        <!-- Text colors -->
+        <item name="android:textColorPrimary">@color/dark_900</item> <!-- 주요 텍스트 -->
+        <item name="android:textColorSecondary">@color/dark_500</item> <!-- 부가 텍스트 -->
     </style>
+
+    <!-- 프로그레스 서클 스타일 -->
+    <style name="CircularProgress" parent="Widget.Material3.CircularProgressIndicator">
+        <item name="trackColor">@color/blue_100</item> <!-- 연한 파란색 트랙 -->
+        <item name="indicatorColor">@color/blue_500</item> <!-- 진한 파란색 프로그레스 -->
+    </style>
+
+    <!-- 하단 네비게이션 스타일 -->
+
+    <style name="Widget.App.BottomNavigationView" parent="Widget.Material3.BottomNavigationView">
+        <item name="itemIconTint">@color/nav_item_colors</item>
+        <item name="itemTextColor">@color/nav_item_colors</item>
+        <item name="backgroundColor">@color/point_ivory</item>
+    </style>
+
+    <style name="BoldWord" parent="TextAppearance.AppCompat">
+        <item name="android:fontFamily">@font/prtendard_bold</item>
+    </style>
+
+
 </resources>

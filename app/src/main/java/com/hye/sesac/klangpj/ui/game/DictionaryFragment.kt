@@ -1,4 +1,4 @@
-package com.hye.sesac.klangpj.ui.home
+package com.hye.sesac.klangpj.ui.game
 
 import android.os.Bundle
 import android.util.Log
@@ -19,14 +19,14 @@ import com.hye.sesac.klangpj.adapter.WordInfoAdapter
 import com.hye.sesac.klangpj.common.KLangApplication
 import com.hye.sesac.klangpj.databinding.FragmentDictionaryBinding
 import com.hye.sesac.klangpj.ui.factory.ViewModelFactory
-import com.hye.sesac.klangpj.ui.viewmodel.HomeViewModel
+import com.hye.sesac.klangpj.ui.viewmodel.GameViewModel
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 
 class DictionaryFragment :
     BaseFragment<FragmentDictionaryBinding>(FragmentDictionaryBinding::inflate) {
-    private val viewModel by activityViewModels<HomeViewModel> {
+    private val viewModel by activityViewModels<GameViewModel> {
         ViewModelFactory()
     }
     private lateinit var navController: NavController
@@ -76,6 +76,7 @@ class DictionaryFragment :
                 }
             }
 
+
             //어뎁터 초기화
             wordInfoAdapter = WordInfoAdapter() { code, trans, dfn ->
                 val argsAction =
@@ -96,18 +97,17 @@ class DictionaryFragment :
         }
     }
 
-    override fun onStop() {
-        super.onStop()
-        binding.editTv.text?.clear()
+    private fun performSearch(query: String) {
+        viewModel.getWordInfo(query)
     }
 
-    override fun cleanUp() {
-        binding.editTv.text?.clear()
-        binding.dictionaryRecyclerview.adapter = null
-        wordInfoAdapter.submitList(null)
+    override fun onStop() {
+        super.onStop()
+        binding.editTv.setText("")
         viewModel.wordInfoClear()
 
     }
+
 
 }
 

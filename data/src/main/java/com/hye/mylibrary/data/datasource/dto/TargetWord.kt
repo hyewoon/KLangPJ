@@ -1,22 +1,40 @@
 package com.hye.mylibrary.data.datasource.dto
 
-data class WordDto (
-        val targetCode: Int = 0,
-        val frequency: Long? = 0L,
-        val korean: String ="",
-        val english: String = "",
-        val pos: String= "",
-        val wordGrade: String? = "",
-        val exampleInfo: MutableList<WordExampleInfo> = mutableListOf(),
-        val pronunciationInfo: MutableList<com.hye.mylibrary.data.datasource.dto.WordPronunciationInfo>? = mutableListOf()
-        )
+import com.google.firebase.firestore.PropertyName
 
-data class WordExampleInfo(
-    val type: String ="",
-    val example: String=""
+/**
+ * firestore에서 받아온 데이터 파싱
+ * example은 3개로 갯수 제한
+ */
+data class TargetWordDto (
+    var targetCode: Long = 0L,
+    var frequency: Long? = 0L,
+    var korean: String ="",
+    var english: String = "",
+    var pos: String= "",
+    var wordGrade: String? = "",
+    @PropertyName("example_info")
+        var exampleInfo: List<TargetWordExampleInfoDto>? = emptyList(),
+    @PropertyName("pronunciation_info")
+        var pronunciationInfo: List<TargetWordPronunciationInfoDto>? = emptyList()
+        ){
+    //example 정보중 필요하 갯수만 filter
+    fun getFilteredExamples(type:String, limit:Int): List<TargetWordExampleInfoDto> {
+        return exampleInfo?.filter { it.type == type }?.take(limit) ?: emptyList()
+    }
+}
+
+
+data class TargetWordExampleInfoDto(
+    @PropertyName("type")
+    var type: String ="" ,
+    @PropertyName("example")
+    var example: String=""
 )
 
-data class WordPronunciationInfo(
-    val pronunciation: String? = "",
-    val audioUrl: String? = ""
+data class TargetWordPronunciationInfoDto(
+    @PropertyName("pronunciation_info.pronunciation")
+    var pronunciation: String? = "",
+    @PropertyName("pronunciation_info.link")
+    var audioUrl: String? = ""
 )

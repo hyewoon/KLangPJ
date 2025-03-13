@@ -1,9 +1,12 @@
-package com.hye.sesac.data.repo
+package com.hye.domain.repo
 
-import com.hye.sesac.data.entity.Channel
+
+
+
+import com.hye.domain.model.WordEntity
+import com.hye.domain.result.ApiResult
 
 interface WordRepository {
-    suspend fun getWordInfo(inputWord: String) : Channel
-    //suspend fun getDetailWordInfo(inputWord: String) : Channel
+    suspend fun getWordInfo(inputWord: String) : ApiResult<List<WordEntity>>
 
 }

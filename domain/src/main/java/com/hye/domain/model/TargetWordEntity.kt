@@ -1,24 +1,24 @@
 package com.hye.domain.model
 
-data class WordEntity(
-    val targetCode: Int = 0,
+data class TargetWordEntity(
+    val targetCode: Long = 0L,
     val frequency: Long? = 0L,
     val korean: String = "",
     val english: String = "",
     val pos: String = "",
     val wordGrade: String? = "",
-    val exampleInfo: MutableList<WordExampleInfoEntity> = mutableListOf(),
-    val pronunciationInfo: MutableList<WordPronunciationInfoEntity>? = mutableListOf()
+    val exampleInfo: MutableList<TargetWordExampleInfoEntity>? = mutableListOf(),
+    val pronunciationInfo: MutableList<TargetWordPronunciationInfoEntity>? = mutableListOf()
 )
 
 
-
-data class WordExampleInfoEntity(
+data class TargetWordExampleInfoEntity(
     val type: String = "",
     val example: String = ""
 )
 
-data class WordPronunciationInfoEntity(
+
+data class TargetWordPronunciationInfoEntity(
     val pronunciation: String? = "",
     val audioUrl: String? = ""
 )

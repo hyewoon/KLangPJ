@@ -1,3 +1,14 @@
 package com.hye.sesac.klangpj.data.preferences
 
-annotation class ICRUDPreferenceDataStore()
+import androidx.datastore.preferences.core.Preferences
+import kotlinx.coroutines.flow.Flow
+
+
+interface ICRUDPreferenceDataStore{
+    fun <T> readPreference(key: Preferences.Key<T>, defaultValue: T): Flow<T>
+    suspend fun <T> createPreference(key: Preferences.Key<T>, value: T)
+    suspend fun <T> deletePreference(key: Preferences.Key<T>)
+    suspend fun <T> clearAllPreference()
+
+
+}

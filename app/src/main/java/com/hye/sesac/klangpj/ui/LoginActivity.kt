@@ -17,9 +17,8 @@ import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.hye.sesac.klangpj.MainActivity
+import com.hye.sesac.klangpj.common.throttleFirst
 import com.hye.sesac.klangpj.databinding.ActivityLoginBinding
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
@@ -32,15 +31,6 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
     private lateinit var credentialManager: CredentialManager
 
-  /*  override fun onStart() {
-        super.onStart()
-        val currentUser = auth.currentUser
-        if(currentUser != null){
-            val intent = Intent(this, MainActivity::class.java)
-            startActivity(intent)
-            finish()
-        }
-    }*/
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -59,7 +49,9 @@ class LoginActivity : AppCompatActivity() {
         credentialManager = CredentialManager.create(this)
 
         binding.loginBtn.clicks()
+            .throttleFirst(300L)
             .onEach {
+
                 signIn()
             }
             .launchIn(lifecycleScope)
@@ -90,13 +82,7 @@ class LoginActivity : AppCompatActivity() {
                             finish()
                         }
 
-
-
-
-
-
                     }else{
-                       Log.e(com.hye.sesac.klangpj.ui.TAG, "signIn: ", task.exception)
                     }
                 }
 
@@ -116,7 +102,7 @@ class LoginActivity : AppCompatActivity() {
     private fun getGoogleIdOptions(): GetGoogleIdOption {
         return GetGoogleIdOption.Builder()
             //여러 구글 아이디 중 기존에 선택한 아이디 가져오기
-            .setFilterByAuthorizedAccounts(true)
+            .setFilterByAuthorizedAccounts(false)
             .setServerClientId("108222104739-gtkebvqfba9kodgfdngufuunu8ud996g.apps.googleusercontent.com")
             //이전에 선택한 계정을 자동으로 선택하는 옵션
             .setAutoSelectEnabled(true)

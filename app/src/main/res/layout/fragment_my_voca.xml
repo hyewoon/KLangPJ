@@ -3,7 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.home.MyVocaFragment">
+    android:background="@color/blue_50"
+    tools:context=".ui.game.MyVocaFragment">
 
     <!-- TODO: Update blank fragment layout -->
     <TextView

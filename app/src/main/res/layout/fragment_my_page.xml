@@ -4,126 +4,274 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/blue_50"
     tools:context=".ui.mypage.MyPageFragment">
 
-    <!-- inner progressBar contents -->
+    <ImageView
+        android:id="@+id/myImage"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_margin="@dimen/main_margin"
+        android:src="@drawable/myimage"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/today_tv"
         android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/second_margin"
+        android:layout_marginBottom="@dimen/main_margin"
+        android:text="abcd12345@gmail.com"
+        android:textSize="15sp"
+        app:layout_constraintBottom_toBottomOf="@id/myImage"
+        app:layout_constraintStart_toEndOf="@id/myImage" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/study_message"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/big_margin"
+        android:layout_marginTop="@dimen/main_margin"
+        android:text="@string/study_message"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@id/study_board"
+        app:layout_constraintTop_toBottomOf="@id/myImage" />
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/study_board"
+        style="?attr/materialCardViewFilledStyle"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/main_margin"
-        android:text="@string/today"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/title_day_tv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="170dp"
-        android:layout_marginTop="150dp"
-        android:text="@string/day_english"
-        android:textSize="15dp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toStartOf="@id/study_day_tv"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/study_day_tv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="170dp"
-        android:text="@string/study_day"
-        android:textStyle="bold"
-        app:layout_constraintBaseline_toBaselineOf="@id/title_day_tv"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/title_day_tv"
-        app:layout_constraintTop_toTopOf="parent" />
-
-
-    <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/crown_img"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:src="@drawable/crown_24px"
+        android:backgroundTint="@color/point_white"
+        app:cardCornerRadius="24dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/title_day_tv" />
+        app:layout_constraintTop_toBottomOf="@id/study_message">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/main_margin"
+                android:text="@string/total_studied_words"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toTopOf="@id/divider_1"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/total_words"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/main_margin"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toTopOf="@id/divider_1"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <com.google.android.material.divider.MaterialDivider
+                android:id="@+id/divider_1"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginStart="@dimen/main_margin"
+                android:layout_marginEnd="@dimen/main_margin"
+                android:layout_marginTop="@dimen/second_margin"
+                android:layout_marginBottom="@dimen/second_margin"
+                app:layout_constraintTop_toBottomOf="@id/total_words" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/main_margin"
+                android:text="@string/total_acheived_target"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toTopOf="@id/divider_2"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/divider_1" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/total_target"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/main_margin"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toTopOf="@id/divider_2"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/divider_1" />
+
+            <com.google.android.material.divider.MaterialDivider
+                android:id="@+id/divider_2"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginStart="@dimen/main_margin"
+                android:layout_marginEnd="@dimen/main_margin"
+                android:layout_marginTop="@dimen/second_margin"
+                android:layout_marginBottom="@dimen/second_margin"
+                app:layout_constraintTop_toBottomOf="@id/total_target" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/main_margin"
+                android:text="@string/total_attendance"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/divider_2" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/total_attendance"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/main_margin"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/divider_2" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.card.MaterialCardView>
 
     <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/target_tv"
-        android:layout_width="wrap_content"
+        android:id="@+id/settings"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
+        android:layout_marginStart="@dimen/big_margin"
+        android:layout_marginTop="@dimen/second_margin"
+        android:text="@string/setting_message"
+        android:textSize="15sp"
         android:textStyle="bold"
-        android:text="@string/target"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/setting_board"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/crown_img" />
+        app:layout_constraintTop_toBottomOf="@id/study_board" />
 
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/a_day_tv"
-        android:textStyle="bold"
-        android:layout_width="wrap_content"
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/setting_board"
+        style="?attr/materialCardViewFilledStyle"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="160dp"
-        android:text="@string/a_day_korean"
-        app:layout_constraintEnd_toStartOf="@id/target_words_tv"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/target_tv" />
-
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/target_words_tv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/target_tv"
-        android:textStyle="bold"
-        app:layout_constraintBaseline_toBaselineOf="@id/a_day_tv"
-        app:layout_constraintEnd_toStartOf="@id/word_unit_tv"
-        app:layout_constraintStart_toEndOf="@id/a_day_tv"
-        app:layout_constraintTop_toBottomOf="@id/target_tv" />
-
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/word_unit_tv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="160dp"
-        android:text="@string/word"
-        android:textStyle="bold"
-        app:layout_constraintBaseline_toBaselineOf="@id/a_day_tv"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/target_words_tv"
-        app:layout_constraintTop_toBottomOf="@id/target_tv" />
-
-    <!-- progressbar   -->
-
-    <com.google.android.material.progressindicator.CircularProgressIndicator
-        android:id="@+id/progress_circular"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:indicatorColor="@color/md_theme_primary"
-        app:indicatorSize="270dp"
-        app:layout_constraintBottom_toTopOf="@id/go_to_learn_btn"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/today_tv"
-        app:trackColor="@color/md_theme_secondaryContainer"
-        app:trackCornerRadius="50dp"
-        app:trackThickness="15dp" />
-
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/go_to_learn_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/go_to_learn"
+        android:layout_marginStart="@dimen/main_margin"
+        android:layout_marginEnd="@dimen/main_margin"
+        android:layout_marginTop="@dimen/second_margin"
+        android:layout_marginBottom="@dimen/main_margin"
+        android:backgroundTint="@color/point_white"
+        app:cardCornerRadius="24dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/progress_circular" />
+        app:layout_constraintTop_toBottomOf="@id/settings">
 
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/main_margin"
+                android:text="@string/today_study_count"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toTopOf="@id/divider_3"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/today_word_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toTopOf="@id/divider_3"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <com.google.android.material.divider.MaterialDivider
+                android:id="@+id/divider_3"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginStart="@dimen/main_margin"
+                android:layout_marginEnd="@dimen/main_margin"
+                android:layout_marginTop="@dimen/second_margin"
+                android:layout_marginBottom="@dimen/second_margin"
+                app:layout_constraintBottom_toTopOf="@id/today_game_count"
+                app:layout_constraintTop_toBottomOf="@id/today_word_count" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/main_margin"
+                android:text="@string/today_game_count"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toTopOf="@id/divider_4"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/divider_3" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/today_game_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="12sp"
+                android:layout_margin="@dimen/main_margin"
+                app:layout_constraintBottom_toTopOf="@id/divider_4"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/divider_3" />
+
+            <com.google.android.material.divider.MaterialDivider
+                android:id="@+id/divider_4"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginStart="@dimen/main_margin"
+                android:layout_marginEnd="@dimen/main_margin"
+                android:layout_marginTop="@dimen/second_margin"
+                android:layout_marginBottom="@dimen/second_margin"
+                app:layout_constraintTop_toBottomOf="@id/today_game_count"/>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/language_setting"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/main_margin"
+                android:text="@string/language_setting"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toTopOf="@id/divider_5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/divider_4" />
+
+            <com.google.android.material.divider.MaterialDivider
+                android:id="@+id/divider_5"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginStart="@dimen/main_margin"
+                android:layout_marginEnd="@dimen/main_margin"
+                android:layout_marginTop="@dimen/second_margin"
+                android:layout_marginBottom="@dimen/second_margin"
+                app:layout_constraintTop_toBottomOf="@id/language_setting" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/main_margin"
+                android:text="@string/alarm_setting"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/divider_5" />
+
+            <com.google.android.material.materialswitch.MaterialSwitch
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/second_margin"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/divider_5" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.card.MaterialCardView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

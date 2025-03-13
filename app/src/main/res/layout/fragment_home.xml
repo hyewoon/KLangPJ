@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/blue_50"
     tools:context=".ui.home.HomeFragment">
 
     <!--main layout-->
@@ -11,9 +12,12 @@
         android:id="@+id/main_card_view"
         style="?attr/materialCardViewElevatedStyle"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:layout_margin="@dimen/second_margin"
+        android:layout_height="250dp"
+        android:layout_marginStart="@dimen/main_margin"
+        android:layout_marginTop="@dimen/main_margin"
+        android:layout_marginEnd="@dimen/main_margin"
         app:cardCornerRadius="24dp"
+        android:backgroundTint="@color/point_white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -22,87 +26,110 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/title_tv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/main_margin"
-                android:text="반갑습니다  myId 님 "
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/klang"
+                android:layout_width="90dp"
+                android:layout_height="140dp"
+                android:layout_marginTop="29dp"
+                android:layout_marginEnd="40dp"
+                android:src="@drawable/klang"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintStart_toEndOf="@id/circular_indicator"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/current_word"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                android:layout_marginTop="30sp"
-                android:layout_marginStart="76dp"
-                android:text="0"
-                android:textSize="40sp"
-                app:layout_constraintBottom_toBottomOf="parent"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                />
+                android:layout_marginStart="95dp"
+                android:text="4"
+                android:textSize="27sp"
+                android:textStyle="bold"
+                app:layout_constraintBaseline_toBaselineOf="@id/today_word"
+                app:layout_constraintEnd_toStartOf="@id/today_word"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/today_word"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="85dp"
+                android:text="/10"
+                android:textStyle="bold"
+                app:layout_constraintStart_toEndOf="@id/current_word"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <com.google.android.material.progressindicator.CircularProgressIndicator
                 android:id="@+id/circular_indicator"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                app:indicatorColor="@color/md_theme_primary"
-                app:indicatorSize="130dp"
-                app:trackCornerRadius="30dp"
-                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_marginStart="40dp"
+                android:layout_marginTop="29dp"
+                app:indicatorColor="@color/blue_500"
+                app:indicatorSize="100dp"
+                app:layout_constraintEnd_toStartOf="@id/klang"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/title_tv"
+                app:layout_constraintTop_toTopOf="parent"
+                app:trackCornerRadius="30dp"
                 app:trackThickness="10dp" />
 
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/study_word"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="50dp"
-                android:text="@string/learn_word"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/circular_indicator"
-                app:layout_constraintTop_toBottomOf="@id/title_tv" />
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/target_word_message_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/big_margin"
-                android:text="@string/target_word"
+                android:layout_marginStart="20dp"
+                android:text="@string/learn_word"
                 android:textSize="15sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@id/target_word_tv"
-                app:layout_constraintStart_toEndOf="@id/circular_indicator"
-                app:layout_constraintTop_toBottomOf="@+id/study_word" />
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@id/circular_indicator"
+                app:layout_constraintTop_toBottomOf="@id/circular_indicator" />
 
             <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/target_word_tv"
+                android:id="@+id/today_target_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="58dp"
+                android:text="@string/target_word"
+                android:textSize="10sp"
+                app:layout_constraintBaseline_toBaselineOf="@id/today_target"
+                app:layout_constraintEnd_toStartOf="@id/today_target"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/target_word_message_tv" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/today_target"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="10"
-                app:layout_constraintBaseline_toBaselineOf="@id/target_word_message_tv"
-                app:layout_constraintEnd_toStartOf="@id/count"
-                app:layout_constraintStart_toEndOf="@id/target_word_message_tv"
-                app:layout_constraintTop_toBottomOf="@id/study_word" />
+                android:textSize="12sp"
+                app:layout_constraintEnd_toStartOf="@id/targetUnit"
+                app:layout_constraintStart_toEndOf="@id/today_target_tv"
+                app:layout_constraintTop_toBottomOf="@id/target_word_message_tv" />
 
             <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/count"
+                android:id="@+id/targetUnit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:text="개"
+                android:textSize="10dp"
+                app:layout_constraintBaseline_toBaselineOf="@id/today_target"
+                app:layout_constraintEnd_toEndOf="@id/circular_indicator"
+                app:layout_constraintStart_toEndOf="@id/today_target"
+                app:layout_constraintTop_toBottomOf="@id/target_word_message_tv" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/main_learning_btn"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:layout_marginStart="@dimen/big_margin"
                 android:layout_marginEnd="@dimen/big_margin"
-                android:text="@string/count"
-                app:layout_constraintBaseline_toBaselineOf="@id/target_word_message_tv"
+                android:text="@string/learn_today_message"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/target_word_tv"
-                app:layout_constraintTop_toBottomOf="@id/study_word" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/klang" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -114,307 +141,195 @@
         android:id="@+id/attendance_tv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/main_margin"
+        android:layout_marginStart="@dimen/big_margin"
         android:layout_marginTop="@dimen/main_margin"
+        android:layout_marginBottom="@dimen/main_margin"
         android:text="@string/attendance"
-        android:textSize="15sp"
+        android:textSize="12sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@id/attendance_card_view"
+        app:layout_constraintBottom_toTopOf="@id/attendance_box"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/main_card_view" />
 
-
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/attendance_card_view"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/attendance_box"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:layout_margin="@dimen/second_margin"
-        app:cardBackgroundColor="@color/md_theme_onPrimary"
-        app:cardCornerRadius="24dp"
+        android:layout_marginBottom="@dimen/main_margin"
+        android:background="@color/point_white"
+        app:layout_constraintBottom_toTopOf="@id/today_quest_tv"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/attendance_tv">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+        <androidx.constraintlayout.helper.widget.Flow
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="5dp"
+            android:padding="5dp"
+            app:constraint_referenced_ids="checkbox_sun, checkbox_mon, checkbox_tue, checkbox_wed,checkbox_thu, checkbox_fri, checkbox_sat, next_btn"
+            app:flow_wrapMode="aligned"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-            <androidx.constraintlayout.helper.widget.Flow
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_marginTop="5dp"
-                android:padding="5dp"
-                app:constraint_referenced_ids="checkbox_sun, checkbox_mon, checkbox_tue, checkbox_wed,checkbox_thu, checkbox_fri, checkbox_sat"
-                app:flow_wrapMode="aligned"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/checkbox_sun"
+            android:layout_width="26dp"
+            android:layout_height="26dp"
+            android:src="@drawable/attend" />
 
-            <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/checkbox_sun"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/check_box_uncheched" />
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/checkbox_mon"
+            android:layout_width="26dp"
+            android:layout_height="26dp"
+            android:src="@drawable/attend"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-            <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/checkbox_mon"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/check_box_uncheched"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/checkbox_tue"
+            android:layout_width="26dp"
+            android:layout_height="26dp"
+            android:src="@drawable/attend"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-            <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/checkbox_tue"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/check_box_uncheched"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/checkbox_wed"
+            android:layout_width="26dp"
+            android:layout_height="26dp"
+            android:src="@drawable/attend"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-            <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/checkbox_wed"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/check_box_uncheched"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/checkbox_thu"
+            android:layout_width="26dp"
+            android:layout_height="26dp"
+            android:src="@drawable/thursday" />
 
-            <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/checkbox_thu"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/check_box_uncheched" />
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/checkbox_fri"
+            android:layout_width="26dp"
+            android:layout_height="26dp"
+            android:src="@drawable/friday"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-            <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/checkbox_fri"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/check_box_uncheched"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/checkbox_sat"
+            android:layout_width="26dp"
+            android:layout_height="26dp"
+            android:src="@drawable/saturday"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-            <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/checkbox_sat"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/check_box_uncheched"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/next_btn"
+            android:layout_width="26dp"
+            android:layout_height="26dp"
+            android:src="@drawable/next"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-    </com.google.android.material.card.MaterialCardView>
-
-    <!-- draw & search & dictionary card view   -->
-    <androidx.constraintlayout.helper.widget.Flow
-        android:layout_width="0dp"
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/today_quest_tv"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/second_margin"
+        android:layout_marginStart="@dimen/big_margin"
         android:layout_marginTop="@dimen/main_margin"
-        android:layout_marginEnd="@dimen/second_margin"
-        app:constraint_referenced_ids="draw_card_view, search_card_view,my_dictionary_card_view"
-        app:flow_horizontalGap="16dp"
-        app:flow_horizontalStyle="spread_inside"
-        app:flow_wrapMode="aligned"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:text="@string/today_quest"
+        android:textSize="12sp"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/attendance_card_view" />
+        app:layout_constraintTop_toBottomOf="@id/attendance_box" />
 
     <com.google.android.material.card.MaterialCardView
-        android:id="@+id/draw_card_view"
-        style="?attr/materialCardViewElevatedStyle"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/main_margin"
-        app:cardCornerRadius="12dp"
-        app:layout_constraintStart_toStartOf="parent">
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:padding="@dimen/main_margin">
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/draw_btn"
-                style="?attr/materialIconButtonStyle"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                app:icon="@drawable/draw_icon"
-                app:iconSize="36dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <androidx.appcompat.widget.AppCompatTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="쓰기"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/draw_btn" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-    </com.google.android.material.card.MaterialCardView>
-
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/search_card_view"
-        style="?attr/materialCardViewElevatedStyle"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/main_margin"
-        app:cardCornerRadius="12dp"
-        app:layout_constraintBottom_toBottomOf="@id/draw_card_view"
-        app:layout_constraintStart_toEndOf="@id/draw_card_view">
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:padding="@dimen/main_margin">
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/search_btn"
-                style="?attr/materialIconButtonStyle"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                app:icon="@drawable/search_icon"
-                app:iconSize="36dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <androidx.appcompat.widget.AppCompatTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="검색"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/search_btn" />
-
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-    </com.google.android.material.card.MaterialCardView>
-
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/my_dictionary_card_view"
-        style="?attr/materialCardViewElevatedStyle"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_margin="@dimen/main_margin"
-        app:cardCornerRadius="12dp"
-        app:layout_constraintBottom_toBottomOf="@id/draw_card_view"
-        app:layout_constraintStart_toEndOf="@id/search_card_view">
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:padding="@dimen/main_margin">
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/my_dictionary_btn"
-                style="?attr/materialIconButtonStyle"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                app:icon="@drawable/book_24px"
-                app:iconSize="36dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <androidx.appcompat.widget.AppCompatTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/my_dictionary"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/my_dictionary_btn" />
-
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-    </com.google.android.material.card.MaterialCardView>
-    <!--speechToText layout-->
-
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/speech_to_text_card_view"
-        style="?attr/materialCardViewElevatedStyle"
+        style="?attr/materialCardViewFilledStyle"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_margin="@dimen/second_margin"
+        android:layout_margin="@dimen/main_margin"
+        android:backgroundTint="@color/point_white"
         app:cardCornerRadius="24dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/my_dictionary_card_view">
+        app:layout_constraintTop_toBottomOf="@id/today_quest_tv">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:padding="@dimen/second_margin">
+            android:padding="@dimen/main_margin">
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/text_to_speech_img"
-                style="?attr/materialIconButtonStyle"
-                android:layout_width="56dp"
-                android:layout_height="56dp"
-                app:icon="@drawable/to_speech"
-                app:iconSize="45dp"
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/quest_practice_img"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:src="@drawable/reward_on"
+                app:layout_constraintBottom_toTopOf="@id/quest_practice_tv"
+                app:layout_constraintEnd_toStartOf="@id/quest_today_learning_img"
+                app:layout_constraintStart_toEndOf="@id/quest_game_img"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/quest_practice_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/today_quest_practice"
+                android:textSize="12sp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@id/change_img"
+                app:layout_constraintEnd_toEndOf="@id/quest_practice_img"
+                app:layout_constraintStart_toStartOf="@id/quest_practice_img"
+                app:layout_constraintTop_toBottomOf="@id/quest_practice_img" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/quest_game_img"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:src="@drawable/reward_off"
+                app:layout_constraintBottom_toTopOf="@id/quest_game_tv"
+                app:layout_constraintEnd_toStartOf="@id/quest_practice_img"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/change_img"
-                style="?attr/materialIconButtonStyle"
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/quest_game_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/today_quest_game"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@id/quest_game_img"
+                app:layout_constraintStart_toStartOf="@id/quest_game_img"
+                app:layout_constraintTop_toBottomOf="@id/quest_game_img" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/quest_today_learning_img"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
-                app:icon="@drawable/change"
-                app:iconSize="36dp"
-                app:layout_constraintBottom_toBottomOf="@id/text_to_speech_img"
-                app:layout_constraintEnd_toEndOf="@id/speech_to_text_img"
-                app:layout_constraintStart_toEndOf="@id/text_to_speech_img" />
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/speech_to_text_img"
-                style="?attr/materialIconButtonStyle"
-                android:layout_width="56dp"
-                android:layout_height="56dp"
-                app:icon="@drawable/to_text"
-                app:iconSize="45dp"
-                app:layout_constraintBottom_toBottomOf="@id/text_to_speech_img"
+                android:src="@drawable/paw_off"
+                app:layout_constraintBottom_toTopOf="@id/quest_today_learning_tv"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/change_img" />
+                app:layout_constraintStart_toEndOf="@id/quest_practice_img"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/quest_today_learning_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/today_quest_learning"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@id/quest_today_learning_img"
+                app:layout_constraintStart_toStartOf="@id/quest_today_learning_img"
+                app:layout_constraintTop_toBottomOf="@id/quest_today_learning_img" />
+
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-
     </com.google.android.material.card.MaterialCardView>
-
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_end="379dp" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_begin="371dp" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline25"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_end="144dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

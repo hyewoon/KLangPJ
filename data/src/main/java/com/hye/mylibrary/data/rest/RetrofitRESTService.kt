@@ -1,12 +1,11 @@
-package com.hye.sesac.data.rest
-
-import com.hye.domain.entity.Channel
-import com.hye.domain.entity.DetailChannel
+package com.hye.mylibrary.data.rest
+import com.hye.mylibrary.data.dto.Channel
+import com.hye.mylibrary.data.dto.DetailChannel
 import retrofit2.http.GET
 import retrofit2.http.Query
 
 
-const val BASE_URL = "https://krdict.korean.go.kr/"
+
 
 interface RetrofitRESTService {
 

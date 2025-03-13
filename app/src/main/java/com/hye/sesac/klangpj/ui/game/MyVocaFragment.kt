@@ -1,4 +1,4 @@
-package com.hye.sesac.klangpj.ui.home
+package com.hye.sesac.klangpj.ui.game
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

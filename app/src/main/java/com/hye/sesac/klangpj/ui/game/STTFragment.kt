@@ -1,4 +1,4 @@
-package com.hye.sesac.klangpj.ui.home
+package com.hye.sesac.klangpj.ui.game
 
 import android.os.Bundle
 import android.speech.RecognitionListener
@@ -13,8 +13,12 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import ru.ldralighieri.corbind.view.clicks
 import android.Manifest
+import android.content.ActivityNotFoundException
+import android.content.Intent
+import android.speech.RecognizerIntent
 import android.util.Log
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import com.gun0912.tedpermission.PermissionListener
 import com.gun0912.tedpermission.normal.TedPermission
 import com.hye.sesac.klangpj.databinding.FragmentSttBinding
@@ -24,7 +28,17 @@ import com.hye.sesac.klangpj.databinding.FragmentSttBinding
  * 런타임퍼미션 : tedPermission
  */
 class STTFragment : BaseFragment<FragmentSttBinding>(FragmentSttBinding::inflate) {
-    private var isRecorded: Boolean = false
+
+
+    private val resultLauncher = registerForActivityResult(
+        ActivityResultContracts.StartActivityForResult()
+    ) { result ->
+        if (result.resultCode == android.app.Activity.RESULT_OK) {
+            val spokenText = result.data?.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS)?.get(0) ?: ""
+            binding.resultCardView.visibility = View.VISIBLE
+            binding.resultTv.text = spokenText
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -38,18 +52,18 @@ class STTFragment : BaseFragment<FragmentSttBinding>(FragmentSttBinding::inflate
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.micBtn.clicks()
+        binding.speechBtn.clicks()
             .throttleFirst(300L)
             .onEach {
                 checkPermission()
             }
             .launchIn(lifecycleScope)
     }
-
     private val permissionListener = object : PermissionListener {
         override fun onPermissionGranted() { //퍼미션 권한 얻으면
             initSTT()
         }
+
 
         override fun onPermissionDenied(deniedPermissions: MutableList<String>?) {
             //거부되면
@@ -65,65 +79,20 @@ class STTFragment : BaseFragment<FragmentSttBinding>(FragmentSttBinding::inflate
                 .check()
     }
 
+    private fun initSTT() {
+        val intent = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH).apply {
+            putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM)
+            putExtra(RecognizerIntent.EXTRA_LANGUAGE, "ko-KR")
+        }
 
-  private fun initSTT(){
-      SpeechRecognizer.createSpeechRecognizer(requireContext()).also{
-         object : RecognitionListener{
-             override fun onReadyForSpeech(params: Bundle?) {
-                //음성 인식 준비가 되면 ui 상태 변경
-             }
-
-             override fun onBeginningOfSpeech() {
-
-             }
-
-             override fun onRmsChanged(rmsdB: Float) {
-
-             }
-
-             override fun onBufferReceived(buffer: ByteArray?) {
-
-             }
-
-             override fun onEndOfSpeech() {
-
-             }
-            //에러처리
-             override fun onError(error: Int) {
-                Log.d("STT", error.toString())
-             }
-
-             //음성 인식 결과 처리
-             override fun onResults(results: Bundle?) {
-                 results?.let{
-                     it.getStringArrayList(
-                         SpeechRecognizer.RESULTS_RECOGNITION
-                     )
-
-                     with(binding.resultTv){
-                         binding.micBtn.visibility = View.GONE
-                         visibility = View.VISIBLE
-                         text = it.toString()
-                     }
-
-                 }
-             }
-
-             override fun onPartialResults(partialResults: Bundle?) {
-
-             }
-
-             override fun onEvent(eventType: Int, params: Bundle?) {
-
-             }
-
-         }
-     }
+        try {
+            resultLauncher.launch(intent)
+        } catch (e: ActivityNotFoundException) {
+            Toast.makeText(requireContext(), "음성인식을 지원하지 않는 기기입니다.", Toast.LENGTH_SHORT).show()
+        }
+    }
 
 
-
-
-  }
 
 
 }

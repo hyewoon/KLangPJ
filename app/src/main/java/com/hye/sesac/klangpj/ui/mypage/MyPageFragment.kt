@@ -40,14 +40,7 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding>(FragmentMyPageBinding
 //       val navController = navHostFragment.navController
 
        navController = findNavController()
-        with(binding) {
-            goToLearnBtn.clicks()
-                .onEach {
-                    navController.navigate(R.id.wordFragment)
 
-                }.launchIn(lifecycleScope)
-
-        }
     }
 }
 

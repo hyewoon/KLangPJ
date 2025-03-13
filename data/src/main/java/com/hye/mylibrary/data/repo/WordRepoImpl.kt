@@ -1,19 +1,27 @@
-package com.hye.sesac.data.repo
+package com.hye.mylibrary.data.repo
 
-import com.hye.sesac.data.entity.Channel
-import com.hye.sesac.data.rest.RetrofitRESTService
 
-class WordRepoImpl(private val retrofitRESTService: RetrofitRESTService, val apiKey: String) : WordRepository {
 
-    override suspend fun getWordInfo(inputWord: String): Channel {
-        return try {
-            val response = retrofitRESTService.getWordInfo(apiKey, inputWord)
-            response
+import com.hye.domain.model.WordEntity
+import com.hye.domain.repo.WordRepository
+import com.hye.domain.result.ApiResult
+import com.hye.mylibrary.data.mapper.WordMapper
+import com.hye.mylibrary.data.rest.RetrofitRESTService
 
-        } catch (e: Exception) {
-            println("에러 ${e.message}")
+class WordRepoImpl(private val retrofitRESTService: RetrofitRESTService, private val apiKey: String) :
+    WordRepository {
+    private val mapper: WordMapper = WordMapper()
 
-            throw e
+    override suspend fun getWordInfo(inputWord: String): ApiResult<List<WordEntity>> {
+        return runCatching {
+            val response = retrofitRESTService.getWordInfo(apiKey, inputWord) //Channel로 받아옴
+
+            response.item?.let { items ->
+                ApiResult.Success(items.map { mapper.mapToDomain(it) }) //Channel로 받아온 걸 다시 WordEntity로 변환
+            } ?: ApiResult.Success(emptyList())
+
+        }.getOrElse { e ->
+            ApiResult.Failure(e.message ?: "Unknown error")
         }
     }
 }

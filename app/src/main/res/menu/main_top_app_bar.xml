@@ -2,17 +2,16 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-
     <item
-        android:id="@+id/rank"
+        android:id="@+id/paw"
         android:title="@string/target"
-        android:icon="@drawable/rank_icon"
-        app:showAsAction="ifRoom"/>
+        app:actionLayout="@layout/custom_paw_badge"
+        app:showAsAction="always" />
 
     <item
-        android:id="@+id/reward"
+        android:id="@+id/crown"
         android:title="@string/reward"
-        android:icon="@drawable/reward_icon"
-        app:showAsAction="ifRoom"/>
+        app:actionLayout="@layout/custom_crown_badge"
+        app:showAsAction="always" />
 
 </menu>

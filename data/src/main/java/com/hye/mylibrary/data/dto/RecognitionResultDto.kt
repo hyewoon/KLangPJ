@@ -1,9 +1,8 @@
 package com.hye.mylibrary.data.dto
 
-data class RecognitionResult(
+data class RecognitionResultDto(
     val recognizedText: String,
     //신뢰도 0.0 ~ 1.0사이
-    val confidence: Float,
-    val isValidRecognition: Boolean = confidence >= 0.65f
+    val confidence: Float
 )
 

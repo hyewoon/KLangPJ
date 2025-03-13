@@ -4,20 +4,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="@dimen/main_margin"
-    tools:context=".ui.home.DictionaryFragment">
+    android:background="@color/blue_50"
+    tools:context=".ui.game.DictionaryFragment">
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/inputTextLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="@dimen/second_margin"
         app:boxCornerRadiusBottomEnd="30dp"
         app:boxCornerRadiusBottomStart="30dp"
         app:boxCornerRadiusTopEnd="30dp"
         app:boxCornerRadiusTopStart="30dp"
         app:endIconMode="custom"
         app:endIconCheckable="false"
+        android:layout_margin="@dimen/main_margin"
         app:endIconDrawable="@drawable/search_icon"
         app:layout_constraintBottom_toTopOf="@id/dictionary_recyclerview"
         app:layout_constraintEnd_toEndOf="parent"
@@ -30,15 +30,18 @@
             android:layout_height="wrap_content" />
     </com.google.android.material.textfield.TextInputLayout>
 
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/dictionary_recyclerview"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        tools:listitem="@layout/dictionary_recycler_item"
         android:layout_marginTop="@dimen/big_margin"
+        android:background="@color/blue_50"
+        android:layout_marginBottom="@dimen/main_margin"
         android:padding="@dimen/second_margin"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/inputTextLayout" />
+        app:layout_constraintTop_toBottomOf="@id/inputTextLayout"
+        tools:listitem="@layout/dictionary_recycler_item" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

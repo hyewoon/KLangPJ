@@ -8,7 +8,7 @@ import com.tickaroo.tikxml.annotation.Xml
 @Xml(name = "channel")
 data class Channel(
     @Element(name = "item")
-    val item: List<WordInfo>?= null
+    val item: List<WordInfo>?= mutableListOf()
 )
 
 @Xml(name = "item")
@@ -46,8 +46,6 @@ data class Sense(
 
 @Xml(name = "translation")
 data class Translation(
-   /* @PropertyElement(name="trans_lang")
-    val tranLang: String="",*/
     @PropertyElement(name = "trans_word")
     val transWord: String = "",
     @PropertyElement(name = "trans_dfn")

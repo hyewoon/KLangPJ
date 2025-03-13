@@ -1,6 +1,9 @@
-import com.android.build.api.dsl.Packaging
+
+import java.util.Properties
 
 plugins {
+
+    alias(libs.plugins.kotlin.kapt)
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.com.google.devtools.ksp)
@@ -18,7 +21,7 @@ buildscript {
 }
 
 android {
-    namespace = "com.hye.sesac.domain"
+    namespace = "com.hye.sesac.data"
     compileSdk = 35
 
     defaultConfig {
@@ -44,33 +47,46 @@ android {
     }
     kotlinOptions {
         jvmTarget = "17"
+
     }
+    buildFeatures {
+        buildConfig = true
+    }
+
 }
 
 dependencies {
+    implementation(libs.firebase.bom)
     implementation(libs.androidx.core.ktx)
     implementation(libs.firebase.firestore)
-    implementation(libs.firebase.messaging.ktx)
     implementation(project(":domain"))
-    implementation(libs.firebase.bom)
-
-    //roomDB
-    implementation(libs.androidx.room.runtime)
-    implementation(libs.androidx.room.compiler)
-
-    ksp(libs.androidx.room.compiler)
- 
+    implementation(libs.androidx.room.ktx)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
 
-
-    //msoffice 읽을 수 있을 수 있는
-    implementation(libs.poi)
-    implementation(libs.poi.ooxml)
-
+    //mlkit
     implementation(libs.digital.ink.recognition)
+
+    //roomDB
+    implementation(libs.androidx.room.runtime)
+    implementation(libs.androidx.room.compiler)
+    implementation(libs.androidx.fragment.ktx)
+
+    ksp(libs.androidx.room.compiler)
+
+    //retrofit, tikxml
+    implementation(libs.retrofit)
+    implementation(libs.tikxml.retrofit.converter)
+    implementation(libs.annotation)
+    implementation(libs.tikxml.core)
+    implementation(libs.kotlinx.coroutines.core)
+    kapt(libs.tikxml.processor)
+
+    //okhttp
+    implementation(libs.okhttp)
+    implementation(libs.logging.interceptor)
 
 }
 

@@ -14,7 +14,7 @@ buildscript {
 }
 
 plugins {
-    id ("kotlin-kapt")
+
     id("java-library")
     alias(libs.plugins.jetbrains.kotlin.jvm)
 }
@@ -30,9 +30,10 @@ kotlin {
     }
 }
 dependencies {
-    implementation(libs.retrofit)
-    implementation(libs.annotation)
-    implementation(libs.tikxml.core)
-    implementation(libs.tikxml.retrofit.converter)
-    kapt(libs.tikxml.processor)
+    //implementation(libs.retrofit)
+    //implementation(libs.annotation)
+    //implementation(libs.tikxml.core)
+    //implementation(libs.tikxml.retrofit.converter)
+    implementation(libs.kotlinx.coroutines.core)
+   // kapt(libs.tikxml.processor)
 }

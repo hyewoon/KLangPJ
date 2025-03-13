@@ -1,4 +1,4 @@
-package com.hye.sesac.klangpj.ui.home
+package com.hye.sesac.klangpj.ui.game
 
 import android.os.Bundle
 import android.util.Log
@@ -16,8 +16,7 @@ import com.hye.domain.result.ApiResult
 import com.hye.sesac.klangpj.BaseFragment
 import com.hye.sesac.klangpj.databinding.FragmentDetailDictionaryBinding
 import com.hye.sesac.klangpj.ui.factory.ViewModelFactory
-import com.hye.sesac.klangpj.ui.viewmodel.HomeViewModel
-import kotlinx.coroutines.ensureActive
+import com.hye.sesac.klangpj.ui.viewmodel.GameViewModel
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
@@ -40,7 +39,7 @@ class DetailDictionaryFragment :
         //UI update
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.detailWordInfo.collectLatest {
+                viewModel.detailWordInfo.collectLatest { it ->
                     when (it) {
                         is ApiResult.Success -> {
                             val result = it.data.forEach { item ->
@@ -51,17 +50,16 @@ class DetailDictionaryFragment :
                                     .take(3)
                                     .joinToString(", ")
 
-                                binding.basicInfo.text = item.senses.joinToString { senseInfo ->
-                                    " ${senseInfo.definition}"
-                                }
 
                                 val examples = item.examples
-                                    .take(8)
-                                    .joinToString("\n") { example ->
+                                    .take(6)
+                                    .joinToString("\n\n") { example ->
                                         "${example.example}"
 
                                     }
                                 binding.examplesTv.text = examples
+                                binding.definitionTv.text = transDfn.removeSurrounding("[", "]")
+
 
                             }
 
@@ -78,7 +76,7 @@ class DetailDictionaryFragment :
 
     }
 
-    private val viewModel by activityViewModels<HomeViewModel> {
+    private val viewModel by activityViewModels<GameViewModel> {
         ViewModelFactory()
     }
 

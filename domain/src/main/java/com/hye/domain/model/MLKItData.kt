@@ -11,16 +11,8 @@ data class HandWritingStroke(
 )
 
 
-
-/*
-data class RecognitionResult(
-    val text: String,
-    //정확도 0.0f ~ 1.0f 사이
+data class MLKitRecognitionResult(
+    val recognizedText: String,
     val confidence: Float,
-    val isRecognizable: Boolean = confidence >= THRESHOLD
-
-) {
-    companion object{
-        private const val THRESHOLD = 0.7f
-    }
-}*/
+    val isValidRecognition: Boolean = confidence >= -1000
+)

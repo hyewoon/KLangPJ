@@ -26,7 +26,9 @@ android {
         properties.load(project.rootProject.file("local.properties").inputStream())
 
         buildConfigField("String", "API_KEY", "\"${properties.getProperty("api.key")}\"")
+
     }
+
 
     buildTypes {
         release {
@@ -48,8 +50,6 @@ android {
         buildConfig = true
         viewBinding = true
 
-
-
     }
 }
 dependencies {
@@ -62,8 +62,7 @@ dependencies {
     implementation(libs.androidx.navigation.fragment.ktx)
     implementation(libs.androidx.navigation.ui.ktx)
 
-    implementation(libs.material)
-    implementation(libs.androidx.material3.android)
+    //implementation(libs.androidx.material3.android)
     implementation(libs.kotlinx.coroutines.android)
 
     implementation(libs.androidx.lifecycle.runtime.ktx)
@@ -74,8 +73,9 @@ dependencies {
     implementation(libs.corbind.recyclerview)
     implementation(libs.firebase.common.ktx)
     implementation(project(":domain"))
-    implementation(project(":data"))
+
     implementation(libs.google.transport.runtime)
+    //implementation(libs.material)
 
     //google sign-in
     implementation(libs.firebase.auth)
@@ -83,12 +83,24 @@ dependencies {
     implementation(libs.androidx.credentials)
     implementation(libs.androidx.credentials.play.services.auth)
     implementation(libs.googleid)
+    implementation(project(":data"))
 
     implementation(libs.firebase.firestore)
+    //ted-permission
+    implementation(libs.tedpermission.normal)
+    implementation(libs.androidx.preference)
+    implementation(libs.androidx.espresso.core)
+    implementation(libs.androidx.material3)
+    implementation(libs.material)
+
+    //data_store
+    implementation(libs.androidx.datastore.preferences)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+
+
 
 }
 
