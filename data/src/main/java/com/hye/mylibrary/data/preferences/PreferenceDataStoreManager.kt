@@ -8,8 +8,13 @@ import androidx.datastore.preferences.preferencesDataStore
 import com.hye.mylibrary.data.preferences.PreferenceDataStoreConstants
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.flow.map
 import java.io.IOException
+import java.time.DayOfWeek
+import java.time.LocalDate
+import java.util.Calendar
 
 
 val Context.jetpackDataStore by preferencesDataStore(

@@ -23,9 +23,10 @@ class RankFragment : BaseFragment<FragmentRankBinding>(FragmentRankBinding::infl
         _binding = FragmentRankBinding.inflate(inflater, container, false)
         return binding.root
     }
-   private val viewModel by viewModels<RankViewModel>{
-       ViewModelFactory()
-   }
+
+    private val viewModel by viewModels<RankViewModel>{
+        ViewModelFactory()
+    }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 

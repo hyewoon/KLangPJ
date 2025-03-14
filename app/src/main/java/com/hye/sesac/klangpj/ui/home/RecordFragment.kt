@@ -175,8 +175,4 @@ class RecordFragment : BaseFragment<FragmentRecordBinding>(FragmentRecordBinding
     }
 
 
-
-
-
-
 }

@@ -4,61 +4,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/blue_50"
     tools:context=".ui.rank.RankFragment">
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/main_id_img"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
         android:layout_margin="@dimen/main_margin"
-        android:src="@drawable/rank_id_image"
+        android:src="@drawable/myimage"
         app:layout_constraintBottom_toTopOf="@id/recycler_view"
-        app:layout_constraintEnd_toStartOf="@id/reward_img"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
-    <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/reward_img"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="100dp"
-        android:layout_marginBottom="64dp"
-        android:src="@drawable/rank"
-        app:layout_constraintBottom_toTopOf="@id/recycler_view"
-        app:layout_constraintStart_toEndOf="@id/main_id_img" />
-
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/reward_tv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:text="200"
-        app:layout_constraintStart_toStartOf="@id/reward_img"
-        app:layout_constraintTop_toBottomOf="@id/reward_img" />
-
-    <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/point_img"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="64dp"
-        android:src="@drawable/point"
-        app:layout_constraintBottom_toTopOf="@id/recycler_view"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/reward_img"
-        app:layout_constraintBottom_toBottomOf="@id/reward_img"/>
-
-
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/point_tv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:text="200"
-        app:layout_constraintStart_toStartOf="@id/point_img"
-        app:layout_constraintTop_toBottomOf="@id/point_img" />
-
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view"

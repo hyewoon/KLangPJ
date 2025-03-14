@@ -1,4 +1,4 @@
-package com.hye.sesac.klangpj.data.preferences
+package com.hye.mylibrary.data.preferences
 
 import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.intPreferencesKey

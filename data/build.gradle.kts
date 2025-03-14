@@ -76,6 +76,9 @@ dependencies {
 
     ksp(libs.androidx.room.compiler)
 
+    //data_store
+    implementation(libs.androidx.datastore.preferences)
+
     //retrofit, tikxml
     implementation(libs.retrofit)
     implementation(libs.tikxml.retrofit.converter)

@@ -159,7 +159,6 @@
         android:layout_marginStart="@dimen/main_margin"
         android:layout_marginEnd="@dimen/main_margin"
         android:layout_marginTop="@dimen/second_margin"
-        android:layout_marginBottom="@dimen/main_margin"
         android:backgroundTint="@color/point_white"
         app:cardCornerRadius="24dp"
         app:layout_constraintBottom_toBottomOf="parent"

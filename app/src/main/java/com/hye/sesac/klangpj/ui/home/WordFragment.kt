@@ -13,11 +13,13 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.hye.domain.usecase.LoadTodayStudyWord
 import com.hye.sesac.klangpj.BaseFragment
 import com.hye.sesac.klangpj.R
 import com.hye.sesac.klangpj.common.KLangApplication.Companion.firestoreRepository
 import com.hye.sesac.klangpj.common.KLangApplication.Companion.studyRoomRepository
+import com.hye.sesac.klangpj.common.showDialog
 import com.hye.sesac.klangpj.common.throttleFirst
 import com.hye.sesac.klangpj.databinding.FragmentWordBinding
 import com.hye.sesac.klangpj.state.TodayWordUiState
@@ -144,14 +146,12 @@ class WordFragment : BaseFragment<FragmentWordBinding>(FragmentWordBinding::infl
             listenBtn.clicks()
                 .throttleFirst(300L)
                 .onEach {
-
+                    showListenDialog(viewModel.currentWord.value!!)
                 }.launchIn(lifecycleScope)
             bookmarkBtn.clicks()
                 .throttleFirst(300L)
                 .onEach {
-
                     bookmarkBtn.isSelected = true
-
                     //bookmarkBtn.setImageResource(if (bookmarkBtn.isSelected) R.drawable.checked_star else R.drawable.unchecked_star)
                     bookmarkBtn.setImageResource(R.drawable.checked_star)
                 }.launchIn(lifecycleScope)
@@ -198,7 +198,21 @@ class WordFragment : BaseFragment<FragmentWordBinding>(FragmentWordBinding::infl
         binding.preBtn.isEnabled = movePrev
     }
 
-    private fun showDialog(text: String) {
+    private fun showListenDialog(text: TodayWordUiState) {
+
+        val currentWords = text.word.toString()
+
+        MaterialAlertDialogBuilder(
+            requireContext(),
+            com.google.android.material.R.style.ThemeOverlay_Material3_MaterialAlertDialog
+        )
+            .setTitle("분석 결과")
+            .setMessage(currentWords)
+            .setPositiveButton("발음 듣기") { dialog, _ ->
+                dialog.dismiss()
+            }
+            .show()
+
 
     }
 

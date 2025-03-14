@@ -5,7 +5,6 @@ import androidx.lifecycle.ViewModelProvider
 import com.hye.domain.usecase.LoadTodayStudyWord
 import com.hye.sesac.klangpj.ui.viewmodel.HomeViewModel
 import com.hye.sesac.klangpj.ui.viewmodel.GameViewModel
-import com.hye.sesac.klangpj.ui.viewmodel.MyPageViewModel
 import com.hye.sesac.klangpj.ui.viewmodel.RankViewModel
 import com.hye.sesac.klangpj.ui.viewmodel.SharedViewModel
 
@@ -30,13 +29,8 @@ class ViewModelFactory(
                     }
 
                 }
-
                 isAssignableFrom(RankViewModel::class.java) ->
                     RankViewModel()
-
-                isAssignableFrom(MyPageViewModel::class.java) ->
-                    MyPageViewModel()
-
                 isAssignableFrom(SharedViewModel::class.java) ->
                     SharedViewModel()
 
