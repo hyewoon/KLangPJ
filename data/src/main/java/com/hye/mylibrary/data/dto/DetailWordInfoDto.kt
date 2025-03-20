@@ -7,7 +7,7 @@ import com.tickaroo.tikxml.annotation.Xml
 @Xml(name = "channel")
 data class DetailChannel(
     @Element(name = "item")
-    val items: List<DetailItem>? = listOf(),
+    val items: List<DetailItem> = listOf(),
 )
 
 @Xml(name = "item")
@@ -15,7 +15,7 @@ data class DetailItem(
     @PropertyElement(name = "target_code")
     val targetCode: Int = 0,
     @Element(name = "word_info")
-    val wordInfo: TargetWordInfo? = TargetWordInfo(),
+    val wordInfo: TargetWordInfo = TargetWordInfo(),
 )
 
 @Xml(name = "word_info")
@@ -27,9 +27,9 @@ data class TargetWordInfo(
     @PropertyElement(name = "word_grade")
     val wordGrade: String = "",
     @Element(name = "pronunciation_info")
-    val pronunciationInfo: List<PronunciationInfo>? = listOf(),
+    val pronunciationInfo: List<PronunciationInfo> = listOf(),
     @Element(name = "sense_info")
-    val senseInfo: List<SenseInfo>? = listOf(),
+    val senseInfo: List<SenseInfo> = listOf(),
 
 
     )
@@ -47,7 +47,7 @@ data class SenseInfo(
     @PropertyElement(name = "definition")
     val definition: String = "",
     @Element(name = "example_info")
-    val exampleInfo: List<ExampleInfo>? = listOf(),
+    val exampleInfo: List<ExampleInfo> = listOf(),
 )
 
 @Xml(name = "example_info")

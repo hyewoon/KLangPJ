@@ -19,15 +19,12 @@ import com.hye.sesac.klangpj.BaseFragment
 import com.hye.sesac.klangpj.R
 import com.hye.sesac.klangpj.common.KLangApplication.Companion.firestoreRepository
 import com.hye.sesac.klangpj.common.KLangApplication.Companion.studyRoomRepository
-import com.hye.sesac.klangpj.common.showDialog
 import com.hye.sesac.klangpj.common.throttleFirst
 import com.hye.sesac.klangpj.databinding.FragmentWordBinding
 import com.hye.sesac.klangpj.state.TodayWordUiState
-import com.hye.sesac.klangpj.state.UiStateResult
 import com.hye.sesac.klangpj.ui.factory.ViewModelFactory
 import com.hye.sesac.klangpj.ui.viewmodel.HomeViewModel
 import com.hye.sesac.klangpj.ui.viewmodel.SharedViewModel
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach

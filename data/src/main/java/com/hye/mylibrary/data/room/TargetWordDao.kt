@@ -14,12 +14,15 @@ import java.util.Date
 @Dao
 interface TargetWordDao {
 
+    @Transaction
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertTargetWord(targetWord: TargetWord)
 
+    @Transaction
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertTargetWordExampleInfo(exampleInfo: List<TargetWordExampleInfo>)
 
+    @Transaction
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertTargetWordPronunciationInfo(pronunciationInfo: List<TargetWordPronunciationInfo>)
 
@@ -56,18 +59,22 @@ interface TargetWordDao {
         insertTargetWordPronunciationInfo(pronunciationInfo)
     }
 
-
+    @Transaction
     @Query("DELETE FROM pronunciation_info WHERE pronunciation_targetCode_fk = :targetCode")
     suspend fun deletePronunciationInfo(targetCode: Long)
 
+    @Transaction
     @Query("DELETE FROM example_info WHERE example_targetCode_fk = :targetCode")
     suspend fun deleteExampleInfo(targetCode: Long)
 
     @Transaction
+    @Query("DELETE FROM target_word")
+    suspend fun deleteAll()
+
+
     @Query("SELECT* FROM target_word WHERE todayString = :todayString")
     suspend fun searchTargetWordByDate(todayString: String): List<TargetWordWithAllInfo>
 
-    @Transaction
     @Query("SELECT * FROM target_word")
     suspend fun getAllTargetWords(): List<TargetWordWithAllInfo>
 }

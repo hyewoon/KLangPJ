@@ -9,5 +9,11 @@ data class TodayWordUiState(
     val examples: List<String> = emptyList(),
     val pronunciation: String = ""
 ){
+ fun matchWord(){
+    val firstExample =  examples[0].toString()
+     if(firstExample.contains(word)){
+         firstExample.replace(word, "<b>$word</b>")
+     }
 
+ }
 }

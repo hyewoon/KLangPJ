@@ -8,7 +8,7 @@ import com.tickaroo.tikxml.annotation.Xml
 @Xml(name = "channel")
 data class Channel(
     @Element(name = "item")
-    val item: List<WordInfo>?= mutableListOf()
+    val item: List<WordInfo> = mutableListOf()
 )
 
 @Xml(name = "item")
@@ -24,7 +24,7 @@ data class WordInfo(
 
 
     @PropertyElement(name = "word_grade")
-    val wordGrade: String? = "",
+    val wordGrade: String = "",
 
     //품사
     @PropertyElement(name = "pos")

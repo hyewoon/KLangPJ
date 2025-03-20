@@ -47,16 +47,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
 
 
-
-     /*   viewLifecycleOwner.lifecycleScope.launch {
-            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED){
-                sharedViewModel.weeklyAttendance.collect{
-                    updateAttendanceIcons(it)
-
-                }
-            }
-        }*/
-
         viewLifecycleOwner.lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED){
                 sharedViewModel.targetWordCount.collectLatest { target->
@@ -127,19 +117,5 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
         }
     }
 
-/*    private fun updateAttendanceIcons(attendanceMap: Map<Int, Boolean>) {
-        // Calendar.SUNDAY(1) ~ Calendar.SATURDAY(7)
-        for (day in Calendar.SUNDAY..Calendar.SATURDAY) {
-            val isAttended = attendanceMap[day] ?: false
-            val index = day - 1 // Calendar.SUNDAY(1)를 인덱스 0으로 맞추기
-
-            if (index in dayIcons.indices) {
-                if (isAttended) {
-                    dayIcons[index].setImageResource(R.drawable.attend)
-                } else {
-                }
-            }
-        }
-    }*/
 
 }

@@ -54,6 +54,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/nav_host_fragment"
         app:labelVisibilityMode="labeled"
+        android:background="@color/blue_50"
+        app:itemRippleColor="@color/point_white"
         app:menu="@menu/bottom_nav_menu" />
 
 

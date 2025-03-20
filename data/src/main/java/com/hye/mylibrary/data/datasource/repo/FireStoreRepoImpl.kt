@@ -29,6 +29,7 @@ class FireStoreRepoImpl(private val preferenceDataStoreManager: PreferenceDataSt
     private val domainMapper: ToDomainWordMapper = ToDomainWordMapper()
 
     override suspend fun getFireStoreWord(count: Long): List<TargetWordEntity> = runCatching {
+
         val lastDocId = preferenceDataStoreManager.documentId.first()
 
         val snapshot = getFireStoreData(lastDocId, count)
@@ -67,7 +68,6 @@ class FireStoreRepoImpl(private val preferenceDataStoreManager: PreferenceDataSt
             .await()
     }
 
-
     private fun mapToTargetWordDto(doc: DocumentSnapshot): TargetWordDto {
         val dtoList = mutableListOf<TargetWordDto>()
         val dto = TargetWordDto()
@@ -84,10 +84,8 @@ class FireStoreRepoImpl(private val preferenceDataStoreManager: PreferenceDataSt
         println("dtoList:${dto.exampleInfo}")
         println("dtoList:${dto.pronunciationInfo}")
 
-
         return dto
     }
-
 
 }
 

@@ -16,20 +16,20 @@ class ToDomainMapper {
             pos = room.targetWord.pos,
             timeStamp = room.targetWord.timeStamp,
             todayString = room.targetWord.todayString,
-            exampleInfo = room.exampleInfo?.map {
+            exampleInfo = room.exampleInfo.map {
                 WordExampleInfoEntity(
                     type = it.type,
                     example = it.example
                 )
-            } ?: emptyList<WordExampleInfoEntity>(),
-            pronunciationInfo = room.pronunciationInfo?.map {
+            },
+            pronunciationInfo = room.pronunciationInfo.map {
                 WordPronunciationInfoEntity(
                     pronunciation = it.pronunciation,
                     audioUrl = it.audioUrl
                 )
 
 
-            } ?: emptyList<WordPronunciationInfoEntity>()
+            }
         )
     }
 }

@@ -21,12 +21,12 @@ import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import ru.ldralighieri.corbind.view.clicks
 
-
 /**
  * mvvm패턴 -> MLKIt
  * 이유? UI에서 그리는 작업은 간단하지만, 이걸 인식하는 과정은 오래걸릴 수 있음 그래서 비동기 작업이 필요함
  * TTS에서도 사용함
  */
+
 class DrawFragment : BaseFragment<FragmentDrawBinding>(FragmentDrawBinding::inflate) {
 
     private val viewModel by activityViewModels<GameViewModel>()

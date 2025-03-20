@@ -21,6 +21,7 @@ import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import com.gun0912.tedpermission.PermissionListener
 import com.gun0912.tedpermission.normal.TedPermission
+import com.hye.sesac.klangpj.common.showToast
 import com.hye.sesac.klangpj.databinding.FragmentSttBinding
 
 /**
@@ -67,7 +68,8 @@ class STTFragment : BaseFragment<FragmentSttBinding>(FragmentSttBinding::inflate
 
         override fun onPermissionDenied(deniedPermissions: MutableList<String>?) {
             //거부되면
-            Toast.makeText(requireContext(), "권한을 거부 하셨습니다.", Toast.LENGTH_SHORT).show()
+            showToast("권한을 거부하셨습니다.")
+
         }
 
     }
@@ -88,7 +90,8 @@ class STTFragment : BaseFragment<FragmentSttBinding>(FragmentSttBinding::inflate
         try {
             resultLauncher.launch(intent)
         } catch (e: ActivityNotFoundException) {
-            Toast.makeText(requireContext(), "음성인식을 지원하지 않는 기기입니다.", Toast.LENGTH_SHORT).show()
+
+            showToast("음성인식을 지원하지 않는 기기입니다.")
         }
     }
 

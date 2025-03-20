@@ -17,7 +17,7 @@ class ToRoomDbMapper {
     fun mapToRoom(dto: TargetWordEntity): TargetWord {
         return TargetWord(
             targetCode = dto.targetCode,
-            frequency = dto.frequency ?: 0L,
+            frequency = dto.frequency,
             korean = dto.korean,
             english = dto.english,
             pos = dto.pos,
