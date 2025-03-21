@@ -45,9 +45,8 @@ class FireStoreRepoImpl(private val preferenceDataStoreManager: PreferenceDataSt
         emptyList()
     }
 
-    private suspend fun getFireStoreData(lastDocId: String, count: Long): QuerySnapshot {
-
-        return if (lastDocId.isEmpty()) { //1. 맨 처음 다운로드 dataStore에 값이 없음
+    private suspend fun getFireStoreData(lastDocId: String, count: Long) =
+        if (lastDocId.isEmpty()) { //1. 맨 처음 다운로드 dataStore에 값이 없음
             db.collection("words1")
                 .orderBy("frequency", Query.Direction.DESCENDING)
                 .orderBy("korean", Query.Direction.ASCENDING)
@@ -66,62 +65,55 @@ class FireStoreRepoImpl(private val preferenceDataStoreManager: PreferenceDataSt
         }
             .get()
             .await()
-    }
+}
 
-    private fun mapToTargetWordDto(doc: DocumentSnapshot): TargetWordDto {
-        val dtoList = mutableListOf<TargetWordDto>()
-        val dto = TargetWordDto()
-        dto.targetCode = doc.getLong("targetCode") ?: 0L
-        dto.frequency = doc.getLong("frequency") ?: 0L
-        dto.korean = doc.getString("korean") ?: ""
-        dto.english = doc.getString("english") ?: ""
-        dto.wordGrade = doc.getString("wordGrade") ?: ""
-        dto.pos = doc.getString("pos") ?: ""
+private fun mapToTargetWordDto(doc: DocumentSnapshot) = TargetWordDto().apply {
+    targetCode = doc.getLong("targetCode") ?: 0L
+    frequency = doc.getLong("frequency") ?: 0L
+    korean = doc.getString("korean") ?: ""
+    english = doc.getString("english") ?: ""
+    wordGrade = doc.getString("wordGrade") ?: ""
+    pos = doc.getString("pos") ?: ""
 
-        dto.exampleInfo = parseExampleInfo(doc)
-        dto.pronunciationInfo = parsePronunciationInfo(doc)
-
-        println("dtoList:${dto.exampleInfo}")
-        println("dtoList:${dto.pronunciationInfo}")
-
-        return dto
-    }
-
+    exampleInfo = parseExampleInfo(doc)
+    pronunciationInfo = parsePronunciationInfo(doc)
+}.also {
+    println("exampleInfo: ${it.exampleInfo}")
+    println("pronunciationInfo: ${it.pronunciationInfo}")
 }
 
 
-private fun parseExampleInfo(doc: DocumentSnapshot): List<TargetWordExampleInfoDto> {
-    return try {
-        val exampleInfo =
-            doc.get("example_info") as? List<Map<String, Any>> ?: return emptyList()
-        exampleInfo.map { example ->
-            TargetWordExampleInfoDto(
-                type = example["type"] as? String ?: "",
-                example = example["example"] as? String ?: ""
-            )
-        }
-    } catch (e: Exception) {
-        println("Error parsing example_info: ${e.message}")
-        emptyList()
-    }
-}
 
-private fun parsePronunciationInfo(doc: DocumentSnapshot): List<TargetWordPronunciationInfoDto> {
-    return try {
-        val pronunciationInfo =
-            doc.get("pronunciation_info") as? List<Map<String, Any>> ?: return emptyList()
-        pronunciationInfo.map { pronunciation ->
-            TargetWordPronunciationInfoDto(
-                pronunciation = pronunciation["pronunciation_info.pronunciation"] as? String
-                    ?: "",
-                audioUrl = pronunciation["pronunciation_info.link"] as? String ?: ""
-            )
-        }
-    } catch (e: Exception) {
-        println("Error parsing pronunciation_info: ${e.message}")
-        emptyList()
+private fun parseExampleInfo(doc: DocumentSnapshot) = runCatching {
+    val exampleInfo =
+        doc.get("example_info") as? List<Map<String, Any>> ?: emptyList<Map<String, Any>>()
+    exampleInfo.map { example ->
+        TargetWordExampleInfoDto(
+            type = example["type"] as? String ?: "",
+            example = example["example"] as? String ?: ""
+        )
     }
+}.onFailure {
+    println("Error parsing example_info: ${it.message}")
 
-}
+}.getOrDefault(emptyList())
+
+
+private fun parsePronunciationInfo(doc: DocumentSnapshot) = runCatching {
+    val pronunciationInfo =
+        doc.get("pronunciation_info") as? List<Map<String, Any>> ?: emptyList<Map<String, Any>>()
+    pronunciationInfo.map { pronunciation ->
+        TargetWordPronunciationInfoDto(
+            pronunciation = pronunciation["pronunciation_info.pronunciation"] as? String
+                ?: "",
+            audioUrl = pronunciation["pronunciation_info.link"] as? String ?: ""
+        )
+    }
+}.onFailure {
+    println("Error parsing pronunciation_info: ${it.message}")
+
+}.getOrDefault(emptyList())
+
+
 
 

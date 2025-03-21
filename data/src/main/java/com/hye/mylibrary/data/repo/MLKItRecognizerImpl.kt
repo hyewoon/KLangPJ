@@ -44,16 +44,10 @@ class MLKItRecognizerImpl() : MLKitRepository {
      */
 
 
-    override suspend fun recognize(strokes: List<HandWritingStroke>) =
-        flow<MLKitResult<String>> {
-            val ink = convertToInk(strokes)
-            val currentRecognizer = recognizer ?: throw Exception("Recognizer not initialized")
+    override suspend fun recognize(strokes: List<HandWritingStroke>) = flow<MLKitResult<String>> {
+        val ink = convertToInk(strokes).getOrThrow()
+        val currentRecognizer = recognizer ?: throw Exception("Recognizer not initialized")
             val result = currentRecognizer.recognize(ink).await()
-
-  /*          val bestResult = result.candidates.firstOrNull()?.text ?: "인식 실패"
-            val candidate = result.candidates.firstOrNull()?.score as? Number*/
-
-
 
             val bestResult = result.candidates.firstOrNull()?.text ?: "인식 실패"
             val firstCandidate = result.candidates.firstOrNull()
@@ -68,7 +62,8 @@ class MLKItRecognizerImpl() : MLKitRepository {
             println("첫 번째 후보 클래스: ${firstCandidate?.javaClass}")  // 클래스 확인
 
             val candidate = try {
-                firstCandidate?.javaClass?.getDeclaredMethod("getScore")?.invoke(firstCandidate) as? Number
+                firstCandidate?.javaClass?.getDeclaredMethod("getScore")
+                    ?.invoke(firstCandidate) as? Number
             } catch (e: NoSuchMethodException) {
                 println("score 필드 없음")
                 null
@@ -85,98 +80,76 @@ class MLKItRecognizerImpl() : MLKitRepository {
             emit(MLKitResult.Success(bestResult))
 
 
-     /*       when (bestResult.isNotEmpty()) {
-                true -> {
-
-                    println("텍스트 : ${result.candidates.first().text}")
-                    println("신뢰도 : ${result.candidates.first().score}")
-                    val dto = RecognitionResultDto(
-                        recognizedText = result.candidates.first().text ?: "",
-                        confidence = result.candidates.first().score!!.toFloat(),
-                    )
-
-                    val mapperResult = mapper.mapToDomain(dto)
-                    emit(MLKitResult.Success(mapperResult))
-                }
-
-                false -> emit( MLKitResult.Failure("인식 오류"))
-            }
-*/
-
         }.catch {
             emit(MLKitResult.Failure("인식 오류 ${it.message}"))
         }
 
-    private fun convertToInk(strokes: List<HandWritingStroke>): Ink {
-        return Ink.builder().apply {
+    private fun convertToInk(strokes: List<HandWritingStroke>) = runCatching {
+        Ink.builder().apply {
             strokes.forEach { stroke ->
                 addStroke(convertToStroke(stroke))
             }
         }.build()
     }
 
-    private fun convertToStroke(stroke: HandWritingStroke): Stroke {
-        return Stroke.builder().apply {
-            stroke.pointData.forEach { point ->
-                addPoint(convertToPoint(point))
-
-            }
-        }.build()
-    }
-
-    private fun convertToPoint(point: HandWritingPoint): Point {
-        return Point.create(
-            point.x, point.y, point.timestamp
-        )
-
-    }
-
-
-    /**
-     * recognizer -> viewModel에서 인식
-     */
-    suspend fun setUpRecognizer() {
-        val modelIdentifier = DigitalInkRecognitionModelIdentifier.fromLanguageTag("ko")
-            ?: throw Exception("지원되지 않는 언어입니다.")
-
-        val model = DigitalInkRecognitionModel.builder(modelIdentifier).build()
-        downloadModelAndSetUpRecognizer(model)
-
-
-    }
-
-
-    /**
-     * 모델객체 얻기
-     */
-    private suspend fun downloadModelAndSetUpRecognizer(model: DigitalInkRecognitionModel) {
-        runCatching {
-
-            val currentModel = model ?: throw Exception("Model initialization failed")
-            recognizer?.close()
-            remoteModelManager.download(currentModel, DownloadConditions.Builder().build())
-
-            recognizer = DigitalInkRecognition.getClient(
-                DigitalInkRecognizerOptions.builder(currentModel).build()
-            )
-            isInitialized = true
-
-
-        }.onFailure {
-            it.printStackTrace()
-            isInitialized = false
-            recognizer = null
+    private fun convertToStroke(stroke: HandWritingStroke) = Stroke.builder().apply {
+        stroke.pointData.forEach { point ->
+            addPoint(convertToPoint(point))
 
         }
+    }.build()
 
-    }
 
-    /**
-     * recognizer 정리
-     */
-    override fun cleanUp() {
+private fun convertToPoint(point: HandWritingPoint) = Point.create(
+    point.x, point.y, point.timestamp
+)
+
+
+/**
+ * recognizer -> viewModel에서 인식
+ */
+suspend fun setUpRecognizer() {
+    val modelIdentifier = DigitalInkRecognitionModelIdentifier.fromLanguageTag("ko")
+        ?: throw Exception("지원되지 않는 언어입니다.")
+
+    val model = DigitalInkRecognitionModel.builder(modelIdentifier).build()
+    downloadModelAndSetUpRecognizer(model)
+
+
+}
+
+
+/**
+ * 모델객체 얻기
+ */
+private suspend fun downloadModelAndSetUpRecognizer(model: DigitalInkRecognitionModel) = runCatching {
+
+        val currentModel = model ?: throw Exception("Model initialization failed")
         recognizer?.close()
+        remoteModelManager.download(currentModel, DownloadConditions.Builder().build())
+
+        recognizer = DigitalInkRecognition.getClient(
+            DigitalInkRecognizerOptions.builder(currentModel).build()
+        )
+        isInitialized = true
+
+
+    }.onFailure {
+        it.printStackTrace()
+        isInitialized = false
         recognizer = null
-        model = null
+
     }
+
+
+
+
+/**
+ * recognizer 정리
+ */
+override fun cleanUp() {
+    recognizer?.close()
+    recognizer = null
+    model = null
+}
 }
