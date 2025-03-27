@@ -70,6 +70,8 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/main_margin"
                 android:textSize="12sp"
+                android:text="100개"
+                android:paddingEnd="32dp"
                 app:layout_constraintBottom_toTopOf="@id/divider_1"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -100,6 +102,8 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/main_margin"
                 android:textSize="12sp"
+                android:text="10번"
+                android:paddingEnd="32dp"
                 app:layout_constraintBottom_toTopOf="@id/divider_2"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/divider_1" />
@@ -120,6 +124,7 @@
                 android:layout_margin="@dimen/main_margin"
                 android:text="@string/total_attendance"
                 android:textSize="12sp"
+
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/divider_2" />
@@ -130,6 +135,8 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/main_margin"
                 android:textSize="12sp"
+                android:text="12일"
+                android:paddingEnd="32dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/divider_2" />
@@ -185,6 +192,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="12sp"
+                android:paddingEnd="32dp"
+                android:text="10"
+                android:layout_margin="@dimen/main_margin"
                 app:layout_constraintBottom_toTopOf="@id/divider_3"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -216,6 +226,8 @@
                 android:layout_height="wrap_content"
                 android:textSize="12sp"
                 android:layout_margin="@dimen/main_margin"
+                android:text="10"
+                android:paddingEnd="32dp"
                 app:layout_constraintBottom_toTopOf="@id/divider_4"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/divider_3" />

@@ -60,12 +60,12 @@ interface TargetWordDao {
     }
 
     @Transaction
-    @Query("DELETE FROM pronunciation_info WHERE pronunciation_targetCode_fk = :targetCode")
-    suspend fun deletePronunciationInfo(targetCode: Long)
+    @Query("DELETE FROM pronunciation_info WHERE pronunciation_documentId_fk = :documentId")
+    suspend fun deletePronunciationInfo(documentId: String)
 
     @Transaction
-    @Query("DELETE FROM example_info WHERE example_targetCode_fk = :targetCode")
-    suspend fun deleteExampleInfo(targetCode: Long)
+    @Query("DELETE FROM example_info WHERE example_documentId_fk = :documentId")
+    suspend fun deleteExampleInfo(documentId: String)
 
     @Transaction
     @Query("DELETE FROM target_word")

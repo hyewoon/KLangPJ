@@ -1,6 +1,7 @@
 package com.hye.domain.model
 
 data class TargetWordEntity(
+    val documentId: String = "",
     val targetCode: Long = 0L,
     val frequency: Long = 0L,
     val korean: String = "",

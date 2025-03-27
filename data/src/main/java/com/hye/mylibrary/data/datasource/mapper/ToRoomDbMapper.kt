@@ -16,6 +16,7 @@ import com.hye.mylibrary.data.room.TargetWordPronunciationInfo
 class ToRoomDbMapper {
     fun mapToRoom(dto: TargetWordEntity): TargetWord {
         return TargetWord(
+            documentId = dto.documentId,
             targetCode = dto.targetCode,
             frequency = dto.frequency,
             korean = dto.korean,
@@ -23,29 +24,24 @@ class ToRoomDbMapper {
             pos = dto.pos,
             wordGrade = dto.wordGrade?: "등급 없음"
         )
-
     }
 
     fun mapToRoomExampleInfo(
         dto: TargetWordExampleInfoEntity,
-        targetCode: Long,
-    ): TargetWordExampleInfo {
-        return TargetWordExampleInfo(
-            targetCode = targetCode,
+        documentId: String,
+    )= TargetWordExampleInfo(
+            documentId = documentId,
             type = dto.type?:"",
             example = dto.example?: "예시가 존재 하지 않음"
         )
-    }
 
     fun mapToRoomPronunciationInfo(
         dto: TargetWordPronunciationInfoEntity,
-        targetCode: Long,
-    ): TargetWordPronunciationInfo {
-        return TargetWordPronunciationInfo(
-            targetCode = targetCode,
+        documentId: String,
+    )= TargetWordPronunciationInfo(
+            documentId = documentId,
             pronunciation = dto.pronunciation?: "",
             audioUrl = dto.audioUrl?:"음성 파일 존재 하지 않음"
         )
 
-    }
 }

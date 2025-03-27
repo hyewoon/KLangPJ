@@ -16,6 +16,7 @@ class ToDomainWordMapper {
      * to domain
      */
     fun mapToDomain(dto: TargetWordDto) = TargetWordEntity(
+            documentId = dto.documentId,
             targetCode = dto.targetCode,
             frequency = dto.frequency,
             korean = dto.korean,

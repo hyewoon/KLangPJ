@@ -16,6 +16,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
@@ -65,6 +66,7 @@ class HomeViewModel(
         viewModelScope.launch {
             _todayWordUiState.value = UiStateResult.Loading
 
+
             val result = useCase.invoke(targetWord)
             Log.d("homeViewModel", "searchUseCase: $result")
 
@@ -100,7 +102,7 @@ class HomeViewModel(
     fun moveToNextWord() {
         val currentState = _todayWordUiState.value
         if (currentState is UiStateResult.Success &&
-            _currentIndex.value < currentState.data.size - 1
+            _currentIndex.value < currentState.data.size
         ) {
             _currentIndex.value += 1
 
@@ -108,6 +110,8 @@ class HomeViewModel(
                 sharedViewModel.incrementCurrentWordCount()
             }
 
+        }else if(currentState is UiStateResult.Success && _currentIndex.value >= currentState.data.size){
+            _currentIndex.value = sharedViewModel.targetWordCount.value
         }
     }
 
@@ -118,6 +122,7 @@ class HomeViewModel(
 
             viewModelScope.launch {
                 sharedViewModel.decrementCurrentWordCount()
+
             }
         }
     }

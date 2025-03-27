@@ -58,12 +58,15 @@ class PreferenceDataStoreManager(context: Context) : ICRUDPreferenceDataStore {
     suspend fun saveTargetCode(code: Int) {
         createPreference(PreferenceDataStoreConstants.TARGET_CODE, code)
     }
+
     val targetCode: Flow<Int> = readPreference(
         PreferenceDataStoreConstants.TARGET_CODE, 0
     )
+
     suspend fun saveDocumentId(id: String) {
         createPreference(PreferenceDataStoreConstants.DOCUMENT_ID, id)
     }
+
     val documentId: Flow<String> = readPreference(
         PreferenceDataStoreConstants.DOCUMENT_ID, ""
     )
@@ -85,50 +88,58 @@ class PreferenceDataStoreManager(context: Context) : ICRUDPreferenceDataStore {
     suspend fun incrementCurrentWordCount() {
         dataSource.edit { preferences ->
             val currentCount = preferences[PreferenceDataStoreConstants.CURRENT_WORD_COUNT] ?: 0
-            preferences[PreferenceDataStoreConstants.CURRENT_WORD_COUNT] = currentCount + 1
+            val targetWordCount = preferences[PreferenceDataStoreConstants.TARGET_WORD_COUNT] ?: 0
+            if (currentCount < targetWordCount) {
+                preferences[PreferenceDataStoreConstants.CURRENT_WORD_COUNT] = currentCount + 1
+
+            } else {
+                preferences[PreferenceDataStoreConstants.CURRENT_WORD_COUNT] = targetWordCount
+            }
         }
     }
 
-    suspend fun decrementCurrentWordCount() {
-        dataSource.edit { preferences ->
-            val currentCount = preferences[PreferenceDataStoreConstants.CURRENT_WORD_COUNT] ?: 0
-            if (currentCount > 0) {
-                preferences[PreferenceDataStoreConstants.CURRENT_WORD_COUNT] = currentCount - 1
+        suspend fun decrementCurrentWordCount() {
+            dataSource.edit { preferences ->
+                val currentCount = preferences[PreferenceDataStoreConstants.CURRENT_WORD_COUNT] ?: 0
+                if (currentCount > 0) {
+                    preferences[PreferenceDataStoreConstants.CURRENT_WORD_COUNT] = currentCount - 1
+                }
+
+
+            }
+        }
+
+        val currentWordCount: Flow<Int> = readPreference(
+            PreferenceDataStoreConstants.CURRENT_WORD_COUNT, 0
+        )
+
+
+        //포인트
+        suspend fun savePawPoint(point: Int) {
+            createPreference(PreferenceDataStoreConstants.PAW_POINT, point)
+        }
+
+        suspend fun addPawPoint(point: Int = 5) {
+            dataSource.edit { preferences ->
+                val currentPoint = preferences[PreferenceDataStoreConstants.PAW_POINT] ?: 0
+                preferences[PreferenceDataStoreConstants.PAW_POINT] = currentPoint + point
+            }
+        }
+
+        suspend fun saveTargetPoint(point: Int) {
+            createPreference(PreferenceDataStoreConstants.TARGET_POINT, point)
+        }
+
+        suspend fun addTargetPoint(point: Int = 10) {
+            dataSource.edit { preferences ->
+                val currentPoint = preferences[PreferenceDataStoreConstants.TARGET_POINT] ?: 0
+                preferences[PreferenceDataStoreConstants.TARGET_POINT] = currentPoint + point
             }
 
-
         }
     }
 
-    val currentWordCount: Flow<Int> = readPreference(
-        PreferenceDataStoreConstants.CURRENT_WORD_COUNT, 0
-    )
 
-
-    //포인트
-    suspend fun savePawPoint(point: Int) {
-        createPreference(PreferenceDataStoreConstants.PAW_POINT, point)
-    }
-
-    suspend fun addPawPoint(point: Int = 5) {
-        dataSource.edit { preferences ->
-            val currentPoint = preferences[PreferenceDataStoreConstants.PAW_POINT] ?: 0
-            preferences[PreferenceDataStoreConstants.PAW_POINT] = currentPoint + point
-        }
-    }
-
-    suspend fun saveTargetPoint(point: Int) {
-        createPreference(PreferenceDataStoreConstants.TARGET_POINT, point)
-    }
-
-    suspend fun addTargetPoint(point: Int = 10) {
-        dataSource.edit { preferences ->
-            val currentPoint = preferences[PreferenceDataStoreConstants.TARGET_POINT] ?: 0
-            preferences[PreferenceDataStoreConstants.TARGET_POINT] = currentPoint + point
-        }
-
-    }
-}
 
 
 

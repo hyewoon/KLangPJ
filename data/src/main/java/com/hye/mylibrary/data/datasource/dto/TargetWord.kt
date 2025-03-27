@@ -7,6 +7,7 @@ import com.google.firebase.firestore.PropertyName
  * example은 3개로 갯수 제한
  */
 data class TargetWordDto (
+    var documentId: String = "",
     var targetCode: Long = 0L,
     var frequency: Long = 0L,
     var korean: String ="",

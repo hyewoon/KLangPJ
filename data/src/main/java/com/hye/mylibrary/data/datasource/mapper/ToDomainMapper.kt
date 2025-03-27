@@ -8,6 +8,7 @@ import com.hye.mylibrary.data.room.TargetWordWithAllInfo
 class ToDomainMapper {
     fun mapToDomain(room: TargetWordWithAllInfo): TargetWordWithAllInfoEntity {
         return TargetWordWithAllInfoEntity(
+            documentId = room.targetWord.documentId,
             targetCode = room.targetWord.targetCode,
             frequency = room.targetWord.frequency,
             korean = room.targetWord.korean,

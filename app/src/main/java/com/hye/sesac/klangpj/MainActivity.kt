@@ -73,7 +73,6 @@ class MainActivity : AppCompatActivity() {
                 setOf(
                     R.id.homeFragment,
                     R.id.wordGameFragment,
-                    R.id.rankFragment,
                     R.id.myPageFragment
                 )
             )

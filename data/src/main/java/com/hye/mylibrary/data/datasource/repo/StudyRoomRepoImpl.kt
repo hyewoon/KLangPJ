@@ -4,17 +4,13 @@ package com.hye.mylibrary.data.datasource.repo
 import android.os.Build
 import androidx.annotation.RequiresApi
 import com.hye.domain.model.TargetWordEntity
-import com.hye.domain.model.TargetWordWithAllInfoEntity
 import com.hye.domain.repo.StudyRoomRepository
 import com.hye.domain.result.RoomDBResult
 import com.hye.mylibrary.data.datasource.mapper.ToDomainMapper
 import com.hye.mylibrary.data.datasource.mapper.ToRoomDbMapper
 import com.hye.mylibrary.data.room.TargetWordRoomDatabase
-import java.text.SimpleDateFormat
 import java.time.LocalDate
-import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
-import java.util.Date
 import java.util.Locale
 
 class StudyRoomRepoImpl(
@@ -26,11 +22,11 @@ class StudyRoomRepoImpl(
 
 
     @RequiresApi(Build.VERSION_CODES.O)
-    override suspend fun createStudyRoom(word: List<TargetWordEntity>) = try {
+    override suspend fun createStudyRoom(word: List<TargetWordEntity>) = runCatching {
         insertRoomDb(word)
         RoomDBResult.Success(Unit)
-    } catch (e: Exception) {
-        RoomDBResult.RoomDBError(e)
+    }.getOrElse {
+        RoomDBResult.RoomDBError(it)
     }
 
     override suspend fun readStudyRoom(date: String) = runCatching {
@@ -51,11 +47,11 @@ class StudyRoomRepoImpl(
         RoomDBResult.RoomDBError(it)
     }
 
-    override suspend fun deleteAllStudyRoom() = try {
+    override suspend fun deleteAllStudyRoom() =runCatching {
         targetWordDao.deleteAll()
         RoomDBResult.Success(Unit)
-    } catch (e: Exception) {
-        RoomDBResult.RoomDBError(e)
+    }.getOrElse {
+        RoomDBResult.RoomDBError(it)
     }
 
 
@@ -73,10 +69,10 @@ class StudyRoomRepoImpl(
             targetWordDao.insertLimitedTargetWordExampleInfo(
                 targetWord = targetWord,
                 exampleInfo = it.exampleInfo.map { example ->
-                    roomMapper.mapToRoomExampleInfo(example, targetWord.targetCode)
+                    roomMapper.mapToRoomExampleInfo(example, targetWord.documentId)
                 } ?: emptyList(),
                 pronunciationInfo = it.pronunciationInfo.map { pronunciation ->
-                    roomMapper.mapToRoomPronunciationInfo(pronunciation, targetWord.targetCode)
+                    roomMapper.mapToRoomPronunciationInfo(pronunciation, targetWord.documentId)
 
                 } ?: emptyList()
             )

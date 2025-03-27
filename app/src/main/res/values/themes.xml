@@ -41,8 +41,8 @@
     <!-- 하단 네비게이션 스타일 -->
 
     <style name="Widget.App.BottomNavigationView" parent="Widget.Material3.BottomNavigationView">
-        <item name="itemIconTint">@color/nav_item_colors</item>
-        <item name="itemTextColor">@color/nav_item_colors</item>
+        <item name="itemIconTint">@color/bottom_nav_text_selector</item>
+        <item name="itemTextColor">@color/bottom_nav_text_selector</item>
         <item name="backgroundColor">@color/point_ivory</item>
     </style>
 

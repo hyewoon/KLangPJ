@@ -68,6 +68,8 @@ class WordFragment : BaseFragment<FragmentWordBinding>(FragmentWordBinding::infl
 
         navController = findNavController()
         targetWordCount = args.targetWordCount
+
+        binding.linearProgressIndicator.progress = 0
         //오늘의 단어 불러오기
         sendStudyWordNum(targetWordCount)
         Log.d("WordFragment", "onViewCreated: $targetWordCount")
@@ -108,7 +110,12 @@ class WordFragment : BaseFragment<FragmentWordBinding>(FragmentWordBinding::infl
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 sharedViewModel.currentWordCount.collectLatest { current ->
                     binding.currentWordTv.text = (current + 1).toString()
-                    binding.linearProgressIndicator.progress = current + 1
+                    if(current< targetWordCount){
+                        binding.linearProgressIndicator.progress = current + 1
+                    }else{
+                        binding.linearProgressIndicator.progress = targetWordCount
+                    }
+
 
                 }
             }
@@ -161,7 +168,7 @@ class WordFragment : BaseFragment<FragmentWordBinding>(FragmentWordBinding::infl
                     Log.d("Word", "clicke됨")
 
                 }.launchIn(lifecycleScope)
-            preBtn.clicks()
+            prevBtn.clicks()
                 .throttleFirst(300L)
                 .onEach {
                     viewModel.moveToPreviousWord()
@@ -173,6 +180,7 @@ class WordFragment : BaseFragment<FragmentWordBinding>(FragmentWordBinding::infl
 
 
     private fun sendStudyWordNum(count: Int) {
+
         viewModel.searchUseCase(count)
     }
 
@@ -192,7 +200,7 @@ class WordFragment : BaseFragment<FragmentWordBinding>(FragmentWordBinding::infl
 
     private fun updateNavigationButtons(moveNext: Boolean, movePrev: Boolean) {
         binding.nextBtn.isEnabled = moveNext
-        binding.preBtn.isEnabled = movePrev
+        binding.prevBtn.isEnabled = movePrev
     }
 
     private fun showListenDialog(text: TodayWordUiState) {

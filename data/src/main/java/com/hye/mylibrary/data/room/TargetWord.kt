@@ -14,7 +14,8 @@ import java.util.Date
  */
 @Entity(tableName = "target_word")
 data class TargetWord(
-    @PrimaryKey val targetCode: Long = 0L,
+    @PrimaryKey val documentId: String = "",
+    val targetCode: Long = 0L,
     val frequency: Long? = 0L,
     val korean: String = "",
     val english: String = "",
@@ -29,18 +30,19 @@ data class TargetWord(
     foreignKeys = [
         ForeignKey(
             entity = TargetWord::class,
-            parentColumns = ["targetCode"],
-            childColumns = ["example_targetCode_fk"],
+            parentColumns = ["documentId"],
+            childColumns = ["example_documentId_fk"],
             onDelete = ForeignKey.CASCADE
 
             )
     ],
-    indices = [androidx.room.Index("example_targetCode_fk")]
+    indices = [androidx.room.Index("example_documentId_fk")]
 )
 data class TargetWordExampleInfo(
     @PrimaryKey(autoGenerate = true)
     val exampleId: Int = 0,
-    @ColumnInfo(name = "example_targetCode_fk")
+    @ColumnInfo(name = "example_documentId_fk")
+    val documentId: String ="",
     val targetCode: Long = 0,
     val type: String = "",
     val example: String = "",
@@ -51,17 +53,18 @@ data class TargetWordExampleInfo(
     foreignKeys = [
         ForeignKey(
             entity = TargetWord::class,
-            parentColumns = ["targetCode"],
-            childColumns = ["pronunciation_targetCode_fk"],
+            parentColumns = ["documentId"],
+            childColumns = ["pronunciation_documentId_fk"],
             onDelete = ForeignKey.CASCADE
         )
     ],
-    indices = [androidx.room.Index("pronunciation_targetCode_fk")]
+    indices = [androidx.room.Index("pronunciation_documentId_fk")]
 )
 data class TargetWordPronunciationInfo(
     @PrimaryKey(autoGenerate = true)
     val pronunciationId: Int = 0,
-    @ColumnInfo(name = "pronunciation_targetCode_fk")
+    @ColumnInfo(name = "pronunciation_documentId_fk")
+    val documentId: String ="",
     val targetCode: Long = 0,
     val pronunciation: String? = "",
     val audioUrl: String? = "",
@@ -70,16 +73,15 @@ data class TargetWordPronunciationInfo(
 data class TargetWordWithAllInfo(
     @Embedded val targetWord: TargetWord,
     @Relation(
-        parentColumn = "targetCode",
-        entityColumn = "example_targetCode_fk"
+        parentColumn = "documentId",
+        entityColumn = "example_documentId_fk"
     )
     val exampleInfo: List<TargetWordExampleInfo>,
 
     @Relation(
-        parentColumn = "targetCode",
-        entityColumn = "pronunciation_targetCode_fk"
+        parentColumn = "documentId",
+        entityColumn = "pronunciation_documentId_fk"
     )
     val pronunciationInfo: List<TargetWordPronunciationInfo>,
-
 
     )

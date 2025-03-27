@@ -11,11 +11,11 @@
         android:icon="@drawable/game"
         android:title="@string/wordGame_fragment"
         app:showAsAction="always" />
-    <item
+ <!--   <item
         android:id="@+id/rankFragment"
         android:icon="@drawable/rank"
         android:title="@string/rank_fragment"
-        app:showAsAction="always" />
+        app:showAsAction="always" />-->
     <item
         android:id="@+id/myPageFragment"
         android:icon="@drawable/my"

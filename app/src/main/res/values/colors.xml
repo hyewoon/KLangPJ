@@ -32,7 +32,9 @@
     <color name="point_white">#FFFFFF</color>
 
 <!--bottomBar-->
-    <color name="bottom">#27282C</color>
+
+    <color name="selected_color">#64646E</color> <!-- 선택 시 색상 -->
+    <color name="unselected_color">#CFCFD2</color>
 
 
 </resources>

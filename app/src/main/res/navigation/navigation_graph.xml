@@ -84,12 +84,12 @@
             app:destination="@id/wordFragment" />
     </fragment>
 
-    <fragment
+ <!--   <fragment
         android:id="@+id/rankFragment"
         android:name="com.hye.sesac.klangpj.ui.rank.RankFragment"
         android:label="fragment_rank"
         tools:layout="@layout/fragment_rank" />
-
+-->
 
     <fragment
         android:id="@+id/ttsFragment"
