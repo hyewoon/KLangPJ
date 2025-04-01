@@ -29,7 +29,7 @@ class MainActivity : AppCompatActivity() {
 
 
 
-    override fun onCreate(savedInstanceState: Bundle?) {
+    override fun onCreate(savedInstanceState: Bundle?) { //Bundle 이건 -> UI관련된 것 //onSavedInstance
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         binding = ActivityMainBinding.inflate(layoutInflater).also {
@@ -41,8 +41,6 @@ class MainActivity : AppCompatActivity() {
             val typedValue = TypedValue()
             theme.resolveAttribute(android.R.attr.colorBackground, typedValue, true)
             Log.d("ThemeCheck", "colorBackground: ${typedValue.data.toString(16)}")
-
-            //
 
             // 네비게이션 영역도 bottomMargin 대신 padding 사용 권장
             binding.bottomNavView.setPadding(

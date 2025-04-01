@@ -35,6 +35,12 @@ class WordGameFragment : BaseFragment<FragmentWordGameBinding>(FragmentWordGameB
 
         navController = findNavController()
         with(binding) {
+
+            circularIndicator.apply {
+                max = 10
+                progress = 4
+            }
+
             drawCardView.clicks()
                 .throttleFirst(300L)
                 .onEach {
@@ -49,7 +55,7 @@ class WordGameFragment : BaseFragment<FragmentWordGameBinding>(FragmentWordGameB
                 .launchIn(lifecycleScope)
             myDictionaryCardView.clicks()
                 .throttleFirst(300L)
-                .onEach {  }
+                .onEach { }
                 .launchIn(lifecycleScope)
             ttsCardView.clicks()
                 .throttleFirst(300L)
@@ -63,13 +69,13 @@ class WordGameFragment : BaseFragment<FragmentWordGameBinding>(FragmentWordGameB
                     navController.navigate(R.id.sttFragment)
                 }
                 .launchIn(lifecycleScope)
+            todayGameBtn.clicks()
+                .throttleFirst(300L)
+                .onEach {
+                    navController.navigate(R.id.gameFragment)
+                }
+                .launchIn(lifecycleScope)
 
-          /*  blankFilledGameCardView.setOnClickListener {
-                navController.navigate(R.id.blankFilledGameFragment)
-            }
-            chooseCorrectWordGameCardView.setOnClickListener {
-                navController.navigate(R.id.chooseWordGameFragment)
-            }*/
         }
 
     }
