@@ -23,16 +23,18 @@
 
 ✅ **기타 인식 기능**
  - 손글씨인식, 음성인식, 텍스트 인식 기능을 통한 단어와 친해지기
-<table>
+
+<table width="90%">
   <tr>
-    <td width="50%" align="center" height= "60%">
-      <img src="assets/screenshotForMLKit.png" alt="손글씨 인식" alt="이미지 설명" width="300" hspace="10" vspace="10">
+    <td width="45%" align="center">
+      <img src="assets/screenshotForMLKit.png" alt="손글씨 인식" width="250" hspace="5" vspace="5">
     </td>
-    <td width="50%" align="center" hegith="60%">
-      <img src="assets/mlkit_gif.gif" alt="GIF 설명" width="300" hspace="10" vspace="10">
+    <td width="45%" align="center">
+      <img src="assets/mlkit_gif.gif" alt="GIF 설명" width="250" hspace="5" vspace="5">
     </td>
   </tr>
 </table>
+
 
 ___
 ## 4️⃣ 기술 스택
