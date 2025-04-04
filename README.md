@@ -7,20 +7,10 @@
 ## 2️⃣ KLang 이란
 
 <div align="left">
-  <img src="이미지경로.gif" width="400" alt="KLang 앱 이미지" align="left" style="margin-right: 20px;">
-  
-  <div>
-    <h2>KLang 이란</h2>
-    <ul>
-      <li>학습 길잡이인 캐릭터 'K(케이)'와 함께 언어(Lang:랑)을 학습한다는 의미를 담은 KLang(케이랑) 을 앱의 이름으로 선정하였습니다.</li>
-      <li>사용자가 학습목표를 설정하고, 학습한 만큼 포인트를 획득 할 수 있는 앱입니다.</li>
-      <li>신뢰할 수 있는 단어데이터베이스인 '한국어기초사전'API에서 제공하는 단어 정보와 예문을 학습 할 수 있습니다.</li>
-    </ul>
-  </div>
-</div>
+  <img src="assets/main.png" width="400" alt="KLang 앱 이미지" align="left" style="margin-right: 20px;">
+<br clear="all">
 
-<br clear="all">  
-![image](https://github.com/user-attachments/assets/4ac5464d-ffae-43c4-9e9b-1b7029d5b150)
+
 * 학습 길잡이인 캐릭터 'K(케이)'😸와 함께 언어(Lang:랑)을 학습한다는 의미를 담은 **KLang(케이랑)** 을 앱의 이름으로 선정하였습니다.
 * 사용자가 **학습목표를 설정**하고, 학습한 만큼 **포인트를 획득** 할 수 있는 앱입니다.
 * 신뢰할 수 있는 단어데이터베이스인 **'한국어기초사전'API**에서 제공하는 단어 정보와 예문을 학습 할 수 있습니다.
