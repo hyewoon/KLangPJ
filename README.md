@@ -21,7 +21,8 @@
 
  <img src="assets/todayWords_gif.gif" alt="GIF 설명" width="250" hspace="5" vspace="5">
 
-✅ **단어와 놀기 : MLKit 손글씨 인식기능**
+✅ **단어와 놀기 : MLKit 손글씨 인식기능*
+* 사용자가 손글씨를 입력하면 그에 해당하는 한글 단어를 비교해서 보여줌
 
 <table width="90%">
   <tr>
