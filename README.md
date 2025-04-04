@@ -48,7 +48,7 @@ ___
 | skills | 설명 |
 |------------------------|------|
 | **kotlin** |kotlin2.0 적용  |
-| **MVVM 아키텍처 패턴** |  |
+| **MVVM 아키텍처 패턴** | 멀티모듈 적용 |
 | **ViewModel & StateFlow** | 상태 관리 |
 | **DataStore** | 설정 및 전역 변수 관리 |
 | **RoomDB** | SSOT(Single Source Of Truth)와 Offline First 구현 |
