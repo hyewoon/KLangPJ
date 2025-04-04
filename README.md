@@ -15,8 +15,22 @@
 * 사용자가 **학습목표를 설정**하고, 학습한 만큼 **포인트를 획득** 할 수 있는 앱입니다.
 * 신뢰할 수 있는 단어데이터베이스인 **'한국어기초사전'API**에서 제공하는 단어 정보와 예문을 학습 할 수 있습니다.
 
+  ## 3️⃣ 기술 스택
+| skills | 설명 |
+|------------------------|------|
+| **kotlin** |kotlin2.0 적용  |
+| **MVVM 아키텍처 패턴** | 멀티모듈 적용 |
+| **ViewModel & StateFlow** | 상태 관리 |
+| **DataStore** | 설정 및 전역 변수 관리 |
+| **RoomDB** | SSOT(Single Source Of Truth)와 Offline First 구현 |
+| **MLKit DigitalInk** | 손글씨 인식 기능을 onDevice로 구현 |
+| **TTS/STT** | 인식 기능 전반 개발 |
+| **Serverless Firebase Firestore** | 데이터 저장 및 동기화 구현 |
+| **Navigation Graph** | 앱 화면 전환 |
+| **Jetpack Material3 UI/UX** | CorBind 적용한 이벤트 처리 |
 
-## 3️⃣ 핵심기능
+
+## 4️⃣ KLang 핵심기능
 
 ![image](https://github.com/user-attachments/assets/42c97b6d-02e2-4421-bacf-f95589dd94ac)
 
@@ -43,20 +57,7 @@
 </table>
 
 
-___
-## 4️⃣ 기술 스택
-| skills | 설명 |
-|------------------------|------|
-| **kotlin** |kotlin2.0 적용  |
-| **MVVM 아키텍처 패턴** | 멀티모듈 적용 |
-| **ViewModel & StateFlow** | 상태 관리 |
-| **DataStore** | 설정 및 전역 변수 관리 |
-| **RoomDB** | SSOT(Single Source Of Truth)와 Offline First 구현 |
-| **MLKit DigitalInk** | 손글씨 인식 기능을 onDevice로 구현 |
-| **TTS/STT** | 인식 기능 전반 개발 |
-| **Serverless Firebase Firestore** | 데이터 저장 및 동기화 구현 |
-| **Navigation Graph** | 앱 화면 전환 |
-| **Jetpack Material3 UI/UX** | CorBind 적용한 이벤트 처리 |
+
  
 
    
