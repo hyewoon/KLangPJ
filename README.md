@@ -56,7 +56,7 @@ ___
 | **TTS/STT** | 인식 기능 전반 개발 |
 | **Serverless Firebase Firestore** | 데이터 저장 및 동기화 구현 |
 | **Navigation Graph** | 앱 화면 전환 |
-| **Jetpack Material3 UI/UX** | CorBind 적용 |
+| **Jetpack Material3 UI/UX** | CorBind 적용한 이벤트 처리 |
  
 
    
