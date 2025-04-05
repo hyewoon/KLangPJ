@@ -31,7 +31,7 @@ class FireStoreRepoImpl(private val preferenceDataStoreManager: PreferenceDataSt
 
     override suspend fun getFireStoreWord(count: Long): List<TargetWordEntity> = runCatching {
 
-        preferenceDataStoreManager.saveDocumentId("")
+        //preferenceDataStoreManager.saveDocumentId("")
 
         val lastDocId = preferenceDataStoreManager.documentId.first()
         println("lastDocId: $lastDocId")

@@ -31,7 +31,6 @@ class DrawFragment : BaseFragment<FragmentDrawBinding>(FragmentDrawBinding::infl
 
     private val viewModel by activityViewModels<GameViewModel>()
     private lateinit var inkDialog: AlertDialog
-    private var transitionStarted: Boolean = false
 
 
     override fun onCreateView(
@@ -48,38 +47,26 @@ class DrawFragment : BaseFragment<FragmentDrawBinding>(FragmentDrawBinding::infl
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        TTSPlay.readText("", requireContext())
-
         viewLifecycleOwner.lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.mlKitResult.collectLatest { result ->
                     when (result) {
                         is MLKitResult.Success -> {
-                            binding.recognitionResult.text = result.data
-                            binding.motionLayout.transitionToEnd()
-                            binding.inputBtn.text = "되돌아가기"
-
-
+                            if (binding.motionLayout.currentState == binding.motionLayout.startState) {
+                                binding.motionLayout.transitionToEnd()
+                                binding.recognitionResult.text = result.data
+                                binding.inputBtn.text = "되돌아가기"
+                            }
                         }
 
 
-                        /*      if(result.data.isValidRecognition){
-                                  binding.recognitionResult.text = result.data.recognizedText
-                                  binding.confidenceTv.text =(result.data.confidence * 100).toInt().toString() + "%"
-
-
-                                  TTSPlay.readText(result.data.recognizedText, requireContext())
-                              }else{
-                                  binding.confidenceTv.text =(result.data.confidence * 100).toInt().toString() + "%"
-                                  binding.recognitionResult.text = " 다시 인식해 주세요"
-
-                              }*/
                         is MLKitResult.Failure -> {
                             showDialog("Error: ${result.exception}", requireContext())
                         }
 
-                        MLKitResult.Initial -> {
+                        else -> {
                         }
+
                     }
                 }
 
@@ -90,11 +77,16 @@ class DrawFragment : BaseFragment<FragmentDrawBinding>(FragmentDrawBinding::infl
 
         with(binding) {
             inputBtn.clicks().onEach {
-                //viewModel로 데이터를 보냄
-               drawingView.getCurrentStrokes().let { strokes ->
-                   viewModel.recognizeInk(strokes)
-
-               }
+                if (motionLayout.currentState == motionLayout.startState) {
+                    drawingView.getCurrentStrokes().let { strokes ->
+                        viewModel.recognizeInk(strokes)
+                    }
+                } else {
+                    motionLayout.transitionToStart()
+                    inputBtn.text = "입력"
+                    recognitionResult.text = ""
+                    drawingView.clearCanvas()
+                }
 
             }.launchIn(lifecycleScope)
 
@@ -104,41 +96,9 @@ class DrawFragment : BaseFragment<FragmentDrawBinding>(FragmentDrawBinding::infl
         }
     }
 
-
     override fun onStop() {
         super.onStop()
-        if (::inkDialog.isInitialized && inkDialog.isShowing) {
-            inkDialog.dismiss()
-        }
         viewModel.setMLKitResult(MLKitResult.Initial)
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        TTSPlay.release()
-    }
-
-    // 버튼 클릭 리스너 설정 함수
-    private fun setupButtonClickListener() {
-        with(binding) {
-            if (motionLayout.currentState == motionLayout.endState) {
-                // 현재 절반 화면 상태이면 전체 화면으로 전환
-                motionLayout.transitionToStart()
-                inputBtn.text = "입력"
-            } else {
-                // 현재 전체 화면 상태이면 절반 화면으로 전환
-                //viewModel로 데이터를 보냄
-                drawingView.getCurrentStrokes().let { strokes ->
-                    viewModel.recognizeInk(strokes)
-                    //drawingView.clearCanvas()
-                    binding.motionLayout.transitionToEnd()
-                    binding.inputBtn.text = "되돌아가기"
-
-                }
-
-
-            }
-        }
     }
 
 }
