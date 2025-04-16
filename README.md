@@ -6,10 +6,6 @@
 
 ## 2️⃣ KLang 이란
 
-<div align="left">
-  <img src="assets/main.png" width="400" alt="KLang 앱 이미지" align="left" style="margin-right: 20px;">
-<br clear="all">
-
 
 * 학습 길잡이인 캐릭터 'K(케이)'😸와 함께 언어(Lang:랑)을 학습한다는 의미를 담은 **KLang(케이랑)** 을 앱의 이름으로 선정하였습니다.
 * 사용자가 **학습목표를 설정**하고, 학습한 만큼 **포인트를 획득** 할 수 있는 앱입니다.
