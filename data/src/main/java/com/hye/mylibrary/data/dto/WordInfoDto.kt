@@ -31,7 +31,7 @@ data class WordInfo(
     val pos: String="",
 
     @Element(name = "sense")
-    val sense: List<Sense> = listOf()
+    val sense: List<Sense> = mutableListOf()
 )
 
 @Xml(name = "sense")
@@ -41,7 +41,7 @@ data class Sense(
     @PropertyElement(name = "definition")
     val definition: String = "",
     @Element(name = "translation")
-    val translation: Translation? = Translation()
+    val translation: Translation = Translation()
 )
 
 @Xml(name = "translation")

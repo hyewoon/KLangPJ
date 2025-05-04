@@ -17,7 +17,7 @@ import com.hye.mylibrary.data.repo.WordRepoImpl
 import com.hye.mylibrary.data.rest.RetrofitServiceInstance
 import com.hye.mylibrary.data.room.TargetWordRoomDatabase
 import com.hye.sesac.klangpj.BuildConfig
-import com.hye.sesac.klangpj.data.preferences.PreferenceDataStoreManager
+import com.hye.mylibrary.data.preferences.PreferenceDataStoreManager
 
 private val Application.dataStore: DataStore<Preferences> by preferencesDataStore(name = "app_preferences")
 class KLangApplication : Application() {

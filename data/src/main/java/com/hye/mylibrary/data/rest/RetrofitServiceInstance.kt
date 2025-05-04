@@ -29,7 +29,10 @@ class RetrofitServiceInstance {
             .build()
 
         private lateinit var retrofitService: RetrofitRESTService
-        private val parser = TikXml.Builder().exceptionOnUnreadXml(false).build()
+        private val parser = TikXml.Builder()
+            .exceptionOnUnreadXml(false)
+            .build()
+
         fun getRetrofitServiceInstance(): RetrofitRESTService {
             if (!this::retrofitService.isInitialized) {
                 val retrofit = Retrofit.Builder()

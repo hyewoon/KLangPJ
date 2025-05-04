@@ -1,24 +1,17 @@
 package com.hye.sesac.klangpj.ui.viewmodel
 
 import android.util.Log
-import android.view.View
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.hye.domain.model.TargetWordWithAllInfoEntity
-import com.hye.domain.result.FirebaseResult
 import com.hye.domain.result.RoomDBResult
 import com.hye.domain.usecase.LoadTodayStudyWord
 import com.hye.sesac.klangpj.common.KLangApplication
-import com.hye.sesac.klangpj.data.preferences.PreferenceDataStoreManager
 import com.hye.sesac.klangpj.state.TodayWordUiState
 import com.hye.sesac.klangpj.state.UiStateResult
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.combine
-import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.flow.stateIn
-import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
 
 class HomeViewModel(
@@ -38,6 +31,10 @@ class HomeViewModel(
     private val _currentWord = MutableStateFlow<TodayWordUiState?>(null)
     val currentWord = _currentWord.asStateFlow()
 
+    private val _targetWordCount = MutableStateFlow<Int>(0)
+    val targetWordCount = _targetWordCount.asStateFlow()
+
+
     init {
         // currentIndex나 todayWordUiState가 변경될 때마다 currentWord 업데이트
         viewModelScope.launch {
@@ -55,11 +52,18 @@ class HomeViewModel(
         }
 
         viewModelScope.launch {
-            sharedViewModel.currentWordCount.collect { count ->
+            sharedViewModel.targetWordCount.collectLatest {
+                _targetWordCount.value = it
+            }
+        }
+
+        viewModelScope.launch {
+            sharedViewModel.currentWordCount.collectLatest { count ->
                 _currentIndex.value = count
             }
 
         }
+
     }
 
     fun searchUseCase(targetWord: Int) {
@@ -72,7 +76,7 @@ class HomeViewModel(
 
             when (val response = useCase.invoke(targetWord)) {
                 is RoomDBResult.Success -> {
-                    val uiItems = response.data.map{
+                    val uiItems = response.data.map {
                         TodayWordUiState(
                             wordGrade = it.wordGrade,
                             word = it.korean,
@@ -80,8 +84,9 @@ class HomeViewModel(
                             pos = it.pos,
                             examples = it.exampleInfo?.map { example ->
                                 example.example
-                            }?:emptyList(),
-                            pronunciation = it.pronunciationInfo?.firstOrNull()?.audioUrl ?: "음성 자료가 없습니다."
+                            } ?: emptyList(),
+                            pronunciation = it.pronunciationInfo?.firstOrNull()?.audioUrl
+                                ?: "음성 자료가 없습니다."
                         )
                     }
                     _todayWordUiState.value = UiStateResult.Success(uiItems)
@@ -110,7 +115,7 @@ class HomeViewModel(
                 sharedViewModel.incrementCurrentWordCount()
             }
 
-        }else if(currentState is UiStateResult.Success && _currentIndex.value >= currentState.data.size){
+        } else if (currentState is UiStateResult.Success && _currentIndex.value >= currentState.data.size) {
             _currentIndex.value = sharedViewModel.targetWordCount.value
         }
     }

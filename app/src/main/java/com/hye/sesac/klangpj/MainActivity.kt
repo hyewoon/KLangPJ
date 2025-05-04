@@ -11,7 +11,9 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI.setupWithNavController
@@ -26,7 +28,6 @@ import kotlinx.coroutines.launch
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private val sharedViewModel: SharedViewModel by viewModels()
-
 
 
     override fun onCreate(savedInstanceState: Bundle?) { //Bundle 이건 -> UI관련된 것 //onSavedInstance
@@ -51,7 +52,6 @@ class MainActivity : AppCompatActivity() {
             )
             insets
         }
-
 
 
 
@@ -93,6 +93,7 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
 
         menuInflater.inflate(R.menu.main_top_app_bar, menu)
@@ -102,24 +103,28 @@ class MainActivity : AppCompatActivity() {
         val pawView = pawIcon.actionView
         val pawText: TextView = pawView?.findViewById<TextView>(R.id.paw_count) ?: return false
 
-        //크라운 아이콘 찾기
-        val crownIcon = menu.findItem(R.id.crown)
-        val crownView = crownIcon.actionView
-        val crownText: TextView = crownView?.findViewById<TextView>(R.id.reward_count) ?: return false
+        //물고기 아이콘 찾기
+        val targetIcon = menu.findItem(R.id.crown)
+        val targetView = targetIcon.actionView
+        val targetText: TextView =
+            targetView?.findViewById<TextView>(R.id.reward_count) ?: return false
+
+
 
         lifecycleScope.launch {
-            sharedViewModel.pawCount.collectLatest {
-                pawText.text = it.toString()
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                launch {
+                    sharedViewModel.pawPoint.collectLatest {
+                        pawText.text = it.toString()
+                    }
+                }
+                launch {
+                    sharedViewModel.targetPoint.collectLatest {
+                        targetText.text = it.toString()
+                    }
+                }
             }
         }
-
-        lifecycleScope.launch {
-            sharedViewModel.crownCount.collectLatest {
-                crownText.text = it.toString()
-
-            }
-        }
-
         return true
 
     }

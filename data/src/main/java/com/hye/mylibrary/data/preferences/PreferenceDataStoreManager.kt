@@ -1,20 +1,14 @@
-package com.hye.sesac.klangpj.data.preferences
+package com.hye.mylibrary.data.preferences
 
 import android.content.Context
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.emptyPreferences
 import androidx.datastore.preferences.preferencesDataStore
-import com.hye.mylibrary.data.preferences.PreferenceDataStoreConstants
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
-import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.flow.map
 import java.io.IOException
-import java.time.DayOfWeek
-import java.time.LocalDate
-import java.util.Calendar
 
 
 val Context.jetpackDataStore by preferencesDataStore(
@@ -59,39 +53,56 @@ class PreferenceDataStoreManager(context: Context) : ICRUDPreferenceDataStore {
         }
     }
 
-    //단어 다운로드 관련
-    suspend fun saveTargetCode(code: Int) {
-        createPreference(PreferenceDataStoreConstants.TARGET_CODE, code)
+    override suspend fun addPreference(key: Preferences.Key<Int>, value: Int) {
+       dataSource.edit { preferences ->
+           val currentPoint = preferences[key] ?: 0
+           preferences[key] = currentPoint + value
+       }
     }
+
+
+
+    /*
+    * 단어 다운로드 관련
+    * */
     val targetCode: Flow<Int> = readPreference(
         PreferenceDataStoreConstants.TARGET_CODE, 0
     )
+
+    suspend fun saveTargetCode(code: Int) {
+        createPreference(PreferenceDataStoreConstants.TARGET_CODE, code)
+    }
+
+
+
     suspend fun saveDocumentId(id: String) {
         createPreference(PreferenceDataStoreConstants.DOCUMENT_ID, id)
     }
+
     val documentId: Flow<String> = readPreference(
         PreferenceDataStoreConstants.DOCUMENT_ID, ""
     )
 
-    //단어 학습 관련
-    suspend fun saveTargetWordCount(count: Int) {
-        createPreference(PreferenceDataStoreConstants.TARGET_WORD_COUNT, count)
-    }
 
+/*
+* 오늘의 학습 관련
+*  targetWordCount : 학습할 단어 갯수
+*  currentWordCount: 현재 까지 학습한 단어 갯수
+* */
     val targetWordCount: Flow<Int> = readPreference(
         PreferenceDataStoreConstants.TARGET_WORD_COUNT, 10
     )
 
+    val currentWordCount: Flow<Int> = readPreference(
+        PreferenceDataStoreConstants.CURRENT_WORD_COUNT, 0
+    )
 
-    suspend fun saveCurrentWordCount(count: Int) {
-        createPreference(PreferenceDataStoreConstants.CURRENT_WORD_COUNT, count)
+    suspend fun saveTargetWordCount(count: Int) {
+        createPreference(PreferenceDataStoreConstants.TARGET_WORD_COUNT, count)
     }
 
     suspend fun incrementCurrentWordCount() {
-        dataSource.edit { preferences ->
-            val currentCount = preferences[PreferenceDataStoreConstants.CURRENT_WORD_COUNT] ?: 0
-            preferences[PreferenceDataStoreConstants.CURRENT_WORD_COUNT] = currentCount + 1
-        }
+       addPreference(PreferenceDataStoreConstants.CURRENT_WORD_COUNT, 1)
     }
 
     suspend fun decrementCurrentWordCount() {
@@ -100,38 +111,27 @@ class PreferenceDataStoreManager(context: Context) : ICRUDPreferenceDataStore {
             if (currentCount > 0) {
                 preferences[PreferenceDataStoreConstants.CURRENT_WORD_COUNT] = currentCount - 1
             }
-
-
         }
     }
 
-    val currentWordCount: Flow<Int> = readPreference(
-        PreferenceDataStoreConstants.CURRENT_WORD_COUNT, 0
+    /*
+    * pawPoint: 누적 학습 단어 갯수 1씩 증가
+    * targetPoint : 누적 포인트 적립 2씩 증가
+    *
+    * */
+    val pawPoint: Flow<Int> = readPreference(
+        PreferenceDataStoreConstants.PAW_POINT, 0)
+
+    val targetPoint: Flow<Int> = readPreference(
+        PreferenceDataStoreConstants.TARGET_POINT, 0
     )
 
-
-    //포인트
-    suspend fun savePawPoint(point: Int) {
-        createPreference(PreferenceDataStoreConstants.PAW_POINT, point)
-    }
-
-    suspend fun addPawPoint(point: Int = 5) {
-        dataSource.edit { preferences ->
-            val currentPoint = preferences[PreferenceDataStoreConstants.PAW_POINT] ?: 0
-            preferences[PreferenceDataStoreConstants.PAW_POINT] = currentPoint + point
-        }
-    }
-
-    suspend fun saveTargetPoint(point: Int) {
-        createPreference(PreferenceDataStoreConstants.TARGET_POINT, point)
-    }
-
-    suspend fun addTargetPoint(point: Int = 10) {
-        dataSource.edit { preferences ->
-            val currentPoint = preferences[PreferenceDataStoreConstants.TARGET_POINT] ?: 0
-            preferences[PreferenceDataStoreConstants.TARGET_POINT] = currentPoint + point
+    suspend fun addPawPoint(){
+        addPreference(PreferenceDataStoreConstants.PAW_POINT, 1)
         }
 
+    suspend fun addTargetPoint(){
+        addPreference(PreferenceDataStoreConstants.TARGET_POINT, 2)
     }
 }
 

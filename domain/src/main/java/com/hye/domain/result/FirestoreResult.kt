@@ -12,5 +12,4 @@ sealed class FirebaseResult<out T> {
     data class RoomDBFailure(
         val exception: Throwable
     ) : FirebaseResult<Nothing>()
-
 }

@@ -1,7 +1,6 @@
 package com.hye.mylibrary.data.datasource.repo
 
 
-import androidx.core.content.ContentProviderCompat.requireContext
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
@@ -14,7 +13,7 @@ import com.hye.mylibrary.data.datasource.dto.TargetWordDto
 import com.hye.mylibrary.data.datasource.dto.TargetWordExampleInfoDto
 import com.hye.mylibrary.data.datasource.dto.TargetWordPronunciationInfoDto
 import com.hye.mylibrary.data.datasource.mapper.ToDomainWordMapper
-import com.hye.sesac.klangpj.data.preferences.PreferenceDataStoreManager
+import com.hye.mylibrary.data.preferences.PreferenceDataStoreManager
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.tasks.await
 
@@ -31,7 +30,7 @@ class FireStoreRepoImpl(private val preferenceDataStoreManager: PreferenceDataSt
 
     override suspend fun getFireStoreWord(count: Long): List<TargetWordEntity> = runCatching {
 
-        //preferenceDataStoreManager.saveDocumentId("")
+        // preferenceDataStoreManager.saveDocumentId("")
 
         val lastDocId = preferenceDataStoreManager.documentId.first()
         println("lastDocId: $lastDocId")

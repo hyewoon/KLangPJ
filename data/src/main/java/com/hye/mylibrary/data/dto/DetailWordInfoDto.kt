@@ -39,7 +39,7 @@ data class PronunciationInfo(
     @PropertyElement(name = "pronunciation")
    val pronunciation: String = "",
     @PropertyElement(name = "link")
-    val link: String?="",
+    val link: String="",
 )
 
 @Xml(name = "sense_info")

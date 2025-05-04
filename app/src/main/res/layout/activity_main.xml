@@ -19,12 +19,12 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="40dp"
+            android:layout_marginEnd="@dimen/main_margin"
             app:layout_constraintBottom_toTopOf="@id/nav_host_fragment"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:menu="@menu/main_top_app_bar"
-            android:layout_marginEnd="@dimen/main_margin"
             app:navigationIcon="@drawable/menu_24px">
 
         </com.google.android.material.appbar.MaterialToolbar>

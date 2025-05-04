@@ -73,6 +73,7 @@ class DictionaryFragment :
                 if (inputWord.isNotEmpty()) {
                     viewModel.getWordInfo(inputWord)
                 } else {
+
                 }
             }
 

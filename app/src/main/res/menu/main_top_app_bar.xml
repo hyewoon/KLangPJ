@@ -11,7 +11,7 @@
     <item
         android:id="@+id/crown"
         android:title="@string/reward"
-        app:actionLayout="@layout/custom_crown_badge"
+        app:actionLayout="@layout/custom_target_badge"
         app:showAsAction="always" />
 
 </menu>
