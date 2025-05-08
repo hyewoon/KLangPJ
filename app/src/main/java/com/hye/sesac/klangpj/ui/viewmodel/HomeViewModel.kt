@@ -22,22 +22,27 @@ class HomeViewModel(
 
     private var _todayWordUiState =
         MutableStateFlow<UiStateResult<List<TodayWordUiState>>>(UiStateResult.Loading)
-    val todayWordUiState = _todayWordUiState.asStateFlow()
+    private val todayWordUiState = _todayWordUiState.asStateFlow()
 
     private var _currentIndex = MutableStateFlow(0)
     private val currentIndex = _currentIndex.asStateFlow()
 
     // 현재 선택된 단어를 다른 Fragment들과 공유하기 위한 StateFlow
-    private val _currentWord = MutableStateFlow<TodayWordUiState?>(null)
-    val currentWord = _currentWord.asStateFlow()
+    private val _currentWordsList = MutableStateFlow<TodayWordUiState?>(null)
+    val currentWordsList = _currentWordsList.asStateFlow()
 
-    private val _targetWordCount = MutableStateFlow<Int>(0)
-    val targetWordCount = _targetWordCount.asStateFlow()
-
+/*
+* homeviewModel이 시작될 때,
+* todayWordUiState: 오늘의 학습 단어 리스트
+* currentIndex: 단어리스트 index값
+*
+* 두 개의 stateFlow를 zip한다
+*
+* */
 
     init {
-        // currentIndex나 todayWordUiState가 변경될 때마다 currentWord 업데이트
         viewModelScope.launch {
+            sharedViewModel.resetDailyWordCount()
             combine(
                 todayWordUiState,
                 currentIndex
@@ -46,24 +51,10 @@ class HomeViewModel(
                     is UiStateResult.Success -> state.data.getOrNull(index)
                     else -> null
                 }
-            }.collect { word ->
-                _currentWord.value = word
+            }.collectLatest { word ->
+                _currentWordsList.value = word
             }
         }
-
-        viewModelScope.launch {
-            sharedViewModel.targetWordCount.collectLatest {
-                _targetWordCount.value = it
-            }
-        }
-
-        viewModelScope.launch {
-            sharedViewModel.currentWordCount.collectLatest { count ->
-                _currentIndex.value = count
-            }
-
-        }
-
     }
 
     fun searchUseCase(targetWord: Int) {
@@ -104,6 +95,10 @@ class HomeViewModel(
         }
     }
 
+    /**
+     * _currentIndex의 값을 1 증가시키고,
+     * shareViewModel의 currentWordCount(호출)
+     */
     fun moveToNextWord() {
         val currentState = _todayWordUiState.value
         if (currentState is UiStateResult.Success &&
@@ -125,10 +120,10 @@ class HomeViewModel(
             _currentIndex.value -= 1
             _todayWordUiState.value = _todayWordUiState.value
 
-            viewModelScope.launch {
-                sharedViewModel.decrementCurrentWordCount()
-
-            }
+          /* viewModelScope.launch {
+               sharedViewModel.decrementCurrentWordCount()
+           }
+*/
         }
     }
 

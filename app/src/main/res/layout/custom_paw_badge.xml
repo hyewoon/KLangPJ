@@ -23,7 +23,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:paddingStart="@dimen/third_margin"
         android:paddingEnd="@dimen/second_margin"
-        android:text="100"
+        android:text="0"
         android:textSize="12sp"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

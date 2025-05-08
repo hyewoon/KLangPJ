@@ -1,7 +1,6 @@
 package com.hye.sesac.klangpj.ui.home
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,7 +9,6 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.hye.sesac.klangpj.BaseFragment
-import com.hye.sesac.klangpj.R
 import com.hye.sesac.klangpj.databinding.FragmentDetailWordBinding
 import com.hye.sesac.klangpj.state.TodayWordUiState
 import com.hye.sesac.klangpj.ui.factory.ViewModelFactory
@@ -36,9 +34,10 @@ class DetailWordFragment : BaseFragment<FragmentDetailWordBinding>(FragmentDetai
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         viewLifecycleOwner.lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED){
-                viewModel.currentWord.collectLatest {
+                viewModel.currentWordsList.collectLatest {
                    it?.let{
                        updateUi(it)
                    }

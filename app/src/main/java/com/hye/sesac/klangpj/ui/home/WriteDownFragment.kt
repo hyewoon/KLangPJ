@@ -41,7 +41,7 @@ class WriteDownFragment :
 
         viewLifecycleOwner.lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.currentWord.collectLatest {
+                viewModel.currentWordsList.collectLatest {
                     it?.let {
                         binding.drawingView.setWatermarkText(it.word)
 

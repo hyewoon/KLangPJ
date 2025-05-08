@@ -13,7 +13,6 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.hye.domain.usecase.LoadTodayStudyWord
 import com.hye.sesac.klangpj.BaseFragment
 import com.hye.sesac.klangpj.R
@@ -69,7 +68,6 @@ class WordFragment : BaseFragment<FragmentWordBinding>(FragmentWordBinding::infl
         navController = findNavController()
         targetWordCount = args.targetWordCount
 
-        binding.linearProgressIndicator.progress = 1
         //오늘의 단어 불러오기
         sendStudyWordNum(targetWordCount)
         Log.d("WordFragment", "onViewCreated: $targetWordCount")
@@ -81,45 +79,39 @@ class WordFragment : BaseFragment<FragmentWordBinding>(FragmentWordBinding::infl
     private fun setupObservers() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.currentWord.collectLatest { word ->
-                    word?.let {
-                        updateUi(it)
-                        url = it.pronunciation
-                        updateNavigationButtons(
-                            moveNext = viewModel.hasNextWord(),
-                            movePrev = viewModel.hasPreviousWord()
-                        )
+                launch {
+                    sharedViewModel.targetWordCount.collect{
+                        with(binding){
+                            todayTargetWordsTv.text = "/$it"
+                            linearProgressIndicator.max = it
+                        }
                     }
                 }
+                launch {
+                    sharedViewModel.currentWordCount.collect{
+                        with(binding){
+                            currentWordTv.text = it.toString()
+                            linearProgressIndicator.progress = it
+                        }
+                    }
+                }
+                launch {
+                    viewModel.currentWordsList.collectLatest { word ->
+                        word?.let {
+                            updateUi(it)
+                            url = it.pronunciation
+                            updateNavigationButtons(
+                                moveNext = viewModel.hasNextWord(),
+                                movePrev = viewModel.hasPreviousWord()
+                            )
+                        }
+                    }
+
+                }
+
             }
         }
 
-        viewLifecycleOwner.lifecycleScope.launch {
-            repeatOnLifecycle(Lifecycle.State.STARTED) {
-                sharedViewModel.targetWordCount.collectLatest { target ->
-                    with(binding) {
-                        todayWordTv.text = "/$target"
-                        linearProgressIndicator.max = target
-                    }
-
-
-                }
-            }
-        }
-        viewLifecycleOwner.lifecycleScope.launch {
-            repeatOnLifecycle(Lifecycle.State.STARTED) {
-                sharedViewModel.currentWordCount.collectLatest { current ->
-                    binding.currentWordTv.text = (current + 1).toString()
-                    if (current < targetWordCount) {
-                        binding.linearProgressIndicator.progress = current + 1
-                    } else {
-                        binding.linearProgressIndicator.progress = targetWordCount
-                    }
-
-
-                }
-            }
-        }
     }
 
 
@@ -164,9 +156,6 @@ class WordFragment : BaseFragment<FragmentWordBinding>(FragmentWordBinding::infl
                 .throttleFirst(300L)
                 .onEach {
                     viewModel.moveToNextWord()
-                    sharedViewModel.addPawPoint()
-                    Log.d("Word", "clicke됨")
-
                 }.launchIn(lifecycleScope)
 
             prevBtn.clicks()
@@ -197,22 +186,5 @@ class WordFragment : BaseFragment<FragmentWordBinding>(FragmentWordBinding::infl
         binding.nextBtn.isEnabled = moveNext
         binding.prevBtn.isEnabled = movePrev
     }
-
-/*    private fun showListenDialog(text: TodayWordUiState) {
-
-        val currentWords = text.word.toString()
-
-        MaterialAlertDialogBuilder(
-            requireContext(),
-            com.google.android.material.R.style.ThemeOverlay_Material3_MaterialAlertDialog
-        )
-            .setTitle("분석 결과")
-            .setMessage(currentWords)
-            .setPositiveButton("발음 듣기") { dialog, _ ->
-                dialog.dismiss()
-            }
-            .show()
-
-    }*/
 
 }

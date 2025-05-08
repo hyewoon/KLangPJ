@@ -7,6 +7,7 @@ import androidx.datastore.preferences.core.emptyPreferences
 import androidx.datastore.preferences.preferencesDataStore
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
 import java.io.IOException
 
@@ -54,12 +55,11 @@ class PreferenceDataStoreManager(context: Context) : ICRUDPreferenceDataStore {
     }
 
     override suspend fun addPreference(key: Preferences.Key<Int>, value: Int) {
-       dataSource.edit { preferences ->
-           val currentPoint = preferences[key] ?: 0
-           preferences[key] = currentPoint + value
-       }
+        dataSource.edit { preferences ->
+            val currentPoint = preferences[key] ?: 0
+            preferences[key] = currentPoint + value
+        }
     }
-
 
 
     /*
@@ -74,7 +74,6 @@ class PreferenceDataStoreManager(context: Context) : ICRUDPreferenceDataStore {
     }
 
 
-
     suspend fun saveDocumentId(id: String) {
         createPreference(PreferenceDataStoreConstants.DOCUMENT_ID, id)
     }
@@ -84,17 +83,17 @@ class PreferenceDataStoreManager(context: Context) : ICRUDPreferenceDataStore {
     )
 
 
-/*
-* 오늘의 학습 관련
-*  targetWordCount : 학습할 단어 갯수
-*  currentWordCount: 현재 까지 학습한 단어 갯수
-* */
+    /*
+    * 오늘의 학습 관련
+    *  targetWordCount : 학습할 단어 갯수
+    *  currentWordCount: 현재 까지 학습한 단어 갯수
+    * */
     val targetWordCount: Flow<Int> = readPreference(
         PreferenceDataStoreConstants.TARGET_WORD_COUNT, 10
     )
 
     val currentWordCount: Flow<Int> = readPreference(
-        PreferenceDataStoreConstants.CURRENT_WORD_COUNT, 0
+        PreferenceDataStoreConstants.CURRENT_WORD_COUNT, 1
     )
 
     suspend fun saveTargetWordCount(count: Int) {
@@ -102,8 +101,20 @@ class PreferenceDataStoreManager(context: Context) : ICRUDPreferenceDataStore {
     }
 
     suspend fun incrementCurrentWordCount() {
-       addPreference(PreferenceDataStoreConstants.CURRENT_WORD_COUNT, 1)
+        val currentCount = currentWordCount.first()
+        println("currentCount: $currentCount")
+        println("targetWordCount: ${targetWordCount.first()}")
+        if(currentCount >= 0 && currentCount < targetWordCount.first()) {
+            addPreference(PreferenceDataStoreConstants.CURRENT_WORD_COUNT, 1)
+        }
     }
+
+    suspend fun resetDailyWordCount() {
+        dataSource.edit {
+            it[PreferenceDataStoreConstants.CURRENT_WORD_COUNT] = 0
+        }
+    }
+
 
     suspend fun decrementCurrentWordCount() {
         dataSource.edit { preferences ->
@@ -120,17 +131,18 @@ class PreferenceDataStoreManager(context: Context) : ICRUDPreferenceDataStore {
     *
     * */
     val pawPoint: Flow<Int> = readPreference(
-        PreferenceDataStoreConstants.PAW_POINT, 0)
+        PreferenceDataStoreConstants.PAW_POINT, 0
+    )
 
     val targetPoint: Flow<Int> = readPreference(
         PreferenceDataStoreConstants.TARGET_POINT, 0
     )
 
-    suspend fun addPawPoint(){
+    suspend fun addPawPoint() {
         addPreference(PreferenceDataStoreConstants.PAW_POINT, 1)
-        }
+    }
 
-    suspend fun addTargetPoint(){
+    suspend fun addTargetPoint() {
         addPreference(PreferenceDataStoreConstants.TARGET_POINT, 2)
     }
 }

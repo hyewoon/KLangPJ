@@ -23,31 +23,40 @@ class SharedViewModel : ViewModel() {
     private val preferenceManager : PreferenceDataStoreManager = PreferenceDataStoreManager(KLangApplication.getKLangContext())
 
     /*
+    * 오늘의 학습 목표 : homeFragment, WordFragment
     * targetWordCount : 오늘의 목표 단어 학습 갯수
-    * currentWordCount : 현재 학습 한 다어 갯수
+    * currentWordCount : 현재 학습 한 단어 갯수
     * */
-    val targetWordCount = preferenceManager.targetWordCount
+   private val _targetWordCount = preferenceManager.targetWordCount
         .stateIn(scope = viewModelScope,
             started = SharingStarted.WhileSubscribed(3000),
             initialValue = 10)
 
-    val currentWordCount = preferenceManager.currentWordCount
+    val targetWordCount = _targetWordCount
+
+   private val _currentWordCount = preferenceManager.currentWordCount
         .stateIn(
             scope = viewModelScope,
             started = SharingStarted.WhileSubscribed(3000),
-            initialValue = 0
+            initialValue = 1
         )
 
-    fun updateTargetWordCount(count: Int ){
+    val currentWordCount = _currentWordCount
+
+    fun updateTargetWordCount(count: Int){
         viewModelScope.launch {
             preferenceManager.saveTargetWordCount(count)
         }
     }
 
-
     fun incrementCurrentWordCount(){
         viewModelScope.launch {
             preferenceManager.incrementCurrentWordCount()
+        }
+    }
+    fun resetDailyWordCount(){
+        viewModelScope.launch {
+            preferenceManager.resetDailyWordCount()
         }
     }
 
@@ -58,7 +67,7 @@ class SharedViewModel : ViewModel() {
     }
 
     /**
-     * 누적 학습 단어 포인트 적립
+     * 누적 학습 단어 포인트 적립 : MainActivity, MyFragment
      * pawPoint: 누적 학습 단어 갯수 1씩 증가
      * targetPoint : 누적 학습 포인트 2씩 증가
      */
@@ -93,32 +102,4 @@ class SharedViewModel : ViewModel() {
             preferenceManager.addTargetPoint()
         }
     }
-
-
-    private val _targetCount = MutableStateFlow<Int>(0)
-
-    val targetCount = _targetCount.asStateFlow()
-/*
-    init {
-        viewModelScope.launch {
-            _pawCount.emit(0)
-            _targetCount.emit(50)
-        }
-    }*/
-
-/*
-    suspend fun updatePawCount() {
-        _pawCount.value += 2
-        _pawCount.emit(_pawCount.value)
-    }
-*/
-
-    suspend fun updateCrownCount(count: Int) {
-        _targetCount.emit(count)
-    }
-
-
-    suspend fun getTargetWordCount() = targetWordCount.first().toInt()
-
-
 }

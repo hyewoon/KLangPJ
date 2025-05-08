@@ -20,6 +20,7 @@ import com.hye.sesac.klangpj.ui.factory.ViewModelFactory
 import com.hye.sesac.klangpj.ui.viewmodel.HomeViewModel
 import com.hye.sesac.klangpj.ui.viewmodel.SharedViewModel
 import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
@@ -28,8 +29,8 @@ import ru.ldralighieri.corbind.view.clicks
 
 class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::inflate) {
     private lateinit var navController: NavController
-    private lateinit var dayIcons : List<ImageView>
-    private lateinit var useCase : LoadTodayStudyWord
+    private lateinit var dayIcons: List<ImageView>
+    private lateinit var useCase: LoadTodayStudyWord
 
 
     override fun onCreateView(
@@ -40,42 +41,37 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
 
 
         viewLifecycleOwner.lifecycleScope.launch {
-            repeatOnLifecycle(Lifecycle.State.STARTED){
-                sharedViewModel.targetWordCount.collectLatest { target->
-                    binding.circularIndicator.max = target
-                    binding.todayTarget.text = target.toString()
-
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                launch {
+                    sharedViewModel.targetWordCount.collectLatest { target ->
+                        binding.circularIndicator.max = target
+                        binding.todayTarget.text = target.toString()
+                    }
+                }
+                launch {
+                    sharedViewModel.currentWordCount.collectLatest { current ->
+                        binding.circularIndicator.progress = current
+                        binding.currentWord.text = current.toString()
+                    }
                 }
             }
-        }
-
-        viewLifecycleOwner.lifecycleScope.launch {
-            repeatOnLifecycle(Lifecycle.State.STARTED){
-                sharedViewModel.currentWordCount.collectLatest { current->
-                    binding.circularIndicator.progress = current
-                    binding.currentWord.text = (current).toString()
-
-                }
-            }
-
         }
 
         return binding.root
     }
 
-    private val sharedViewModel by activityViewModels<SharedViewModel>{
+    private val sharedViewModel by activityViewModels<SharedViewModel> {
         ViewModelFactory(useCaseProvider = {
             useCase
         }
 
         )
     }
-    private val viewModel by activityViewModels<HomeViewModel>{
-       ViewModelFactory {
-           useCase }
+    private val viewModel by activityViewModels<HomeViewModel> {
+        ViewModelFactory {
+            useCase
+        }
     }
-
-
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -83,22 +79,17 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
         navController = findNavController()
 
         // UseCase 초기화
-        useCase= LoadTodayStudyWord(firestoreRepository, studyRoomRepository)
+        useCase = LoadTodayStudyWord(firestoreRepository, studyRoomRepository)
 
 
 
         with(binding) {
 
-        dayIcons = listOf(
-           checkboxSun, checkboxMon,checkboxTue, checkboxWed, checkboxThu, checkboxFri, checkboxSat
-        )
-
-
             //navigation
             mainLearningBtn.clicks()
                 .onEach {
                     lifecycleScope.launch {
-                        val count = sharedViewModel.getTargetWordCount()
+                        val count = sharedViewModel.targetWordCount.first()
                         val argsActions =
                             HomeFragmentDirections.actionHomeFragmentToWordFragment(count)
                         navController.navigate(argsActions)

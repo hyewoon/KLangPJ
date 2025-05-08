@@ -42,11 +42,11 @@
         android:text="5"
         android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="@id/paw"
-        app:layout_constraintEnd_toStartOf="@id/today_word_tv"
+        app:layout_constraintEnd_toStartOf="@id/today_target_words_tv"
         app:layout_constraintStart_toEndOf="@id/paw" />
 
     <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/today_word_tv"
+        android:id="@+id/today_target_words_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="@dimen/main_margin"
