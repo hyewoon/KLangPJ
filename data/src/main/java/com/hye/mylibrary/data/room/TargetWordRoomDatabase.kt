@@ -8,7 +8,7 @@ import androidx.room.TypeConverters
 
 @Database(
     entities = [TargetWord::class, TargetWordExampleInfo::class, TargetWordPronunciationInfo::class],
-    version = 5
+    version = 6
 )
 abstract class TargetWordRoomDatabase : RoomDatabase() {
 

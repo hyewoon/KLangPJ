@@ -1,6 +1,7 @@
 package com.hye.sesac.klangpj.ui.home
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -43,15 +44,22 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
         viewLifecycleOwner.lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 launch {
-                    sharedViewModel.targetWordCount.collectLatest { target ->
-                        binding.circularIndicator.max = target
-                        binding.todayTarget.text = target.toString()
+                    sharedViewModel.resetDailyWordCount()
+                    sharedViewModel.targetWordCount.collect { target ->
+                        with(binding) {
+                            circularIndicator.max = target
+                            todayTarget.text = target.toString()
+                        }
                     }
                 }
                 launch {
-                    sharedViewModel.currentWordCount.collectLatest { current ->
-                        binding.circularIndicator.progress = current
-                        binding.currentWord.text = current.toString()
+                    sharedViewModel.currentWordCount.collect { current ->
+                        with(binding) {
+                            binding.circularIndicator.progress = current
+                            binding.currentWord.text = current.toString()
+                            Log.d("HomeFragment", "currentWord: $current")
+                        }
+
                     }
                 }
             }
@@ -85,7 +93,10 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
 
         with(binding) {
 
-            //navigation
+            /*
+            * 화면 전화 시 firestore에서 값을 빠르게 받아 오기 위해 safe args로 전달
+            *
+            * */
             mainLearningBtn.clicks()
                 .onEach {
                     lifecycleScope.launch {

@@ -64,7 +64,7 @@ class StudyRoomRepoImpl(
             val today = currentDate.format(dataFormat)
 
             var targetWord = roomMapper.mapToRoom(it)
-            targetWord = targetWord.copy(timeStamp = currentTime, todayString = today)
+            targetWord = targetWord.copy(timeStamp = currentTime, todayString = today, isBasicLearned = false, isListened = false, isExampleLearned = false, isWritten = false, isRecorded = false)
 
             targetWordDao.insertLimitedTargetWordExampleInfo(
                 targetWord = targetWord,

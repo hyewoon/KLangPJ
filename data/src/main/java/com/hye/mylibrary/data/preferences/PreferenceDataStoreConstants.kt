@@ -32,7 +32,7 @@ object PreferenceDataStoreConstants {
     * CURRENT_WORD_COUNT: 현재 학습 한 단어 수
     * */
     val TARGET_WORD_COUNT = intPreferencesKey("target_word_count")
-    val CURRENT_WORD_COUNT = intPreferencesKey("current_word-count")
+    val CURRENT_WORD_COUNT = intPreferencesKey("current_word_count")
 
     /*
     * 포인트 관련

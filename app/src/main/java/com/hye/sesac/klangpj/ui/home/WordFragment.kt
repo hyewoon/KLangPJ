@@ -24,6 +24,7 @@ import com.hye.sesac.klangpj.state.TodayWordUiState
 import com.hye.sesac.klangpj.ui.factory.ViewModelFactory
 import com.hye.sesac.klangpj.ui.viewmodel.HomeViewModel
 import com.hye.sesac.klangpj.ui.viewmodel.SharedViewModel
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
@@ -80,26 +81,33 @@ class WordFragment : BaseFragment<FragmentWordBinding>(FragmentWordBinding::infl
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 launch {
-                    sharedViewModel.targetWordCount.collect{
-                        with(binding){
+                    sharedViewModel.targetWordCount.collect {
+                        with(binding) {
                             todayTargetWordsTv.text = "/$it"
+                            totalIndex.text = "/ $it"
                             linearProgressIndicator.max = it
+
                         }
                     }
                 }
                 launch {
-                    sharedViewModel.currentWordCount.collect{
-                        with(binding){
+                    sharedViewModel.currentWordCount.collectLatest {
+                        with(binding) {
                             currentWordTv.text = it.toString()
                             linearProgressIndicator.progress = it
+                            Log.d("WordFragment", "currentWordTV: $it")
                         }
+                    }
+                }
+                launch {
+                    viewModel.currentIndex.collect {
+                        binding.currentIndex.text = (it + 1).toString()
                     }
                 }
                 launch {
                     viewModel.currentWordsList.collectLatest { word ->
                         word?.let {
                             updateUi(it)
-                            url = it.pronunciation
                             updateNavigationButtons(
                                 moveNext = viewModel.hasNextWord(),
                                 movePrev = viewModel.hasPreviousWord()
@@ -141,7 +149,7 @@ class WordFragment : BaseFragment<FragmentWordBinding>(FragmentWordBinding::infl
             listenBtn.clicks()
                 .throttleFirst(300L)
                 .onEach {
-                   // showListenDialog(viewModel.currentWord.value!!)
+                    // showListenDialog(viewModel.currentWord.value!!)
                 }.launchIn(lifecycleScope)
 
             bookmarkBtn.clicks()

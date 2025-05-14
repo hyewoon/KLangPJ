@@ -54,15 +54,15 @@ class SharedViewModel : ViewModel() {
             preferenceManager.incrementCurrentWordCount()
         }
     }
-    fun resetDailyWordCount(){
-        viewModelScope.launch {
-            preferenceManager.resetDailyWordCount()
-        }
-    }
 
     fun decrementCurrentWordCount(){
         viewModelScope.launch {
             preferenceManager.decrementCurrentWordCount()
+        }
+    }
+    fun resetDailyWordCount(){
+        viewModelScope.launch {
+            preferenceManager.resetDailyWordCount()
         }
     }
 

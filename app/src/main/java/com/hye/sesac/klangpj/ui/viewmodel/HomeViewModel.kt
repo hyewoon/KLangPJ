@@ -25,9 +25,8 @@ class HomeViewModel(
     private val todayWordUiState = _todayWordUiState.asStateFlow()
 
     private var _currentIndex = MutableStateFlow(0)
-    private val currentIndex = _currentIndex.asStateFlow()
+    val currentIndex = _currentIndex.asStateFlow()
 
-    // 현재 선택된 단어를 다른 Fragment들과 공유하기 위한 StateFlow
     private val _currentWordsList = MutableStateFlow<TodayWordUiState?>(null)
     val currentWordsList = _currentWordsList.asStateFlow()
 
@@ -36,13 +35,11 @@ class HomeViewModel(
 * todayWordUiState: 오늘의 학습 단어 리스트
 * currentIndex: 단어리스트 index값
 *
-* 두 개의 stateFlow를 zip한다
-*
 * */
 
     init {
         viewModelScope.launch {
-            sharedViewModel.resetDailyWordCount()
+            //sharedViewModel.resetDailyWordCount()
             combine(
                 todayWordUiState,
                 currentIndex
@@ -96,8 +93,8 @@ class HomeViewModel(
     }
 
     /**
-     * _currentIndex의 값을 1 증가시키고,
-     * shareViewModel의 currentWordCount(호출)
+     * currentState : 단어리스트
+     * currentState.data.size : 학습할 단어의 갯수
      */
     fun moveToNextWord() {
         val currentState = _todayWordUiState.value
@@ -108,10 +105,9 @@ class HomeViewModel(
 
             viewModelScope.launch {
                 sharedViewModel.incrementCurrentWordCount()
+                sharedViewModel.addPawPoint()
             }
 
-        } else if (currentState is UiStateResult.Success && _currentIndex.value >= currentState.data.size) {
-            _currentIndex.value = sharedViewModel.targetWordCount.value
         }
     }
 
@@ -120,13 +116,18 @@ class HomeViewModel(
             _currentIndex.value -= 1
             _todayWordUiState.value = _todayWordUiState.value
 
-          /* viewModelScope.launch {
-               sharedViewModel.decrementCurrentWordCount()
-           }
+            /* viewModelScope.launch {
+     sharedViewModel.decrementCurrentWordCount()
+ }
 */
+
         }
     }
 
+    /**
+     * hasNextWord(): 마지막 단어 인지 확인 하는 함수
+     * hasPreviousWord(): 처음 단어 인지 확인 하는 함수
+     */
     fun hasNextWord(): Boolean {
         val currentState = _todayWordUiState.value
         return if (currentState is UiStateResult.Success) {

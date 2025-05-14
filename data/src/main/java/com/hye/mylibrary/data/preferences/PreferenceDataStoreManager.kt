@@ -101,20 +101,13 @@ class PreferenceDataStoreManager(context: Context) : ICRUDPreferenceDataStore {
     }
 
     suspend fun incrementCurrentWordCount() {
-        val currentCount = currentWordCount.first()
-        println("currentCount: $currentCount")
-        println("targetWordCount: ${targetWordCount.first()}")
-        if(currentCount >= 0 && currentCount < targetWordCount.first()) {
-            addPreference(PreferenceDataStoreConstants.CURRENT_WORD_COUNT, 1)
-        }
+     dataSource.edit {
+        val currentCount = it[PreferenceDataStoreConstants.CURRENT_WORD_COUNT] ?: 0
+         if(currentCount < targetWordCount.first()){
+             it[PreferenceDataStoreConstants.CURRENT_WORD_COUNT] = currentCount + 1
+         }
+     }
     }
-
-    suspend fun resetDailyWordCount() {
-        dataSource.edit {
-            it[PreferenceDataStoreConstants.CURRENT_WORD_COUNT] = 0
-        }
-    }
-
 
     suspend fun decrementCurrentWordCount() {
         dataSource.edit { preferences ->
@@ -122,6 +115,12 @@ class PreferenceDataStoreManager(context: Context) : ICRUDPreferenceDataStore {
             if (currentCount > 0) {
                 preferences[PreferenceDataStoreConstants.CURRENT_WORD_COUNT] = currentCount - 1
             }
+        }
+    }
+
+    suspend fun resetDailyWordCount() {
+        dataSource.edit {
+            it[PreferenceDataStoreConstants.CURRENT_WORD_COUNT] = 1
         }
     }
 
@@ -139,7 +138,15 @@ class PreferenceDataStoreManager(context: Context) : ICRUDPreferenceDataStore {
     )
 
     suspend fun addPawPoint() {
-        addPreference(PreferenceDataStoreConstants.PAW_POINT, 1)
+        //addPreference(PreferenceDataStoreConstants.PAW_POINT, 1)
+        dataSource.edit {
+            val currentCount = it[PreferenceDataStoreConstants.CURRENT_WORD_COUNT] ?: 1
+            val pawPoint = it[PreferenceDataStoreConstants.PAW_POINT] ?: 0
+            if(currentCount < targetWordCount.first()){
+                it[PreferenceDataStoreConstants.PAW_POINT] = pawPoint + 1
+            }
+        }
+
     }
 
     suspend fun addTargetPoint() {

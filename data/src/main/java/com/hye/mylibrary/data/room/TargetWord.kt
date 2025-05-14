@@ -22,7 +22,12 @@ data class TargetWord(
     val pos: String = "",
     val wordGrade: String? = "",
     val timeStamp: Long= 0L,
-    val todayString: String =""
+    val todayString: String ="",
+    var isBasicLearned : Boolean = false,
+    var isListened : Boolean = false,
+    var isExampleLearned : Boolean = false,
+    var isWritten : Boolean = false,
+    var isRecorded : Boolean = false,
 )
 
 @Entity(
@@ -45,7 +50,8 @@ data class TargetWordExampleInfo(
     val documentId: String ="",
     val targetCode: Long = 0,
     val type: String = "",
-    val example: String = "",
+    val example: String = ""
+
 )
 
 @Entity(

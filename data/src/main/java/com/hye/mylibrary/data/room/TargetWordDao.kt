@@ -53,7 +53,6 @@ interface TargetWordDao {
         pronunciationInfo: List<TargetWordPronunciationInfo>
     ) {
 
-
         insertTargetWord(targetWord)
         insertTargetWordExampleInfo(exampleInfo)
         insertTargetWordPronunciationInfo(pronunciationInfo)
