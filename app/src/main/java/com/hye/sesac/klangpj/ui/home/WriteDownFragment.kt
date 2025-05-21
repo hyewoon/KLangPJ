@@ -11,6 +11,7 @@ import androidx.lifecycle.repeatOnLifecycle
 import com.hye.sesac.klangpj.BaseFragment
 import com.hye.sesac.klangpj.common.throttleFirst
 import com.hye.sesac.klangpj.databinding.FragmentWriteDownBinding
+import com.hye.sesac.klangpj.state.UiStateResult
 import com.hye.sesac.klangpj.ui.factory.ViewModelFactory
 import com.hye.sesac.klangpj.ui.viewmodel.HomeViewModel
 import kotlinx.coroutines.flow.collectLatest
@@ -41,23 +42,33 @@ class WriteDownFragment :
 
         viewLifecycleOwner.lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.currentWordsList.collectLatest {
-                    it?.let {
-                        binding.drawingView.setWatermarkText(it.word)
+                viewModel.currentWord.collectLatest {
+                    when (it) {
+                        is UiStateResult.Loading -> {
+                            //showProgressBar
+                        }
 
+                        is UiStateResult.Success -> {
+                            binding.drawingView.setWatermarkText(it.data.word)
+                        }
+
+                        is UiStateResult.NetWorkFailure -> {
+                        }
+
+                        is UiStateResult.RoomDBFailure -> {}
                     }
                 }
             }
+
+            binding.refreshBtn.clicks()
+                .throttleFirst(300L)
+                .onEach {
+                    binding.drawingView.clearCanvas()
+                }
+                .launchIn(lifecycleScope)
+
+
         }
-
-        binding.refreshBtn.clicks()
-            .throttleFirst(300L)
-            .onEach {
-                binding.drawingView.clearCanvas()
-            }
-            .launchIn(lifecycleScope)
-
-
     }
 
 }

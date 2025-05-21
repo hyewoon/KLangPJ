@@ -44,8 +44,8 @@ data class ExampleInfoEntity(
      val word: String = "",
      val pos: String = "",
      val wordGrade: String = "",
-     val pronunciation: String? ="",
-     val pronunciationLink: String? ="",
+     val pronunciation: String ="",
+     val pronunciationLink: String ="",
      val senses : List<SenseInfo> = mutableListOf(),
      val examples : List<ExampleInfo> = mutableListOf()
 

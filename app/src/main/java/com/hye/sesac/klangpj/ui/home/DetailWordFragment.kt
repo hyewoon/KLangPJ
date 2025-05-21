@@ -10,7 +10,8 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.hye.sesac.klangpj.BaseFragment
 import com.hye.sesac.klangpj.databinding.FragmentDetailWordBinding
-import com.hye.sesac.klangpj.state.TodayWordUiState
+import com.hye.sesac.klangpj.state.TodayWordsUiState
+import com.hye.sesac.klangpj.state.UiStateResult
 import com.hye.sesac.klangpj.ui.factory.ViewModelFactory
 import com.hye.sesac.klangpj.ui.viewmodel.HomeViewModel
 import kotlinx.coroutines.flow.collectLatest
@@ -37,10 +38,20 @@ class DetailWordFragment : BaseFragment<FragmentDetailWordBinding>(FragmentDetai
 
         viewLifecycleOwner.lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED){
-                viewModel.currentWordsList.collectLatest {
-                   it?.let{
-                       updateUi(it)
-                   }
+                viewModel.currentWord.collectLatest {
+                 when(it){
+                     is UiStateResult.Loading -> {
+                         //showProgressBar
+                     }
+                     is UiStateResult.Success -> {
+                         updateUi(it.data)
+                     }
+                     is UiStateResult.NetWorkFailure -> {
+                     }
+                     is UiStateResult.RoomDBFailure -> {
+
+                     }
+                 }
                 }
             }
         }
@@ -49,7 +60,7 @@ class DetailWordFragment : BaseFragment<FragmentDetailWordBinding>(FragmentDetai
 
 
 
-    private fun updateUi(word:TodayWordUiState){
+    private fun updateUi(word:TodayWordsUiState){
         with(binding){
             titleTv.text = word.word
             englishTv.text = word.english

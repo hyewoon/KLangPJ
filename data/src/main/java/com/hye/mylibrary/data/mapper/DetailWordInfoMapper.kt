@@ -14,26 +14,26 @@ class DetailWordInfoMapper {
         val word = WordInfo()
         return DetailWordEntity(
                 targetCode = item.targetCode,
-            word = item.wordInfo?.word?:"",
-            pos = item.wordInfo?.pos?:"",
-            wordGrade = item.wordInfo?.wordGrade?:"",
-            pronunciation = item.wordInfo?.pronunciationInfo?.joinToString {
+            word = item.wordInfo.word?:"",
+            pos = item.wordInfo.pos?:"",
+            wordGrade = item.wordInfo.wordGrade?:"",
+            pronunciation = item.wordInfo.pronunciationInfo.joinToString {
                 it.pronunciation
             },
-            pronunciationLink = item.wordInfo?.pronunciationInfo?.joinToString {
+            pronunciationLink = item.wordInfo.pronunciationInfo.joinToString {
                 it.link ?: ""
             },
             senses = word.sense.map {
                 SenseInfo(
                     senseOrder = it.senseOrder,
                     definition = it.definition,
-                    transWord = it.translation?.transWord?:"",
-                    transDfn = it.translation?.transDfn?:""
+                    transWord = it.translation.transWord?:"",
+                    transDfn = it.translation.transDfn?:""
                 )
             },
 
-           examples = item.wordInfo?.senseInfo?.flatMap {
-               it.exampleInfo?.map { example->
+           examples = item.wordInfo.senseInfo.flatMap {
+               it.exampleInfo.map { example->
                    ExampleInfo(
                        example = example.example,
                        type = example.type

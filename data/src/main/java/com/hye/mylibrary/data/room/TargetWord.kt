@@ -16,11 +16,11 @@ import java.util.Date
 data class TargetWord(
     @PrimaryKey val documentId: String = "",
     val targetCode: Long = 0L,
-    val frequency: Long? = 0L,
+    val frequency: Long = 0L,
     val korean: String = "",
     val english: String = "",
     val pos: String = "",
-    val wordGrade: String? = "",
+    val wordGrade: String = "",
     val timeStamp: Long= 0L,
     val todayString: String ="",
     var isBasicLearned : Boolean = false,
@@ -72,8 +72,8 @@ data class TargetWordPronunciationInfo(
     @ColumnInfo(name = "pronunciation_documentId_fk")
     val documentId: String ="",
     val targetCode: Long = 0,
-    val pronunciation: String? = "",
-    val audioUrl: String? = "",
+    val pronunciation: String = "",
+    val audioUrl: String = "",
 )
 
 data class TargetWordWithAllInfo(

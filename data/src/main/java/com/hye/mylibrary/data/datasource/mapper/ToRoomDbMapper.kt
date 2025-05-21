@@ -22,7 +22,7 @@ class ToRoomDbMapper {
             korean = dto.korean,
             english = dto.english,
             pos = dto.pos,
-            wordGrade = dto.wordGrade?: "등급 없음"
+            wordGrade = dto.wordGrade
         )
     }
 
@@ -31,8 +31,8 @@ class ToRoomDbMapper {
         documentId: String,
     )= TargetWordExampleInfo(
             documentId = documentId,
-            type = dto.type?:"",
-            example = dto.example?: "예시가 존재 하지 않음"
+            type = dto.type,
+            example = dto.example
         )
 
     fun mapToRoomPronunciationInfo(
@@ -40,8 +40,8 @@ class ToRoomDbMapper {
         documentId: String,
     )= TargetWordPronunciationInfo(
             documentId = documentId,
-            pronunciation = dto.pronunciation?: "",
-            audioUrl = dto.audioUrl?:"음성 파일 존재 하지 않음"
+            pronunciation = dto.pronunciation,
+            audioUrl = dto.audioUrl
         )
 
 }

@@ -39,7 +39,7 @@ data class WordEntity(
     val targetCode: Int = 0,
     val word: String = "",
     val supNo: Int = 0,
-    val wordGrade: String? = "",
+    val wordGrade: String = "",
     val pos: String = "",
     val senses: List<SenseInfo> = mutableListOf()
 

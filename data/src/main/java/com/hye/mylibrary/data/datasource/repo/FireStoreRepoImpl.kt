@@ -30,7 +30,7 @@ class FireStoreRepoImpl(private val preferenceDataStoreManager: PreferenceDataSt
 
     override suspend fun getFireStoreWord(count: Long): List<TargetWordEntity> = runCatching {
 
-        // preferenceDataStoreManager.saveDocumentId("")
+         //preferenceDataStoreManager.saveDocumentId("")
 
         val lastDocId = preferenceDataStoreManager.documentId.first()
         println("lastDocId: $lastDocId")
@@ -80,24 +80,28 @@ class FireStoreRepoImpl(private val preferenceDataStoreManager: PreferenceDataSt
     }
 
 
-    private fun mapToTargetWordDto(doc: DocumentSnapshot) = TargetWordDto().apply {
-        documentId = doc.id
-        println("documentId: $documentId")
-        targetCode = doc.getLong("targetCode") ?: 0L
-        frequency = doc.getLong("frequency") ?: 0L
-        korean = doc.getString("korean") ?: ""
-        english = doc.getString("english") ?: ""
-        wordGrade = doc.getString("wordGrade") ?: ""
-        pos = doc.getString("pos") ?: ""
+    private fun mapToTargetWordDto(doc: DocumentSnapshot) = TargetWordDto(
+        documentId = doc.id,
+        targetCode = doc.getLong("targetCode") ?: 0L,
+        frequency = doc.getLong("frequency") ?: 0L,
+        korean = doc.getString("korean") ?: "",
+        english = doc.getString("english") ?: "",
+        wordGrade = doc.getString("wordGrade") ?: "",
+        pos = doc.getString("pos") ?: "",
 
-        exampleInfo = parseExampleInfo(doc)
+        exampleInfo = parseExampleInfo(doc),
         pronunciationInfo = parsePronunciationInfo(doc)
-    }.also {
+    ).also {
+        println("documentId: ${it.documentId}")
         println("exampleInfo: ${it.exampleInfo}")
         println("pronunciationInfo: ${it.pronunciationInfo}")
     }
 
-
+/*
+* fireStore에 저장된 데이터 형식에 맞게 List<Map<String, Any>> 타입캐스팅해서 내 앱으로 가져오기
+* 외부테이터는 개발자가 통제하기 어렵기때문에 as? 통해서 (타입캐스팅안될수도 있음) 안전하게 가져옴 null일때 default값 주기
+* */
+    @Suppress("UNCHECKED_CAST")
     private fun parseExampleInfo(doc: DocumentSnapshot) = runCatching {
         val exampleInfo =
             doc.get("example_info") as? List<Map<String, Any>> ?: emptyList<Map<String, Any>>()
@@ -112,7 +116,7 @@ class FireStoreRepoImpl(private val preferenceDataStoreManager: PreferenceDataSt
 
     }.getOrDefault(emptyList())
 
-
+    @Suppress("UNCHECKED_CAST")
     private fun parsePronunciationInfo(doc: DocumentSnapshot) = runCatching {
         val pronunciationInfo =
             doc.get("pronunciation_info") as? List<Map<String, Any>>

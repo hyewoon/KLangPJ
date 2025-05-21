@@ -6,7 +6,8 @@ import androidx.lifecycle.viewModelScope
 import com.hye.domain.result.RoomDBResult
 import com.hye.domain.usecase.LoadTodayStudyWord
 import com.hye.sesac.klangpj.common.KLangApplication
-import com.hye.sesac.klangpj.state.TodayWordUiState
+import com.hye.sesac.klangpj.manager.AudioPlayerManager
+import com.hye.sesac.klangpj.state.TodayWordsUiState
 import com.hye.sesac.klangpj.state.UiStateResult
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -19,74 +20,117 @@ class HomeViewModel(
     private val useCase: LoadTodayStudyWord,
 ) : ViewModel() {
     private val fireStoreRepository = KLangApplication.firestoreRepository
+    private val audioManager: AudioPlayerManager =
+        AudioPlayerManager(KLangApplication.getKLangContext())
 
-    private var _todayWordUiState =
-        MutableStateFlow<UiStateResult<List<TodayWordUiState>>>(UiStateResult.Loading)
-    private val todayWordUiState = _todayWordUiState.asStateFlow()
+
+    private var _todayWordsUiState =
+        MutableStateFlow<UiStateResult<List<TodayWordsUiState>>>(UiStateResult.Loading)
+    private val todayWordsUiState = _todayWordsUiState.asStateFlow()
 
     private var _currentIndex = MutableStateFlow(0)
     val currentIndex = _currentIndex.asStateFlow()
 
-    private val _currentWordsList = MutableStateFlow<TodayWordUiState?>(null)
-    val currentWordsList = _currentWordsList.asStateFlow()
+    private val _currentWord: MutableStateFlow<UiStateResult<TodayWordsUiState>> =
+        MutableStateFlow<UiStateResult<TodayWordsUiState>>(UiStateResult.Loading)
+    val currentWord = _currentWord.asStateFlow()
 
-/*
-* homeviewModel이 시작될 때,
-* todayWordUiState: 오늘의 학습 단어 리스트
-* currentIndex: 단어리스트 index값
-*
-* */
+    private var _pronunciationUrl = MutableStateFlow("")
+    val pronunciationUrl = _pronunciationUrl.asStateFlow()
+
+    val isAudioPlaying = audioManager.isAudioPlaying
+
+
 
     init {
         viewModelScope.launch {
             //sharedViewModel.resetDailyWordCount()
+
+            _currentWord.value = UiStateResult.Loading
             combine(
-                todayWordUiState,
-                currentIndex
+                todayWordsUiState,
+                currentIndex,
             ) { state, index ->
                 when (state) {
-                    is UiStateResult.Success -> state.data.getOrNull(index)
-                    else -> null
+                    is UiStateResult.Success -> {
+                        Log.d("HomeViewModel", "combine값 받음")
+                        val wordItem = state.data.getOrNull(index) ?: TodayWordsUiState()
+                        _pronunciationUrl.value = wordItem.pronunciation
+                        Log.d("HomeViewModel", "wordItem: ${wordItem.pronunciation}")
+                        UiStateResult.Success(wordItem)
+                    }
+                    //다른 경우 기본값 반환
+                    is UiStateResult.Loading -> {
+                        UiStateResult.Loading
+                    }
+
+                    is UiStateResult.RoomDBFailure -> {
+                        UiStateResult.RoomDBFailure("")
+                    }
+
+                    else -> {
+                        UiStateResult.NetWorkFailure("")
+
+                    }
                 }
             }.collectLatest { word ->
-                _currentWordsList.value = word
+                _currentWord.value = word
             }
         }
     }
 
     fun searchUseCase(targetWord: Int) {
         viewModelScope.launch {
-            _todayWordUiState.value = UiStateResult.Loading
-
-
-            val result = useCase.invoke(targetWord)
-            Log.d("homeViewModel", "searchUseCase: $result")
+            _todayWordsUiState.value = UiStateResult.Loading
 
             when (val response = useCase.invoke(targetWord)) {
                 is RoomDBResult.Success -> {
-                    val uiItems = response.data.map {
-                        TodayWordUiState(
-                            wordGrade = it.wordGrade,
-                            word = it.korean,
-                            english = it.english,
-                            pos = it.pos,
-                            examples = it.exampleInfo?.map { example ->
+                    runCatching{
+                    val uiItems = response.data.map { word ->
+                        TodayWordsUiState(
+                            wordGrade = word.wordGrade,
+                            word = word.korean,
+                            english = word.english,
+                            pos = word.pos,
+                            examples = word.exampleInfo.map { example ->
                                 example.example
-                            } ?: emptyList(),
-                            pronunciation = it.pronunciationInfo?.firstOrNull()?.audioUrl
-                                ?: "음성 자료가 없습니다."
-                        )
+                            },
+                            pronunciation = word.pronunciationInfo.firstOrNull { !it.audioUrl.isNullOrEmpty() }?.audioUrl?:"",
+                            isBasicLearned = word.isBasicLearned,
+                            isListened = word.isListened,
+                            isExampleLearned = word.isExampleLearned,
+                            isWritten = word.isWritten,
+                            isRecorded = word.isRecorded
+                        ).also {
+                            Log.d("HomeViewModel", "uiItem_pronunciation: ${it.pronunciation}")
+
+                        }
                     }
-                    _todayWordUiState.value = UiStateResult.Success(uiItems)
 
+                    Log.d("HomeViewModel", "uiItems: ${uiItems.size}")
+                    if (uiItems.isNotEmpty()) {
+                        Log.d("HomeViewModel", "첫 번째 아이템 샘플: ${uiItems.first()}")
+                    }
 
+                    _todayWordsUiState.value = UiStateResult.Success(uiItems)
+
+                }.onFailure { e ->
+                // 데이터 변환 과정의 예외 처리
+                Log.e("HomeViewModel", "데이터 변환 오류: ${e.message}", e)
+                _todayWordsUiState.value = UiStateResult.RoomDBFailure("데이터 변환 오류: ${e.message}")
+            }
                 }
 
                 is RoomDBResult.RoomDBError -> {
-                    UiStateResult.RoomDBFailure("")
+                    Log.e("HomeViewModel", "Room DB 오류: ${response.exception.message}")
+                    _todayWordsUiState.value = UiStateResult.RoomDBFailure(response.exception.message ?: "room오류")
                 }
 
-                else -> {}
+                else -> {
+                    Log.e("HomeViewModel", "알 수 없는 결과 타입")
+                    _todayWordsUiState.value = UiStateResult.NetWorkFailure("알 수 없는 오류가 발생했습니다")
+
+                }
 
             }
         }
@@ -97,7 +141,7 @@ class HomeViewModel(
      * currentState.data.size : 학습할 단어의 갯수
      */
     fun moveToNextWord() {
-        val currentState = _todayWordUiState.value
+        val currentState = _todayWordsUiState.value
         if (currentState is UiStateResult.Success &&
             _currentIndex.value < currentState.data.size
         ) {
@@ -114,7 +158,7 @@ class HomeViewModel(
     fun moveToPreviousWord() {
         if (_currentIndex.value > 0) {
             _currentIndex.value -= 1
-            _todayWordUiState.value = _todayWordUiState.value
+            _todayWordsUiState.value = _todayWordsUiState.value
 
             /* viewModelScope.launch {
      sharedViewModel.decrementCurrentWordCount()
@@ -129,7 +173,7 @@ class HomeViewModel(
      * hasPreviousWord(): 처음 단어 인지 확인 하는 함수
      */
     fun hasNextWord(): Boolean {
-        val currentState = _todayWordUiState.value
+        val currentState = _todayWordsUiState.value
         return if (currentState is UiStateResult.Success) {
             _currentIndex.value < currentState.data.size - 1
         } else false
@@ -137,6 +181,20 @@ class HomeViewModel(
 
     fun hasPreviousWord(): Boolean {
         return _currentIndex.value > 0
+    }
+
+    fun playAudio(url: String) {
+        audioManager.playAudio(url)
+    }
+
+    fun stopAudio() {
+        audioManager.stopAudio()
+
+    }
+
+    override fun onCleared() {
+        super.onCleared()
+        audioManager.releasePlayer()
     }
 
 }

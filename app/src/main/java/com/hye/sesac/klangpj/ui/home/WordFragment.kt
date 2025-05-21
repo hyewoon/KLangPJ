@@ -20,12 +20,13 @@ import com.hye.sesac.klangpj.common.KLangApplication.Companion.firestoreReposito
 import com.hye.sesac.klangpj.common.KLangApplication.Companion.studyRoomRepository
 import com.hye.sesac.klangpj.common.throttleFirst
 import com.hye.sesac.klangpj.databinding.FragmentWordBinding
-import com.hye.sesac.klangpj.state.TodayWordUiState
+import com.hye.sesac.klangpj.state.TodayWordsUiState
+import com.hye.sesac.klangpj.state.UiStateResult
 import com.hye.sesac.klangpj.ui.factory.ViewModelFactory
 import com.hye.sesac.klangpj.ui.viewmodel.HomeViewModel
 import com.hye.sesac.klangpj.ui.viewmodel.SharedViewModel
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
@@ -77,6 +78,7 @@ class WordFragment : BaseFragment<FragmentWordBinding>(FragmentWordBinding::infl
         setupClickListeners()
     }
 
+    @SuppressLint("SetTextI18n")
     private fun setupObservers() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
@@ -105,16 +107,35 @@ class WordFragment : BaseFragment<FragmentWordBinding>(FragmentWordBinding::infl
                     }
                 }
                 launch {
-                    viewModel.currentWordsList.collectLatest { word ->
-                        word?.let {
-                            updateUi(it)
-                            updateNavigationButtons(
-                                moveNext = viewModel.hasNextWord(),
-                                movePrev = viewModel.hasPreviousWord()
-                            )
+                    viewModel.currentWord.collectLatest {
+                        when(it) {
+                            is UiStateResult.Loading -> {
+                                //showProgressBar
+                            }
+
+                            is UiStateResult.Success -> {
+                                updateUi(it.data)
+                                updateNavigationButtons(
+                                    moveNext = viewModel.hasNextWord(),
+                                    movePrev = viewModel.hasPreviousWord()
+                                )
+                            }
+
+                            is UiStateResult.NetWorkFailure -> {
+
+                            }
+                            is UiStateResult.RoomDBFailure -> {}
                         }
+
+
                     }
 
+                }
+                launch {
+                    viewModel.isAudioPlaying.collectLatest {
+                        //아이콘 변경 로직 추가
+
+                    }
                 }
 
             }
@@ -146,10 +167,11 @@ class WordFragment : BaseFragment<FragmentWordBinding>(FragmentWordBinding::infl
 
                 }.launchIn(lifecycleScope)
 
+
             listenBtn.clicks()
                 .throttleFirst(300L)
                 .onEach {
-                    // showListenDialog(viewModel.currentWord.value!!)
+                   getUrlAndPlayAudio()
                 }.launchIn(lifecycleScope)
 
             bookmarkBtn.clicks()
@@ -180,7 +202,7 @@ class WordFragment : BaseFragment<FragmentWordBinding>(FragmentWordBinding::infl
         viewModel.searchUseCase(count)
     }
 
-    private fun updateUi(state: TodayWordUiState) {
+    private fun updateUi(state: TodayWordsUiState) {
         with(binding) {
             mainWordTv.text = state.word
             wordMeaningTv.text = state.english
@@ -193,6 +215,21 @@ class WordFragment : BaseFragment<FragmentWordBinding>(FragmentWordBinding::infl
     private fun updateNavigationButtons(moveNext: Boolean, movePrev: Boolean) {
         binding.nextBtn.isEnabled = moveNext
         binding.prevBtn.isEnabled = movePrev
+    }
+
+    private fun getUrlAndPlayAudio(){
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED){
+                viewModel.pronunciationUrl.collectLatest {
+                    if(it.isNotEmpty()){
+                        viewModel.playAudio(it)
+                        Log.d("WordFragment", "url: $it")
+                        selected = true
+                }
+                }
+            }
+
+        }
     }
 
 }

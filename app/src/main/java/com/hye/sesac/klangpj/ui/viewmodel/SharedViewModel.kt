@@ -4,13 +4,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.hye.sesac.klangpj.common.KLangApplication
 import com.hye.mylibrary.data.preferences.PreferenceDataStoreManager
-import com.hye.sesac.klangpj.state.TodayWordUiState
-import com.hye.sesac.klangpj.state.UiStateResult
-import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 

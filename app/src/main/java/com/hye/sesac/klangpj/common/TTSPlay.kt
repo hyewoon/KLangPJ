@@ -11,6 +11,8 @@ object TTSPlay {
     private lateinit var tts: TextToSpeech
     private var isReady = false  // TTS 초기화 완료 상태를 추적
 
+
+
     private fun initTTS(context: Context, onInitComplete: () -> Unit = {}) {
         tts = TextToSpeech(context) { status ->
             isReady = if (status == TextToSpeech.SUCCESS) {
