@@ -1,20 +1,17 @@
-package com.hye.sesac.klangpj.common
+package com.hye.sesac.klangpj.manager
 
 import android.content.Context
 import android.speech.tts.TextToSpeech
 import java.util.Locale
 
-/**
- * 싱글턴으로
- */
-object TTSPlay {
+class TTSPlayManager {
     private lateinit var tts: TextToSpeech
     private var isReady = false  // TTS 초기화 완료 상태를 추적
 
 
 
     private fun initTTS(context: Context, onInitComplete: () -> Unit = {}) {
-        tts = TextToSpeech(context) { status ->
+       tts = TextToSpeech(context) { status ->
             isReady = if (status == TextToSpeech.SUCCESS) {
                 val result = tts.setLanguage(Locale.KOREA)
                 result != TextToSpeech.LANG_MISSING_DATA &&

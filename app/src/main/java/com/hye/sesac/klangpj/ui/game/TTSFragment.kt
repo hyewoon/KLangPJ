@@ -2,19 +2,17 @@ package com.hye.sesac.klangpj.ui.game
 
 import android.content.Context
 import android.os.Bundle
-import android.speech.tts.TextToSpeech
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.Lifecycling
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.hye.domain.result.MLKitResult
 import com.hye.sesac.klangpj.BaseFragment
-import com.hye.sesac.klangpj.common.TTSPlay
+import com.hye.sesac.klangpj.manager.TTSPlayManager
 import com.hye.sesac.klangpj.common.showDialog
 import com.hye.sesac.klangpj.common.throttleFirst
 import com.hye.sesac.klangpj.databinding.FragmentTtsBinding
@@ -43,7 +41,7 @@ class TTSFragment : BaseFragment<FragmentTtsBinding>(FragmentTtsBinding::inflate
                         is MLKitResult.Success -> {
                             val text = result.data
                             showDialog(text, requireContext())
-                            TTSPlay.readText(text)
+                            TTSPlayManager.readText(text)
                         }
 
                         is MLKitResult.Failure -> {
@@ -65,7 +63,7 @@ class TTSFragment : BaseFragment<FragmentTtsBinding>(FragmentTtsBinding::inflate
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        TTSPlay.readText("", requireContext())  // 빈 텍스트로 초기화만 수행
+        TTSPlayManager.readText("", requireContext())  // 빈 텍스트로 초기화만 수행
 
 
 
@@ -98,7 +96,7 @@ class TTSFragment : BaseFragment<FragmentTtsBinding>(FragmentTtsBinding::inflate
                 .throttleFirst(300L)
                 .onEach {
                     val result = editTv.text.toString()
-                    TTSPlay.readText(result)
+                    TTSPlayManager.readText(result)
                 }
                 .launchIn(lifecycleScope)
 
@@ -121,7 +119,7 @@ class TTSFragment : BaseFragment<FragmentTtsBinding>(FragmentTtsBinding::inflate
 
     override fun onDestroyView() {
         super.onDestroyView()
-        TTSPlay.release()
+        TTSPlayManager.release()
 
     }
     override fun onStop() {

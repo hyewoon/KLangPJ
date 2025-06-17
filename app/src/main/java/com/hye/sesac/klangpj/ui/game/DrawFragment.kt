@@ -11,7 +11,6 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.hye.domain.result.MLKitResult
 import com.hye.sesac.klangpj.BaseFragment
-import com.hye.sesac.klangpj.common.TTSPlay
 import com.hye.sesac.klangpj.common.showDialog
 import com.hye.sesac.klangpj.databinding.FragmentDrawBinding
 import com.hye.sesac.klangpj.ui.viewmodel.GameViewModel

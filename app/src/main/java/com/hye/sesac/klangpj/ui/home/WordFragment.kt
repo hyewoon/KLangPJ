@@ -231,5 +231,8 @@ class WordFragment : BaseFragment<FragmentWordBinding>(FragmentWordBinding::infl
 
         }
     }
+    private fun getPlayAudio(){
+
+    }
 
 }

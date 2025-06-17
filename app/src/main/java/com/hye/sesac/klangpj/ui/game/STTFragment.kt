@@ -14,6 +14,7 @@ import kotlinx.coroutines.flow.onEach
 import ru.ldralighieri.corbind.view.clicks
 import android.Manifest
 import android.content.ActivityNotFoundException
+import android.content.Context
 import android.content.Intent
 import android.speech.RecognizerIntent
 import android.util.Log
@@ -29,7 +30,9 @@ import com.hye.sesac.klangpj.databinding.FragmentSttBinding
  * 런타임퍼미션 : tedPermission
  */
 class STTFragment : BaseFragment<FragmentSttBinding>(FragmentSttBinding::inflate) {
-
+    private lateinit var speechRecognizer: SpeechRecognizer
+    private lateinit var recognizerIntent: Intent
+    private var isListening = false
 
     private val resultLauncher = registerForActivityResult(
         ActivityResultContracts.StartActivityForResult()
@@ -62,7 +65,7 @@ class STTFragment : BaseFragment<FragmentSttBinding>(FragmentSttBinding::inflate
     }
     private val permissionListener = object : PermissionListener {
         override fun onPermissionGranted() { //퍼미션 권한 얻으면
-            initSTT()
+            initSTT(requireContext())
         }
 
 
@@ -81,21 +84,80 @@ class STTFragment : BaseFragment<FragmentSttBinding>(FragmentSttBinding::inflate
                 .check()
     }
 
-    private fun initSTT() {
-        val intent = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH).apply {
+    private fun initSTT(context: Context, onCompleted:()-> Unit = {}) {
+
+        speechRecognizer= SpeechRecognizer.createSpeechRecognizer(context)
+        recognizerIntent= Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH).apply {
             putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM)
             putExtra(RecognizerIntent.EXTRA_LANGUAGE, "ko-KR")
+            putExtra(RecognizerIntent.EXTRA_MAX_RESULTS, 1)
         }
 
+        speechRecognizer.setRecognitionListener(object : RecognitionListener {
+            override fun onReadyForSpeech(params: Bundle?) {
+                TODO("Not yet implemented")
+            }
+
+            override fun onBeginningOfSpeech() {
+                TODO("Not yet implemented")
+            }
+
+            override fun onRmsChanged(rmsdB: Float) {
+                TODO("Not yet implemented")
+            }
+
+            override fun onBufferReceived(buffer: ByteArray?) {
+                TODO("Not yet implemented")
+            }
+
+            override fun onEndOfSpeech() {
+                TODO("Not yet implemented")
+            }
+
+            override fun onError(error: Int) {
+                TODO("Not yet implemented")
+            }
+
+            override fun onResults(results: Bundle?) {
+                val matches = results?.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION)
+                if (!matches.isNullOrEmpty()) {
+                    val recognizedText = matches[0] // 인식된 텍스트!
+
+                }
+            }
+
+            override fun onPartialResults(partialResults: Bundle?) {
+            }
+
+            override fun onEvent(eventType: Int, params: Bundle?) {
+
+            }
+
+
+        })
+
         try {
-            resultLauncher.launch(intent)
+            resultLauncher.launch(recognizerIntent)
         } catch (e: ActivityNotFoundException) {
 
             showToast("음성인식을 지원하지 않는 기기입니다.")
         }
     }
 
+    private fun startListening(){
+        speechRecognizer.startListening(recognizerIntent)
+    }
 
+    private fun stopListening(){
+        speechRecognizer.stopListening()
+    }
 
+  fun destroy(){
+      if(::speechRecognizer.isInitialized){
+          speechRecognizer.destroy()
+          isListening = false
+      }
+  }
 
-}
+  }
+
