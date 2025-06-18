@@ -1,6 +1,7 @@
 package com.hye.sesac.klangpj.ui.viewmodel
 
 
+import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.hye.domain.model.DetailWordEntity
@@ -11,6 +12,8 @@ import com.hye.domain.result.ApiResult
 import com.hye.domain.result.MLKitResult
 import com.hye.mylibrary.data.repo.MLKItRecognizerImpl
 import com.hye.sesac.klangpj.common.KLangApplication
+import com.hye.sesac.klangpj.manager.STTPlayManager
+import com.hye.sesac.klangpj.manager.TTSPlayManager
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.collectLatest
@@ -20,11 +23,16 @@ class GameViewModel : ViewModel() {
     private val wordRepository = KLangApplication.wordRepository
     private val detailWordRepository = KLangApplication.detailWordRepository
     private val mlkitRepository = MLKItRecognizerImpl.create()
+    private val ttsPlayManager: TTSPlayManager = TTSPlayManager()
+    private val sttPlayManager: STTPlayManager = STTPlayManager()
 
     init {
         viewModelScope.launch {
-          mlkitRepository.setUpRecognizer()
+            mlkitRepository.setUpRecognizer()
+            ttsPlayManager.readText("")
+            sttPlayManager.initSTT()
         }
+
     }
 
     //단어 검색
@@ -40,10 +48,25 @@ class GameViewModel : ViewModel() {
 
     //mlkit 인식
     private val _mlKitResult = MutableStateFlow<MLKitResult<String>>(MLKitResult.Initial)
-    fun setMLKitResult(value: MLKitResult.Initial){
+    fun setMLKitResult(value: MLKitResult.Initial) {
         _mlKitResult.value = value
     }
+
     val mlKitResult = _mlKitResult.asStateFlow()
+
+    //tts
+    fun readText(text: String) {
+        ttsPlayManager.readText(text)
+    }
+
+    //stt
+    fun startListening(context: Context) {
+        sttPlayManager.startListening()
+    }
+
+    fun stopListening(context: Context) {
+        sttPlayManager.stopListening()
+    }
 
 
     //단어 검색
@@ -81,7 +104,7 @@ class GameViewModel : ViewModel() {
         viewModelScope.launch {
             //인식 실행
             mlkitRepository.recognize(strokes).collectLatest {
-                         _mlKitResult.value = it
+                _mlKitResult.value = it
             }
 
         }
@@ -91,6 +114,8 @@ class GameViewModel : ViewModel() {
         super.onCleared()
         // 리소스 해제
         mlkitRepository.cleanUp()
+        ttsPlayManager.release()
+        sttPlayManager.destroy()
     }
 
     fun wordInfoClear() {

@@ -41,7 +41,7 @@ class TTSFragment : BaseFragment<FragmentTtsBinding>(FragmentTtsBinding::inflate
                         is MLKitResult.Success -> {
                             val text = result.data
                             showDialog(text, requireContext())
-                            TTSPlayManager.readText(text)
+
                         }
 
                         is MLKitResult.Failure -> {
@@ -62,9 +62,6 @@ class TTSFragment : BaseFragment<FragmentTtsBinding>(FragmentTtsBinding::inflate
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        TTSPlayManager.readText("", requireContext())  // 빈 텍스트로 초기화만 수행
-
 
 
         with(binding) {
@@ -96,7 +93,8 @@ class TTSFragment : BaseFragment<FragmentTtsBinding>(FragmentTtsBinding::inflate
                 .throttleFirst(300L)
                 .onEach {
                     val result = editTv.text.toString()
-                    TTSPlayManager.readText(result)
+                    viewModel.readText(result)
+
                 }
                 .launchIn(lifecycleScope)
 
@@ -119,7 +117,7 @@ class TTSFragment : BaseFragment<FragmentTtsBinding>(FragmentTtsBinding::inflate
 
     override fun onDestroyView() {
         super.onDestroyView()
-        TTSPlayManager.release()
+        //TTSPlayManager.release()
 
     }
     override fun onStop() {
