@@ -9,7 +9,7 @@ import com.hye.mylibrary.data.datasource.dto.TargetWordPronunciationInfoDto
 
 /**
  * firestore에서 받아온 정보를 domain으로 변환하는 mapper
- *
+ * 실제 사용 하지 않음
  */
 class ToDomainWordMapper {
     /**

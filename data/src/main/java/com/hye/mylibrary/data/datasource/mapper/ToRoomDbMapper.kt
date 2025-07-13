@@ -3,9 +3,6 @@ package com.hye.mylibrary.data.datasource.mapper
 import com.hye.domain.model.TargetWordEntity
 import com.hye.domain.model.TargetWordExampleInfoEntity
 import com.hye.domain.model.TargetWordPronunciationInfoEntity
-import com.hye.mylibrary.data.datasource.dto.TargetWordDto
-import com.hye.mylibrary.data.datasource.dto.TargetWordExampleInfoDto
-import com.hye.mylibrary.data.datasource.dto.TargetWordPronunciationInfoDto
 import com.hye.mylibrary.data.room.TargetWord
 import com.hye.mylibrary.data.room.TargetWordExampleInfo
 import com.hye.mylibrary.data.room.TargetWordPronunciationInfo

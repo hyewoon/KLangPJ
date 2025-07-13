@@ -60,7 +60,8 @@ dependencies {
     implementation(libs.androidx.core.ktx)
     implementation(libs.firebase.firestore)
     implementation(project(":domain"))
-    implementation(libs.androidx.room.ktx)
+
+    implementation(libs.firebase.auth.ktx)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
@@ -70,8 +71,10 @@ dependencies {
     implementation(libs.digital.ink.recognition)
 
     //roomDB
+    implementation(libs.androidx.room.ktx)
     implementation(libs.androidx.room.runtime)
     implementation(libs.androidx.room.compiler)
+
     implementation(libs.androidx.fragment.ktx)
 
     ksp(libs.androidx.room.compiler)
@@ -79,13 +82,19 @@ dependencies {
     //data_store
     implementation(libs.androidx.datastore.preferences)
 
-    //retrofit, tikxml
+    //retrofit
     implementation(libs.retrofit)
-    implementation(libs.tikxml.retrofit.converter)
+
+
+    //tikxml
     implementation(libs.annotation)
     implementation(libs.tikxml.core)
-    implementation(libs.kotlinx.coroutines.core)
+    implementation(libs.tikxml.retrofit.converter)
+
     kapt(libs.tikxml.processor)
+
+    implementation(libs.kotlinx.coroutines.core)
+
 
     //okhttp
     implementation(libs.okhttp)

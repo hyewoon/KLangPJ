@@ -6,6 +6,7 @@ import android.media.MediaPlayer
 import android.media.MediaRecorder
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
@@ -61,7 +62,7 @@ class RecordFragment : BaseFragment<FragmentRecordBinding>(FragmentRecordBinding
 
     private val permissionListener = object : PermissionListener {
         override fun onPermissionGranted() { //퍼미션 권한 얻으면
-            viewModel.startListening(requireContext())
+            Log.d("RecordFragment", "onPermissionGranted: ")
 
         }
 

@@ -2,6 +2,8 @@ package com.hye.sesac.klangpj.ui.viewmodel
 
 
 import android.content.Context
+import android.content.Intent
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.hye.domain.model.DetailWordEntity
@@ -24,14 +26,14 @@ class GameViewModel : ViewModel() {
     private val detailWordRepository = KLangApplication.detailWordRepository
     private val mlkitRepository = MLKItRecognizerImpl.create()
     private val ttsPlayManager: TTSPlayManager = TTSPlayManager()
-    private val sttPlayManager: STTPlayManager = STTPlayManager()
+    private val sttPlayManager: STTPlayManager = STTPlayManager(KLangApplication.getKLangContext())
 
     init {
         viewModelScope.launch {
             mlkitRepository.setUpRecognizer()
-            ttsPlayManager.readText("")
-            sttPlayManager.initSTT()
+            ttsPlayManager.readText("",KLangApplication.getKLangContext())
         }
+        //setupSTTCallbacks()
 
     }
 
@@ -60,13 +62,18 @@ class GameViewModel : ViewModel() {
     }
 
     //stt
-    fun startListening(context: Context) {
-        sttPlayManager.startListening()
-    }
+    private var _sttText = MutableStateFlow("")
+    val sttText = _sttText.asStateFlow()
 
-    fun stopListening(context: Context) {
-        sttPlayManager.stopListening()
+    fun createSTTIntent() = sttPlayManager.createSTTIntent()
+
+    fun handleSTTResult(data: Intent?) {
+        val result = sttPlayManager.processSTTResult(data)
+        result?.let {
+            _sttText.value = it
+        }
     }
+    fun isSTTAvailable() = sttPlayManager.isSTTAvailable()
 
 
     //단어 검색
@@ -115,12 +122,17 @@ class GameViewModel : ViewModel() {
         // 리소스 해제
         mlkitRepository.cleanUp()
         ttsPlayManager.release()
-        sttPlayManager.destroy()
+        //Laucher방식에서는 불필요
+        //sttPlayManager.destroy()
     }
 
     fun wordInfoClear() {
         _wordInfo.value = ApiResult.DummyConstructor
         _detailWordInfo.value = ApiResult.DummyConstructor
+    }
+
+    fun clearSTTText(){
+        _sttText.value = ""
     }
 
 

@@ -1,7 +1,7 @@
 package com.hye.domain.usecase
 
 import com.hye.domain.model.TargetWordWithAllInfoEntity
-import com.hye.domain.repo.FireStoreRepository
+import com.hye.domain.service.WordSyncService
 import com.hye.domain.repo.StudyRoomRepository
 import com.hye.domain.result.RoomDBResult
 import java.time.LocalDate
@@ -14,9 +14,10 @@ import java.util.Locale
  * 데이터가 존재하지 않음(isEmpty())-> firestore에서 다운받기
  */
 class LoadTodayStudyWord(
-    private val firestoreRepository: FireStoreRepository,
+    private val wordSyncService: WordSyncService,
     private val studyRoomRepository: StudyRoomRepository,
 ) {
+
     suspend operator fun invoke(targetWord: Int): RoomDBResult<List<TargetWordWithAllInfoEntity>> {
         //val today = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date())
         val today =
@@ -63,7 +64,7 @@ class LoadTodayStudyWord(
         count: Long,
         today: String,
     ) = runCatching {
-        val firestoreData = firestoreRepository.getFireStoreWord(count)
+        val firestoreData = wordSyncService.getFireStoreWord(count)
         println("firestore다운 : $firestoreData")
         val saveRoom = studyRoomRepository.createStudyRoom(firestoreData)
 
@@ -85,7 +86,6 @@ class LoadTodayStudyWord(
     }
 
 }
-
 
 
 

@@ -8,7 +8,7 @@ import com.google.firebase.firestore.QuerySnapshot
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.hye.domain.model.TargetWordEntity
-import com.hye.domain.repo.FireStoreRepository
+import com.hye.domain.service.WordSyncService
 import com.hye.mylibrary.data.datasource.dto.TargetWordDto
 import com.hye.mylibrary.data.datasource.dto.TargetWordExampleInfoDto
 import com.hye.mylibrary.data.datasource.dto.TargetWordPronunciationInfoDto
@@ -23,8 +23,8 @@ import kotlinx.coroutines.tasks.await
 * limit() 사용자가 입력한 학습갯수에 따라
 * 페이지네이션 : startAfter()
 * */
-class FireStoreRepoImpl(private val preferenceDataStoreManager: PreferenceDataStoreManager) :
-    FireStoreRepository {
+class WordSyncService(private val preferenceDataStoreManager: PreferenceDataStoreManager) :
+    WordSyncService {
     private val db: FirebaseFirestore = Firebase.firestore
     private val domainMapper: ToDomainWordMapper = ToDomainWordMapper()
 

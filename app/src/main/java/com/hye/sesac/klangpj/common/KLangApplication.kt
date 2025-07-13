@@ -7,7 +7,7 @@ import androidx.datastore.preferences.preferencesDataStore
 import com.google.firebase.Firebase
 import com.google.firebase.initialize
 import com.hye.domain.repo.DetailWordRepository
-import com.hye.domain.repo.FireStoreRepository
+import com.hye.domain.service.WordSyncService
 import com.hye.domain.repo.StudyRoomRepository
 import com.hye.domain.repo.WordRepository
 import com.hye.mylibrary.data.datasource.repo.FireStoreRepoImpl
@@ -65,7 +65,7 @@ class KLangApplication : Application() {
             private set
 
 
-        lateinit var firestoreRepository: FireStoreRepository
+        lateinit var firestoreRepository: WordSyncService
 
         lateinit var studyRoomRepository: StudyRoomRepository
 

@@ -35,5 +35,6 @@ dependencies {
     //implementation(libs.tikxml.core)
     //implementation(libs.tikxml.retrofit.converter)
     implementation(libs.kotlinx.coroutines.core)
-   // kapt(libs.tikxml.processor)
+    implementation(libs.androidx.annotation.jvm)
+    // kapt(libs.tikxml.processor)
 }

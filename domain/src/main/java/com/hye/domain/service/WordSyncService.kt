@@ -1,10 +1,9 @@
-package com.hye.domain.repo
+package com.hye.domain.service
 
 
 import com.hye.domain.model.TargetWordEntity
-import com.hye.domain.result.FirebaseResult
 
-interface FireStoreRepository {
+interface WordSyncService {
     suspend fun getFireStoreWord(count: Long) : List<TargetWordEntity>
 
 }
