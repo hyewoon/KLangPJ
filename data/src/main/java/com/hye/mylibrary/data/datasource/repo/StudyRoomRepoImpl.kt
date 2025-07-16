@@ -13,6 +13,10 @@ import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.util.Locale
 
+/*
+* room에 저장, 읽어오기, 삭제 기능
+* */
+
 class StudyRoomRepoImpl(
     private val roomDatabase: TargetWordRoomDatabase,
 ) : StudyRoomRepository {

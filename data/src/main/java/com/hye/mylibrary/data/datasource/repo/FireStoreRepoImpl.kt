@@ -18,7 +18,7 @@ import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.tasks.await
 
 /*
-* firestore에서 단어 다운로드
+* firestore에서 단어 다운로드 -> dto로 변환하는 로직
 * 조건 1: 빈도수 + 조건 2: 가나다순 -> 다중조건 index설정 후 실행
 * limit() 사용자가 입력한 학습갯수에 따라
 * 페이지네이션 : startAfter()
