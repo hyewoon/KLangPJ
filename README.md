@@ -1,5 +1,7 @@
 # 🪅KLang- 외국인을 위한 한국어 단어 학습 앱
 
+### 🔥 COMPOSE 적용 프로젝트는 <a href="https://github.com/hyewoon/KLangCompsePJ">여기에서</a> 확인할 수 있습니다. 
+
 ## 1️⃣ 프로젝트 개요
 
 * **KLang** 은 한국어능력시험인 TOPIK '초급' 단어를 학습 할 수 있는 앱입니다.
