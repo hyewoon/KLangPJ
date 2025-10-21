@@ -1,5 +1,7 @@
 # 🪅KLang- 외국인을 위한 한국어 단어 학습 앱
 
+### 🔥 COMPOSE 적용 프로젝트는 <a href="https://github.com/hyewoon/KLangComposePJ">다음에서</a> 확인할 수 있습니다. 
+
 ## 1️⃣ 프로젝트 개요
 
 * **KLang** 은 한국어능력시험인 TOPIK '초급' 단어를 학습 할 수 있는 앱입니다.
@@ -11,8 +13,7 @@
 * 사용자가 **학습목표를 설정**하고, 학습한 만큼 **포인트를 획득** 할 수 있는 앱입니다.
 * 신뢰할 수 있는 단어데이터베이스인 **'한국어기초사전'API**에서 제공하는 단어 정보와 예문을 학습 할 수 있습니다.
 
-
-  ## 3️⃣ 기술 스택
+## 3️⃣ 기술 스택
 | skills | 설명 |
 |------------------------|------|
 | **kotlin** |kotlin2.0 적용  |
@@ -27,9 +28,15 @@
 | **Jetpack Material3 UI/UX** | CorBind 적용한 이벤트 처리 |
 
 
-## 4️⃣ KLang 핵심기능
+## 4️⃣ 아키텍처
+<img width="1100" height="687" alt="image" src="https://github.com/user-attachments/assets/e30f1553-dfdf-4a2f-8cd7-194925e2000a" />
 
-![image](https://github.com/user-attachments/assets/42c97b6d-02e2-4421-bacf-f95589dd94ac)
+
+## 5️⃣ KLang 핵심기능
+<img width="800" height="470" alt="image" src="https://github.com/user-attachments/assets/cd87d486-f4c1-4c22-a163-36dbda6bf326" />
+
+
+
 
 
 
