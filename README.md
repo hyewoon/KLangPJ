@@ -50,6 +50,8 @@
   - 북마크 기능을 통해 나만의 단어장 만들기
 
  <img src="https://github.com/user-attachments/assets/2dfc4851-6a7b-4667-9241-ac11e414d79e" width="250" hspace="5" vspace="5">
+ <img width="733" height="478" alt="image" src="https://github.com/user-attachments/assets/de2f3796-90ac-47d6-8556-b6d5fcda801e" />
+
 
 
 
@@ -67,6 +69,8 @@
   </tr>
 </table>
 
+✅ **단어와 놀기 : 단어검색,TTS/STT** 
+<img width="865" height="583" alt="image" src="https://github.com/user-attachments/assets/2ca4ecf6-94a2-4ca6-ae16-34ea0ace956c" />
 
 
  
