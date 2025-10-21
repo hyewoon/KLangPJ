@@ -30,8 +30,10 @@
 
 
 ## 4️⃣ KLang 핵심기능
+<img width="800" height="470" alt="image" src="https://github.com/user-attachments/assets/cd87d486-f4c1-4c22-a163-36dbda6bf326" />
 
-![image](https://github.com/user-attachments/assets/42c97b6d-02e2-4421-bacf-f95589dd94ac)
+
+
 
 
 
