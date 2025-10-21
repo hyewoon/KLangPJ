@@ -18,14 +18,22 @@ class LoadTodayStudyWord(
     private val studyRoomRepository: StudyRoomRepository,
 ) {
 
+    // 메모리 캐시
+    private var cachedDate: String? = null
+    private var cachedData: List<TargetWordWithAllInfoEntity>? = null
+
     suspend operator fun invoke(targetWord: Int): RoomDBResult<List<TargetWordWithAllInfoEntity>> {
         //val today = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date())
         val today =
             LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd", Locale.getDefault()))
 
-        val count = targetWord.toLong()
+        // 메모리 캐시 확인
+        if (cachedDate == today && cachedData != null) {
+            return RoomDBResult.Success(cachedData!!)
+        }
 
-        return when (val roomData = studyRoomRepository.readAllStudyRoom()) {
+        val count = targetWord.toLong()
+        val result = when (val roomData = studyRoomRepository.readAllStudyRoom()) {
             is RoomDBResult.Success -> {
                 if (roomData.data.isEmpty()) { //room에 저장된 정보가 없음
                     runCatching {
@@ -56,8 +64,12 @@ class LoadTodayStudyWord(
             is RoomDBResult.RoomDBError -> roomData
             else -> RoomDBResult.RoomDBError(Exception("Unknown error"))
         }
+        if (result is RoomDBResult.Success) {
+            cachedDate = today
+            cachedData = result.data
+        }
 
-
+        return result
     }
 
     private suspend fun fetchAndSaveData(

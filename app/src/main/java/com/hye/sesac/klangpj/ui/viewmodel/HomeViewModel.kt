@@ -81,6 +81,12 @@ class HomeViewModel(
 
     fun searchUseCase(targetWord: Int) {
         viewModelScope.launch {
+            //이미 로드 된것 있으면 재사용
+            if (_todayWordsUiState.value is UiStateResult.Success) {
+                Log.d("HomeViewModel", "이미 로드된 데이터 사용")
+                return@launch
+            }
+
             _todayWordsUiState.value = UiStateResult.Loading
 
             when (val response = useCase.invoke(targetWord)) {
