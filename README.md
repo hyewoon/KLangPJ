@@ -1,6 +1,6 @@
 # 🪅KLang- 외국인을 위한 한국어 단어 학습 앱
 
-### 🔥 COMPOSE 적용 프로젝트는 <a href="https://github.com/hyewoon/KLangComposePJ">여기에서</a> 확인할 수 있습니다. 
+### 🔥 COMPOSE 적용 프로젝트는 <a href="https://github.com/hyewoon/KLangComposePJ">다음에서</a> 확인할 수 있습니다. 
 
 ## 1️⃣ 프로젝트 개요
 
