@@ -29,7 +29,12 @@
 
 
 ## 4️⃣ 아키텍처
+### 시스템 아키텍처
 <img width="1100" height="687" alt="image" src="https://github.com/user-attachments/assets/e30f1553-dfdf-4a2f-8cd7-194925e2000a" />
+
+### 아키텍처 다이어그램
+<img width="478" height="984" alt="image" src="https://github.com/user-attachments/assets/245fd182-513d-419a-9efc-ca193b6af17c" />
+
 
 
 ## 5️⃣ KLang 핵심기능
