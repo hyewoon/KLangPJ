@@ -15,13 +15,11 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import com.hye.domain.usecase.LoadTodayStudyWord
 import com.hye.sesac.klangpj.BaseFragment
-import com.hye.sesac.klangpj.common.KLangApplication.Companion.firestoreRepository
-import com.hye.sesac.klangpj.common.KLangApplication.Companion.studyRoomRepository
+import com.hye.sesac.klangpj.common.KLangApplication
 import com.hye.sesac.klangpj.databinding.FragmentHomeBinding
 import com.hye.sesac.klangpj.ui.factory.ViewModelFactory
 import com.hye.sesac.klangpj.ui.viewmodel.HomeViewModel
 import com.hye.sesac.klangpj.ui.viewmodel.SharedViewModel
-import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
@@ -33,6 +31,9 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
     private lateinit var navController: NavController
     private lateinit var dayIcons: List<ImageView>
     private lateinit var useCase: LoadTodayStudyWord
+    private val appContainer by lazy {
+        (requireActivity().application as KLangApplication).appContainer
+    }
 
 
 
@@ -71,18 +72,15 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
         return binding.root
     }
 
-    private val sharedViewModel by activityViewModels<SharedViewModel> {
-        ViewModelFactory(useCaseProvider = {
-            useCase
-        }
-
+    private val sharedViewModel: SharedViewModel by activityViewModels {
+        ViewModelFactory(
+            appContainer = appContainer,
         )
     }
-    private val viewModel by activityViewModels<HomeViewModel> {
-        ViewModelFactory {
-            useCase
+    private val viewModel: HomeViewModel by activityViewModels {
+        ViewModelFactory(
+            appContainer, sharedViewModel)
         }
-    }
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -90,16 +88,11 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
         navController = findNavController()
 
         // UseCase 초기화
-        useCase = LoadTodayStudyWord(firestoreRepository, studyRoomRepository)
+       // useCase = LoadTodayStudyWord(fireStoreRepository, studyRoomRepository)
 
 
 
         with(binding) {
-
-            /*
-            * 화면 전화 시 firestore에서 값을 빠르게 받아 오기 위해 safe args로 전달
-            *
-            * */
             mainLearningBtn.clicks()
                 .onEach {
                     lifecycleScope.launch {
@@ -107,7 +100,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
                         val argsActions =
                             HomeFragmentDirections.actionHomeFragmentToWordFragment(count)
                         navController.navigate(argsActions)
-
                     }
                 }.launchIn(lifecycleScope)
 

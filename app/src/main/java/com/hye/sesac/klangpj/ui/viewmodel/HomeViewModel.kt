@@ -19,7 +19,7 @@ class HomeViewModel(
     private val sharedViewModel: SharedViewModel,
     private val useCase: LoadTodayStudyWord,
 ) : ViewModel() {
-    private val fireStoreRepository = KLangApplication.firestoreRepository
+   // private val fireStoreRepository = KLangApplication.fireStoreRepository
     private val audioManager: AudioPlayerManager =
         AudioPlayerManager(KLangApplication.getKLangContext())
 
@@ -78,6 +78,7 @@ class HomeViewModel(
             }
         }
     }
+
 
     fun searchUseCase(targetWord: Int) {
         viewModelScope.launch {

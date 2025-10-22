@@ -13,10 +13,11 @@ import com.hye.sesac.klangpj.databinding.DictionaryRecyclerItemBinding
 import com.hye.sesac.klangpj.ui.viewmodel.GameViewModel
 
 
-class WordInfoAdapter(val callBack: (targetCode: Int, transWord: String, transDfn: String) -> Unit
+class WordInfoAdapter(
+    val callBack: (targetCode: Int, transWord: String, transDfn: String) -> Unit,
+    private val viewModel: GameViewModel
 ) :
     ListAdapter<WordEntity, WordInfoAdapter.WordInfoViewHolder>(diffUtil) {
-        private val viewModel = GameViewModel()
 
     companion object {
         val diffUtil = object : DiffUtil.ItemCallback<WordEntity>() {

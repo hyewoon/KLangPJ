@@ -16,8 +16,7 @@ import androidx.navigation.fragment.navArgs
 import com.hye.domain.usecase.LoadTodayStudyWord
 import com.hye.sesac.klangpj.BaseFragment
 import com.hye.sesac.klangpj.R
-import com.hye.sesac.klangpj.common.KLangApplication.Companion.firestoreRepository
-import com.hye.sesac.klangpj.common.KLangApplication.Companion.studyRoomRepository
+import com.hye.sesac.klangpj.common.KLangApplication
 import com.hye.sesac.klangpj.common.throttleFirst
 import com.hye.sesac.klangpj.databinding.FragmentWordBinding
 import com.hye.sesac.klangpj.state.TodayWordsUiState
@@ -26,7 +25,6 @@ import com.hye.sesac.klangpj.ui.factory.ViewModelFactory
 import com.hye.sesac.klangpj.ui.viewmodel.HomeViewModel
 import com.hye.sesac.klangpj.ui.viewmodel.SharedViewModel
 import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
@@ -39,6 +37,9 @@ class WordFragment : BaseFragment<FragmentWordBinding>(FragmentWordBinding::infl
     private var selected = false
     private val args: WordFragmentArgs by navArgs()
     private lateinit var useCase: LoadTodayStudyWord
+    private val appContainer by lazy {
+        (requireActivity().application as KLangApplication).appContainer
+    }
 
 
     override fun onCreateView(
@@ -50,14 +51,12 @@ class WordFragment : BaseFragment<FragmentWordBinding>(FragmentWordBinding::infl
         return binding.root
     }
 
-    private val sharedViewModel by activityViewModels<SharedViewModel> {
-        ViewModelFactory(useCaseProvider = {
-            useCase
-        }
+    private val sharedViewModel: SharedViewModel by activityViewModels {
+        ViewModelFactory(appContainer
         )
     }
-    private val viewModel by activityViewModels<HomeViewModel> {
-        ViewModelFactory { useCase }
+    private val viewModel : HomeViewModel by activityViewModels {
+        ViewModelFactory(appContainer, sharedViewModel)
     }
 
 
@@ -65,7 +64,9 @@ class WordFragment : BaseFragment<FragmentWordBinding>(FragmentWordBinding::infl
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        useCase = LoadTodayStudyWord(firestoreRepository, studyRoomRepository)
+
+      /*  useCase = LoadTodayStudyWord(fireStoreRepository, studyRoomRepository)
+        viewModel.searchUseCase()*/
 
         navController = findNavController()
         targetWordCount = args.targetWordCount
