@@ -3,30 +3,31 @@ package com.hye.sesac.klangpj.ui.factory
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.hye.domain.usecase.LoadTodayStudyWord
+import com.hye.sesac.klangpj.ui.dicontainer.AppContainer
 import com.hye.sesac.klangpj.ui.viewmodel.HomeViewModel
 import com.hye.sesac.klangpj.ui.viewmodel.GameViewModel
 import com.hye.sesac.klangpj.ui.viewmodel.SharedViewModel
 
 @Suppress("UNCHECKED_CAST")
 class ViewModelFactory(
-    private val sharedViewModelProvider: () -> SharedViewModel = { SharedViewModel() },
-    private val useCaseProvider: (() -> LoadTodayStudyWord)? = null,
+    private val appContainer: AppContainer,
+    private val sharedViewModel: SharedViewModel? = null
 
     ) : ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T =
         with(modelClass) {
             when {
                 isAssignableFrom(GameViewModel::class.java) ->
-                    GameViewModel()
+                    GameViewModel(
+                        wordRepository = appContainer.wordRepository,
+                        detailWordRepository = appContainer.detailWordRepository)
 
                 isAssignableFrom(HomeViewModel::class.java) -> {
-                    // SharedViewModel을 HomeViewModel에 주입
-                    val sharedViewModel = sharedViewModelProvider()
-                    val useCase = useCaseProvider?.let { it() }
-                    useCase?.let {
-                        HomeViewModel(sharedViewModel, it)
-                    }
-
+                    val shared = sharedViewModel ?: SharedViewModel()
+                    HomeViewModel(
+                        sharedViewModel = shared,
+                        useCase = appContainer.loadTodayStudyWordUseCase
+                    )
                 }
                 isAssignableFrom(SharedViewModel::class.java) ->
                     SharedViewModel()
