@@ -26,8 +26,12 @@ import kotlinx.coroutines.launch
 
 class DictionaryFragment :
     BaseFragment<FragmentDictionaryBinding>(FragmentDictionaryBinding::inflate) {
+    private val appContainer by lazy {
+        (requireActivity().application as KLangApplication).appContainer
+    }
+
     private val viewModel by activityViewModels<GameViewModel> {
-        ViewModelFactory()
+        ViewModelFactory(appContainer)
     }
     private lateinit var navController: NavController
     private lateinit var wordInfoAdapter: WordInfoAdapter
@@ -79,7 +83,8 @@ class DictionaryFragment :
 
 
             //어뎁터 초기화
-            wordInfoAdapter = WordInfoAdapter() { code, trans, dfn ->
+            wordInfoAdapter = WordInfoAdapter(
+                callBack = { code, trans, dfn ->
                 val argsAction =
                     DictionaryFragmentDirections.actionDictionaryFragmentToDetailDictionaryFragment(
                         targetCode = code,
@@ -87,7 +92,10 @@ class DictionaryFragment :
                         transDfn = dfn
                     )
                 navController.navigate(argsAction)
-            }
+            },
+
+                viewModel = viewModel
+            )
 
             dictionaryRecyclerview.apply {
                 layoutManager = LinearLayoutManager(KLangApplication.getKLangContext())

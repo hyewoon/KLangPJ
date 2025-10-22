@@ -80,14 +80,11 @@ class DrawingCustomView(context: Context, attrs: AttributeSet) : View(context, a
         }
 
 
-
         // 워터마크 그리기
         canvas.drawText(watermarkText, width/2f, height/2f, watermarkPaint)
 
         canvas.drawPath(path, paint)
-
     }
-
 
     /**
      * 터치이벤트 처리
@@ -159,6 +156,5 @@ class DrawingCustomView(context: Context, attrs: AttributeSet) : View(context, a
             Log.e("View", "Stroke completed: ${strokes.size} strokes total")
         }
     }
-
 
 }

@@ -18,9 +18,11 @@ import com.gun0912.tedpermission.PermissionListener
 import com.gun0912.tedpermission.normal.TedPermission
 import com.hye.sesac.klangpj.BaseFragment
 import com.hye.sesac.klangpj.R
+import com.hye.sesac.klangpj.common.KLangApplication
 import com.hye.sesac.klangpj.common.showToast
 import com.hye.sesac.klangpj.common.throttleFirst
 import com.hye.sesac.klangpj.databinding.FragmentRecordBinding
+import com.hye.sesac.klangpj.ui.factory.ViewModelFactory
 import com.hye.sesac.klangpj.ui.viewmodel.GameViewModel
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
@@ -30,6 +32,9 @@ import java.io.IOException
 
 
 class RecordFragment : BaseFragment<FragmentRecordBinding>(FragmentRecordBinding::inflate) {
+    private val appContainer by lazy {
+        (requireActivity().application as KLangApplication).appContainer
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -39,7 +44,9 @@ class RecordFragment : BaseFragment<FragmentRecordBinding>(FragmentRecordBinding
         return binding.root
     }
 
-    private val viewModel by activityViewModels<GameViewModel>()
+    private val viewModel:GameViewModel by activityViewModels{
+        ViewModelFactory(appContainer)
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

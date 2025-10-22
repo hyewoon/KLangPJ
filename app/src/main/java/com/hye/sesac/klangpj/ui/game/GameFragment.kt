@@ -11,6 +11,7 @@ import androidx.navigation.NavController
 import androidx.test.espresso.matcher.ViewMatchers.Visibility
 import com.hye.sesac.klangpj.BaseFragment
 import com.hye.sesac.klangpj.R
+import com.hye.sesac.klangpj.common.KLangApplication
 import com.hye.sesac.klangpj.common.throttleFirst
 import com.hye.sesac.klangpj.databinding.FragmentGameBinding
 import com.hye.sesac.klangpj.ui.factory.ViewModelFactory
@@ -21,8 +22,12 @@ import ru.ldralighieri.corbind.view.clicks
 
 
 class GameFragment : BaseFragment<FragmentGameBinding>(FragmentGameBinding::inflate) {
+
+    private val appContainer by lazy {
+        (requireActivity().application as KLangApplication).appContainer
+    }
     private val viewModel by activityViewModels<GameViewModel> {
-        ViewModelFactory()
+        ViewModelFactory(appContainer)
     }
     private lateinit var navController: NavController
 

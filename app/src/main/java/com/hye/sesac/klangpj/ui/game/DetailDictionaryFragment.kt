@@ -14,6 +14,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.hye.domain.result.ApiResult
 import com.hye.sesac.klangpj.BaseFragment
+import com.hye.sesac.klangpj.common.KLangApplication
 import com.hye.sesac.klangpj.databinding.FragmentDetailDictionaryBinding
 import com.hye.sesac.klangpj.ui.factory.ViewModelFactory
 import com.hye.sesac.klangpj.ui.viewmodel.GameViewModel
@@ -27,7 +28,9 @@ class DetailDictionaryFragment :
     private val args: DetailDictionaryFragmentArgs by navArgs()
     private var transition: String = ""
     private var transDfn: String = ""
-
+    private val appContainer by lazy {
+        (requireActivity().application as KLangApplication).appContainer
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -77,7 +80,7 @@ class DetailDictionaryFragment :
     }
 
     private val viewModel by activityViewModels<GameViewModel> {
-        ViewModelFactory()
+        ViewModelFactory(appContainer)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

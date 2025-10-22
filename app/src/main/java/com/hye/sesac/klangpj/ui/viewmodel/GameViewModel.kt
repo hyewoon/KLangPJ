@@ -1,15 +1,14 @@
 package com.hye.sesac.klangpj.ui.viewmodel
 
 
-import android.content.Context
 import android.content.Intent
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.hye.domain.model.DetailWordEntity
 import com.hye.domain.model.HandWritingStroke
-import com.hye.domain.model.MLKitRecognitionResult
 import com.hye.domain.model.WordEntity
+import com.hye.domain.repo.DetailWordRepository
+import com.hye.domain.repo.WordRepository
 import com.hye.domain.result.ApiResult
 import com.hye.domain.result.MLKitResult
 import com.hye.mylibrary.data.repo.MLKItRecognizerImpl
@@ -21,9 +20,11 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
-class GameViewModel : ViewModel() {
-    private val wordRepository = KLangApplication.wordRepository
-    private val detailWordRepository = KLangApplication.detailWordRepository
+class GameViewModel(
+    private val wordRepository: WordRepository,
+    private val detailWordRepository: DetailWordRepository) : ViewModel()
+ {
+
     private val mlkitRepository = MLKItRecognizerImpl.create()
     private val ttsPlayManager: TTSPlayManager = TTSPlayManager()
     private val sttPlayManager: STTPlayManager = STTPlayManager(KLangApplication.getKLangContext())

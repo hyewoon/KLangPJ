@@ -11,8 +11,10 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.hye.domain.result.MLKitResult
 import com.hye.sesac.klangpj.BaseFragment
+import com.hye.sesac.klangpj.common.KLangApplication
 import com.hye.sesac.klangpj.common.showDialog
 import com.hye.sesac.klangpj.databinding.FragmentDrawBinding
+import com.hye.sesac.klangpj.ui.factory.ViewModelFactory
 import com.hye.sesac.klangpj.ui.viewmodel.GameViewModel
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.launchIn
@@ -27,8 +29,13 @@ import ru.ldralighieri.corbind.view.clicks
  */
 
 class DrawFragment : BaseFragment<FragmentDrawBinding>(FragmentDrawBinding::inflate) {
+    private val appContainer by lazy {
+        (requireActivity().application as KLangApplication).appContainer
+    }
+    private val viewModel:GameViewModel by activityViewModels{
+        ViewModelFactory(appContainer)
+    }
 
-    private val viewModel by activityViewModels<GameViewModel>()
     private lateinit var inkDialog: AlertDialog
 
 
