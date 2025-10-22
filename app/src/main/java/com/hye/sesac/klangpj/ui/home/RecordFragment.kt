@@ -1,23 +1,16 @@
 package com.hye.sesac.klangpj.ui.home
 
 import android.Manifest
-import android.annotation.SuppressLint
-import android.media.MediaPlayer
-import android.media.MediaRecorder
-import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
-import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import com.gun0912.tedpermission.PermissionListener
 import com.gun0912.tedpermission.normal.TedPermission
 import com.hye.sesac.klangpj.BaseFragment
-import com.hye.sesac.klangpj.R
 import com.hye.sesac.klangpj.common.KLangApplication
 import com.hye.sesac.klangpj.common.showToast
 import com.hye.sesac.klangpj.common.throttleFirst
@@ -27,8 +20,6 @@ import com.hye.sesac.klangpj.ui.viewmodel.GameViewModel
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import ru.ldralighieri.corbind.view.clicks
-import java.io.File
-import java.io.IOException
 
 
 class RecordFragment : BaseFragment<FragmentRecordBinding>(FragmentRecordBinding::inflate) {

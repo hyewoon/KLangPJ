@@ -1,16 +1,13 @@
 package com.hye.sesac.klangpj.ui.game
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
-import androidx.test.espresso.matcher.ViewMatchers.Visibility
 import com.hye.sesac.klangpj.BaseFragment
-import com.hye.sesac.klangpj.R
 import com.hye.sesac.klangpj.common.KLangApplication
 import com.hye.sesac.klangpj.common.throttleFirst
 import com.hye.sesac.klangpj.databinding.FragmentGameBinding
