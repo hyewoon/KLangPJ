@@ -2,7 +2,6 @@ package com.hye.sesac.klangpj.ui.factory
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.hye.domain.usecase.LoadTodayStudyWord
 import com.hye.sesac.klangpj.ui.dicontainer.AppContainer
 import com.hye.sesac.klangpj.ui.viewmodel.HomeViewModel
 import com.hye.sesac.klangpj.ui.viewmodel.GameViewModel
